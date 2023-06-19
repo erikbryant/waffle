@@ -207,17 +207,17 @@ func (s *Solver) RegexDown(i int) string {
 	return re
 }
 
-func (s *Solver) Yellow24Row(i int) string {
+func (s *Solver) YellowEvenRow(i int) string {
 	y := ""
 
-	l, c := s.game.Get(i, 1)
-	if c == board.Yellow {
-		y += string(l)
-	}
-
-	l, c = s.game.Get(i, 3)
-	if c == board.Yellow {
-		y += string(l)
+	for col := 1; col < s.game.Width()-1; col++ {
+		if col%2 == 0 {
+			continue
+		}
+		l, c := s.game.Get(i, col)
+		if c == board.Yellow {
+			y += string(l)
+		}
 	}
 
 	if len(y) == 0 {
@@ -227,17 +227,17 @@ func (s *Solver) Yellow24Row(i int) string {
 	return "[" + y + "]"
 }
 
-func (s *Solver) Yellow24Col(i int) string {
+func (s *Solver) YellowEvenCol(i int) string {
 	y := ""
 
-	l, c := s.game.Get(1, i)
-	if c == board.Yellow {
-		y += string(l)
-	}
-
-	l, c = s.game.Get(3, i)
-	if c == board.Yellow {
-		y += string(l)
+	for row := 1; row < s.game.Height()-1; row++ {
+		if row%2 == 0 {
+			continue
+		}
+		l, c := s.game.Get(row, i)
+		if c == board.Yellow {
+			y += string(l)
+		}
 	}
 
 	if len(y) == 0 {
@@ -247,7 +247,7 @@ func (s *Solver) Yellow24Col(i int) string {
 	return "[" + y + "]"
 }
 
-func MatchWords(re string, dict []string, y24 string) []string {
+func MatchWords(re string, dict []string, ye string) []string {
 	matches := []string{}
 	for _, word := range dict {
 		matched, err := regexp.MatchString(re, word)
@@ -255,7 +255,7 @@ func MatchWords(re string, dict []string, y24 string) []string {
 			fmt.Println("ERROR! 1", err, re, word)
 		}
 		if matched {
-			matched, err := regexp.MatchString(y24, word)
+			matched, err := regexp.MatchString(ye, word)
 			if err != nil {
 				fmt.Println("ERROR! 2", err, re, word)
 			}
@@ -310,8 +310,8 @@ func (s *Solver) NarrowPossibles(dict []string) {
 			continue
 		}
 		re := s.RegexAcross(row)
-		y24 := s.Yellow24Row(row)
-		matches := MatchWords(re, dict, y24)
+		ye := s.YellowEvenRow(row)
+		matches := MatchWords(re, dict, ye)
 
 		for col := 0; col < s.game.Width(); col++ {
 			s.possibles[row][col] = UniqueLetters(matches, col)
@@ -323,8 +323,8 @@ func (s *Solver) NarrowPossibles(dict []string) {
 			continue
 		}
 		re := s.RegexDown(col)
-		y24 := s.Yellow24Col(col)
-		matches := MatchWords(re, dict, y24)
+		ye := s.YellowEvenCol(col)
+		matches := MatchWords(re, dict, ye)
 
 		for row := 0; row < s.game.Height(); row++ {
 			s.possibles[row][col] = UniqueLetters(matches, row)

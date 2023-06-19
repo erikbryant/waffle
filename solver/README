@@ -5,7 +5,7 @@
 //
 // The match instruction for a word is given as:
 //
-//   mi := [pl1][pl2][pl3][pl4][pl5] | egrep [y2y4]
+//   mi := [pl1][pl2][pl3][pl4][pl5] | egrep [ye]
 //
 // Where:
 //
@@ -17,8 +17,7 @@
 // y(row) = {all yellow tiles in this row}
 // y(col) = {all yellow tiles in this col}
 // s      = self
-// y2     = 2nd letter iff yellow
-// y4     = 4th letter iff yellow
+// ye     = any yellow letters in even, interior cells (2nd, 4th, etc.)
 //
 // Once the sets of possible letters for each cell have been found,
 // take the set of all starting letters and subtract all
