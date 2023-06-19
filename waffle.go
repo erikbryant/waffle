@@ -584,26 +584,28 @@ func loadDict(wordLen int) []string {
 	return guessables
 }
 
+func (w *Waffle) Solve() bool {
+	guessables := loadDict(w.Width())
+
+	w.SetPossibles()
+	attempts := 0
+	for !w.Solved() {
+		w.NarrowPossibles(guessables)
+		attempts++
+		if attempts > 10 {
+			return false
+		}
+	}
+
+	return true
+}
+
 func main() {
 	fmt.Println("Welcome to waffle!")
 
-	// Deluxe Waffles
-	// board := "eifdstal.i.p.apertislt.e.e.senithvte.m.t.ueuedrra/yygygwyw.w.w.wgwgggwgw.w.y.wgwgggwgw.w.y.wywgygww" // 056
+	serial := "tuaehl.r.emrdcnu.i.heoeby/gwgygw.w.wyygwww.g.wgywyg" // 513
 
-	// Daily Waffles
-	// board := "fboueg.i.ulsoomg.e.loemna/gwwggw.w.wgygyyw.y.wgyywg" // 001
-	// board := "eqebla.m.eupirel.n.mdlwal/ggywgw.w.ywygwww.g.wgyywg" // 509
-	board := "tuaehl.r.emrdcnu.i.heoeby/gwgygw.w.wyygwww.g.wgywyg" // 513
-	// board := "bexkrd.c.aemarih.k.geasat/gywygy.w.ywygyww.g.wgwywg" // ???
-
-	waffle := parse(board)
-
-	guessables := loadDict(waffle.Width())
-
-	waffle.SetPossibles()
-	for !waffle.Solved() {
-		waffle.NarrowPossibles(guessables)
-		waffle.Print()
-	}
+	waffle := parse(serial)
+	waffle.Solve()
 	waffle.Print()
 }
