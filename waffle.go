@@ -452,7 +452,6 @@ func (w *Waffle) NarrowPossibles(dict []string) {
 	}
 
 	tbp := string(keys(sl))
-	fmt.Println("TBP: ", tbp)
 
 	// Remove any letters not in the to-be-placed set.
 	for row := 0; row < w.Height(); row++ {
@@ -473,7 +472,6 @@ func (w *Waffle) NarrowPossibles(dict []string) {
 					}
 				}
 				w.possibles[row][col] = newP
-				fmt.Println(string(p), string(newP))
 			}
 		}
 	}
@@ -558,6 +556,23 @@ func parse(serial string) Waffle {
 	return w
 }
 
+// Solved returns true if the waffle board is solved.
+func (w *Waffle) Solved() bool {
+	for row := 0; row < w.Height(); row++ {
+		for col := 0; col < w.Width(); col++ {
+			if row%2 == 1 && col%2 == 1 {
+				continue
+			}
+			p := w.possibles[row][col]
+			if len(p) > 1 {
+				return false
+			}
+		}
+	}
+
+	return true
+}
+
 // loadDict returns the guessable word list
 func loadDict(wordLen int) []string {
 	guessables := dictionaries.LoadFile("../dictionaries/wordleGuessable.dict")
@@ -568,17 +583,19 @@ func loadDict(wordLen int) []string {
 
 func main() {
 	fmt.Println("Welcome to waffle!")
-	waffle := parse("eqebla.m.eupirel.n.mdlwal/ggywgw.w.ywygwww.g.wgyywg")
-	// waffle := parse("tuaehl.r.emrdcnu.i.heoeby/gwgygw.w.wyygwww.g.wgywyg")
-	// waffle := parse("bexkrd.c.aemarih.k.geasat/gywygy.w.ywygyww.g.wgwywg")
-	waffle.Print()
-	waffle.SetPossibles()
-	waffle.Print()
+
+	// board := "fboueg.i.ulsoomg.e.loemna/gwwggw.w.wgygyyw.y.wgyywg" // 001
+	// board := "eqebla.m.eupirel.n.mdlwal/ggywgw.w.ywygwww.g.wgyywg" // 509
+	// board := "tuaehl.r.emrdcnu.i.heoeby/gwgygw.w.wyygwww.g.wgywyg" // 513
+	board := "bexkrd.c.aemarih.k.geasat/gywygy.w.ywygyww.g.wgwywg" // ???
+
+	waffle := parse(board)
+
 	guessables := loadDict(waffle.Width())
-	waffle.NarrowPossibles(guessables)
-	waffle.Print()
-	waffle.NarrowPossibles(guessables)
-	waffle.Print()
-	waffle.NarrowPossibles(guessables)
+
+	waffle.SetPossibles()
+	for !waffle.Solved() {
+		waffle.NarrowPossibles(guessables)
+	}
 	waffle.Print()
 }
