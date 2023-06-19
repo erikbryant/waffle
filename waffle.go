@@ -33,6 +33,7 @@ import (
 	"fmt"
 	"github.com/erikbryant/dictionaries"
 	"github.com/fatih/color"
+	"math"
 	"regexp"
 )
 
@@ -540,15 +541,17 @@ func (w *Waffle) Print() {
 }
 
 func parse(serial string) Waffle {
-	w := New(5, 5)
+	tiles := (len(serial) - 1) / 2
+	size := int(math.Sqrt(float64(tiles)))
+	w := New(size, size)
 
 	for row := 0; row < w.Height(); row++ {
 		for col := 0; col < w.Width(); col++ {
 			if row%2 == 1 && col%2 == 1 {
 				continue
 			}
-			l := serial[row*5+col]
-			c := serial[row*5+col+(5*5+1)]
+			l := serial[row*size+col]
+			c := serial[row*size+col+(tiles+1)]
 			w.Set(row, col, rune(l), rune(c))
 		}
 	}
@@ -575,7 +578,7 @@ func (w *Waffle) Solved() bool {
 
 // loadDict returns the guessable word list
 func loadDict(wordLen int) []string {
-	guessables := dictionaries.LoadFile("../dictionaries/wordleGuessable.dict")
+	guessables := dictionaries.LoadFile("../dictionaries/merged.dict")
 	guessables = dictionaries.FilterByLen(guessables, wordLen)
 	guessables = dictionaries.SortUnique(guessables)
 	return guessables
@@ -584,10 +587,14 @@ func loadDict(wordLen int) []string {
 func main() {
 	fmt.Println("Welcome to waffle!")
 
+	// Deluxe Waffles
+	// board := "eifdstal.i.p.apertislt.e.e.senithvte.m.t.ueuedrra/yygygwyw.w.w.wgwgggwgw.w.y.wgwgggwgw.w.y.wywgygww" // 056
+
+	// Daily Waffles
 	// board := "fboueg.i.ulsoomg.e.loemna/gwwggw.w.wgygyyw.y.wgyywg" // 001
 	// board := "eqebla.m.eupirel.n.mdlwal/ggywgw.w.ywygwww.g.wgyywg" // 509
-	// board := "tuaehl.r.emrdcnu.i.heoeby/gwgygw.w.wyygwww.g.wgywyg" // 513
-	board := "bexkrd.c.aemarih.k.geasat/gywygy.w.ywygyww.g.wgwywg" // ???
+	board := "tuaehl.r.emrdcnu.i.heoeby/gwgygw.w.wyygwww.g.wgywyg" // 513
+	// board := "bexkrd.c.aemarih.k.geasat/gywygy.w.ywygyww.g.wgwywg" // ???
 
 	waffle := parse(board)
 
@@ -596,6 +603,7 @@ func main() {
 	waffle.SetPossibles()
 	for !waffle.Solved() {
 		waffle.NarrowPossibles(guessables)
+		waffle.Print()
 	}
 	waffle.Print()
 }
