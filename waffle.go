@@ -1,3 +1,32 @@
+//
+// The possible letters for a cell are given as the set:
+//
+//   pl := g | w + yd - w(row) - w(col) + y(row) + y(col) - ws
+//
+// The match instruction for a word is given as:
+//
+//   mi := [pl1][pl2][pl3][pl4][pl5] | egrep [y2y4]
+//
+// Where:
+//
+// g      = self is green
+// w      = {all white tiles}
+// yd     = {all yellow duplicates}
+// w(row) = {all white tiles in this row}
+// w(col) = {all white tiles in this col}
+// y(row) = {all yellow tiles in this row}
+// y(col) = {all yellow tiles in this col}
+// s      = self
+// y2     = 2nd letter iff yellow
+// y4     = 4th letter iff yellow
+//
+// Once the sets of possible letters for each cell have been found,
+// take the set of all starting letters and subtract all
+// letters that have a known position (a set size of one). The
+// remainder will be the letters that can still be used. Any
+// possible letter that is not in that set can be eliminated.
+//
+
 package main
 
 import (
@@ -212,29 +241,6 @@ func keys(m map[rune]int) []rune {
 
 // PossibleLetters returns the set of all possible letters for the given cell.
 func (w *Waffle) PossibleLetters(row, col int) []rune {
-	//
-	// The possible letters for a cell are given as the set:
-	//
-	//   pl := g | w + yd - w(row) - w(col) + y(row) + y(col) - ws
-	//
-	// The match instruction for a word is given as:
-	//
-	//   mi := [pl1][pl2][pl3][pl4][pl5] | egrep [y2y4]
-	//
-	// Where:
-	//
-	// g      = self is green
-	// w      = {all white tiles}
-	// yd     = {all yellow duplicates}
-	// w(row) = {all white tiles in this row}
-	// w(col) = {all white tiles in this col}
-	// y(row) = {all yellow tiles in this row}
-	// y(col) = {all yellow tiles in this col}
-	// s      = self
-	// y2     = 2nd letter iff yellow
-	// y4     = 4th letter iff yellow
-	//
-
 	letter, color := w.Get(row, col)
 
 	if color == Border || color == Empty {
@@ -312,42 +318,98 @@ func (w *Waffle) RegexDown(i int) string {
 	return re
 }
 
-func MatchWords(re string, dict []string) []string {
+func MatchWords(re string, dict []string, y24 string) []string {
 	matches := []string{}
 	for _, word := range dict {
 		matched, err := regexp.MatchString(re, word)
 		if err != nil {
-			fmt.Println("ERROR! 1", err)
+			fmt.Println("ERROR! 1", err, re, word)
 		}
 		if matched {
-			matches = append(matches, word)
+			matched, err := regexp.MatchString(y24, word)
+			if err != nil {
+				fmt.Println("ERROR! 2", err, re, word)
+			}
+			if matched {
+				matches = append(matches, word)
+			}
 		}
 	}
 	if len(matches) == 0 {
-		fmt.Println("ERROR! 2")
+		fmt.Println("ERROR! 3", re)
 	}
 
 	return matches
 }
 
+// UniqueLetters returns the letters in a column in a slice of words.
+func UniqueLetters(words []string, index int) []rune {
+	m := map[rune]int{}
+
+	for _, word := range words {
+		l := word[index]
+		m[rune(l)]++
+	}
+
+	return keys(m)
+}
+
+func (w *Waffle) Yellow24Row(i int) string {
+	y := ""
+
+	l, c := w.Get(i, 1)
+	if c == Yellow {
+		y += string(l)
+	}
+
+	l, c = w.Get(i, 3)
+	if c == Yellow {
+		y += string(l)
+	}
+
+	if len(y) == 0 {
+		return ""
+	}
+
+	return "[" + y + "]"
+}
+
+func (w *Waffle) Yellow24Col(i int) string {
+	y := ""
+
+	l, c := w.Get(1, i)
+	if c == Yellow {
+		y += string(l)
+	}
+
+	l, c = w.Get(3, i)
+	if c == Yellow {
+		y += string(l)
+	}
+
+	if len(y) == 0 {
+		return ""
+	}
+
+	return "[" + y + "]"
+}
+
+// NarrowPossibles finds matches for each word and records those letters.
 func (w *Waffle) NarrowPossibles(dict []string) {
 	// For each across/down word, look up its regex in dict.
-	// If no matches, error.
 	// For each match, replace possible letters with set
 	// of letters from matched words.
-	// Repeat until no new information.
 
 	for row := 0; row < w.Height(); row++ {
 		if row%2 == 1 {
 			continue
 		}
 		re := w.RegexAcross(row)
-		matches := MatchWords(re, dict)
+		y24 := w.Yellow24Row(row)
+		matches := MatchWords(re, dict, y24)
 
-		if len(matches) == 1 {
-			for i, ch := range matches[0] {
-				w.possibles[row][i] = []rune{ch}
-			}
+		for col := 0; col < w.Width(); col++ {
+			w.possibles[row][col] = UniqueLetters(matches, col)
 		}
 	}
 
@@ -356,14 +418,81 @@ func (w *Waffle) NarrowPossibles(dict []string) {
 			continue
 		}
 		re := w.RegexDown(col)
-		matches := MatchWords(re, dict)
+		y24 := w.Yellow24Col(col)
+		matches := MatchWords(re, dict, y24)
 
-		if len(matches) == 1 {
-			for i, ch := range matches[0] {
-				w.possibles[i][col] = []rune{ch}
+		for row := 0; row < w.Height(); row++ {
+			w.possibles[row][col] = UniqueLetters(matches, row)
+		}
+	}
+
+	// Now find which letters have an identified final position
+	// (the set of possibles is of length one). Subtract these
+	// from the list of starting letters. The remainder will be
+	// the letters that have yet to be positioned. If any of the
+	// possibles (sets > lenght one) contain letters other than
+	// these, remove the extraneous letters.
+
+	sl := w.GetAllLetters()
+
+	// Find letters that still need to be placed.
+	for row := 0; row < w.Height(); row++ {
+		for col := 0; col < w.Width(); col++ {
+			if row%2 == 1 && col%2 == 1 {
+				continue
+			}
+			p := w.possibles[row][col]
+			if len(p) == 1 {
+				sl[p[0]]--
+				if sl[p[0]] == 0 {
+					delete(sl, p[0])
+				}
 			}
 		}
 	}
+
+	tbp := string(keys(sl))
+	fmt.Println("TBP: ", tbp)
+
+	// Remove any letters not in the to-be-placed set.
+	for row := 0; row < w.Height(); row++ {
+		for col := 0; col < w.Width(); col++ {
+			if row%2 == 1 && col%2 == 1 {
+				continue
+			}
+			p := w.possibles[row][col]
+			if len(p) > 1 {
+				newP := []rune{}
+				for _, l := range p {
+					matched, err := regexp.MatchString(string(l), tbp)
+					if err != nil {
+						fmt.Println("ERROR! A", string(l), tbp)
+					}
+					if matched {
+						newP = append(newP, l)
+					}
+				}
+				w.possibles[row][col] = newP
+				fmt.Println(string(p), string(newP))
+			}
+		}
+	}
+}
+
+func (w *Waffle) GetAllLetters() map[rune]int {
+	m := map[rune]int{}
+
+	for row := 0; row < w.Height(); row++ {
+		for col := 0; col < w.Width(); col++ {
+			if row%2 == 1 && col%2 == 1 {
+				continue
+			}
+			l, _ := w.Get(row, col)
+			m[l]++
+		}
+	}
+
+	return m
 }
 
 // Print prints a representation of the board state to the console.
@@ -439,12 +568,17 @@ func loadDict(wordLen int) []string {
 
 func main() {
 	fmt.Println("Welcome to waffle!")
-	// waffle := parse("eqebla.m.eupirel.n.mdlwal/ggywgw.w.ywygwww.g.wgyywg")
-	waffle := parse("tuaehl.r.emrdcnu.i.heoeby/gwgygw.w.wyygwww.g.wgywyg")
+	waffle := parse("eqebla.m.eupirel.n.mdlwal/ggywgw.w.ywygwww.g.wgyywg")
+	// waffle := parse("tuaehl.r.emrdcnu.i.heoeby/gwgygw.w.wyygwww.g.wgywyg")
+	// waffle := parse("bexkrd.c.aemarih.k.geasat/gywygy.w.ywygyww.g.wgwywg")
 	waffle.Print()
 	waffle.SetPossibles()
 	waffle.Print()
 	guessables := loadDict(waffle.Width())
+	waffle.NarrowPossibles(guessables)
+	waffle.Print()
+	waffle.NarrowPossibles(guessables)
+	waffle.Print()
 	waffle.NarrowPossibles(guessables)
 	waffle.Print()
 }
