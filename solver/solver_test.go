@@ -1,6 +1,7 @@
-package main
+package solver
 
 import (
+	"github.com/erikbryant/waffle/board"
 	"testing"
 )
 
@@ -23,8 +24,9 @@ func TestSolve(t *testing.T) {
 	}
 
 	for _, testCase := range testCases {
-		waffle := parse(testCase.serial)
-		solved := waffle.Solve()
+		waffle := board.Parse(testCase.serial)
+		s := New(waffle)
+		solved := s.Solve()
 		if solved != testCase.solvable {
 			t.Errorf("ERROR: For %s expected %t got %t", testCase.serial, testCase.solvable, solved)
 		}

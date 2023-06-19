@@ -8,7 +8,7 @@ test: vet
 	go test ./...
 
 run: test
-	go run ./...
+	cd main ; go run ./...
 
 # Targets that do not represent actual files
-.PHONY: fmt test vet run
+.PHONY: fmt vet test run
