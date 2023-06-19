@@ -4,7 +4,7 @@ import (
 	"testing"
 )
 
-func TestCases(t *testing.T) {
+func TestSolve(t *testing.T) {
 	testCases := []struct {
 		serial   string
 		solvable bool
