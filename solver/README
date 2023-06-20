@@ -17,7 +17,7 @@
 // y(row) = {all yellow tiles in this row}
 // y(col) = {all yellow tiles in this col}
 // s      = self
-// ye     = any yellow letters in even, interior cells (2nd, 4th, etc.)
+// ye     = any yellow letters in non-intersection cells
 //
 // Once the sets of possible letters for each cell have been found,
 // take the set of all starting letters and subtract all

@@ -230,47 +230,39 @@ func (s *Solver) RegexDown(i int) string {
 	return re
 }
 
-func (s *Solver) YellowEvenRow(i int) string {
-	y := ""
+func (s *Solver) YellowEvenRow(i int) []string {
+	y := []string{}
 
-	for col := 1; col < s.game.Width()-1; col++ {
+	for col := 0; col < s.game.Width(); col++ {
 		if col%2 == 0 {
 			continue
 		}
 		l, c := s.game.Get(i, col)
 		if c == board.Yellow {
-			y += string(l)
+			y = append(y, "["+string(l)+"]")
 		}
 	}
 
-	if len(y) == 0 {
-		return ""
-	}
-
-	return "[" + y + "]"
+	return y
 }
 
-func (s *Solver) YellowEvenCol(i int) string {
-	y := ""
+func (s *Solver) YellowEvenCol(i int) []string {
+	y := []string{}
 
-	for row := 1; row < s.game.Height()-1; row++ {
+	for row := 0; row < s.game.Height(); row++ {
 		if row%2 == 0 {
 			continue
 		}
 		l, c := s.game.Get(row, i)
 		if c == board.Yellow {
-			y += string(l)
+			y = append(y, "["+string(l)+"]")
 		}
 	}
 
-	if len(y) == 0 {
-		return ""
-	}
-
-	return "[" + y + "]"
+	return y
 }
 
-func MatchWords(re string, dict []string, ye string) []string {
+func MatchWords(re string, dict []string, ye []string) []string {
 	matches := []string{}
 	for _, word := range dict {
 		matched, err := regexp.MatchString(re, word)
@@ -278,11 +270,18 @@ func MatchWords(re string, dict []string, ye string) []string {
 			fmt.Println("ERROR! 1", err, re, word)
 		}
 		if matched {
-			matched, err := regexp.MatchString(ye, word)
-			if err != nil {
-				fmt.Println("ERROR! 2", err, re, word)
+			usesYe := true
+			for _, re2 := range ye {
+				matched, err := regexp.MatchString(re2, word)
+				if err != nil {
+					fmt.Println("ERROR! 2", err, re, word)
+				}
+				if !matched {
+					usesYe = false
+					break
+				}
 			}
-			if matched {
+			if usesYe {
 				matches = append(matches, word)
 			}
 		}
@@ -414,7 +413,7 @@ func (s *Solver) Print() {
 			continue
 		}
 		re := s.RegexAcross(row)
-		fmt.Printf("A%d: egrep '%s' ../dictionaries/wordleGuessable.dict\n", row, re)
+		fmt.Printf("A%d: egrep '%s' ../dictionaries/merged.dict\n", row, re)
 	}
 
 	fmt.Println()
@@ -424,7 +423,7 @@ func (s *Solver) Print() {
 			continue
 		}
 		re := s.RegexDown(col)
-		fmt.Printf("C%d: egrep '%s' ../dictionaries/wordleGuessable.dict\n", col, re)
+		fmt.Printf("C%d: egrep '%s' ../dictionaries/merged.dict\n", col, re)
 	}
 }
 
