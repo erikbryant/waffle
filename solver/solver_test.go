@@ -17,7 +17,8 @@ func TestSolve(t *testing.T) {
 		{"fboueg.i.ulsoomg.e.loemna/gwwggw.w.wgygyyw.y.wgyywg", true}, // 001
 		{"eqebla.m.eupirel.n.mdlwal/ggywgw.w.ywygwww.g.wgyywg", true}, // 509
 		{"tuaehl.r.emrdcnu.i.heoeby/gwgygw.w.wyygwww.g.wgywyg", true}, // 513
-		{"bexkrd.c.aemarih.k.geasat/gywygy.w.ywygyww.g.wgwywg", true}, // ???
+		{"bexkrd.c.aemarih.k.geasat/gywygy.w.ywygyww.g.wgwywg", true}, // 514
+		{"smkupm.w.nknbeui.e.rgaiey/gyywgw.w.ywygwyw.y.wgwyyg", true}, // 515
 
 		// Unsolvable Waffles
 		{"abcd.e.fghi/wwww.w.wwww", false},

@@ -35,6 +35,29 @@ func New(w board.Waffle) Solver {
 	return s
 }
 
+func (s *Solver) Width() int {
+	return s.game.Width()
+}
+
+func (s *Solver) Height() int {
+	return s.game.Height()
+}
+
+func (s *Solver) Get(row, col int) (rune, rune) {
+	return s.game.Get(row, col)
+}
+
+func (s *Solver) Set(row, col int, l, c rune) {
+	s.game.Set(row, col, l, c)
+}
+
+func (s *Solver) GetSolution(row, col int) rune {
+	if len(s.possibles[row][col]) != 1 {
+		fmt.Println("ERROR! Z3", row, col, s.possibles[row][col])
+	}
+	return s.possibles[row][col][0]
+}
+
 func (s *Solver) SetPossibles() {
 	for row := 0; row < s.game.Height(); row++ {
 		for col := 0; col < s.game.Width(); col++ {
