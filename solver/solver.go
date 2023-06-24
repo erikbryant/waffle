@@ -13,7 +13,7 @@ type Solver struct {
 	possibles [][][]rune
 }
 
-// newSlices creates a new [][]rune, populated with empty slices.
+// newSlices creates a board.Grid, populated with empty []rune slices
 func newSlices(width, height int) [][][]rune {
 	var b [][][]rune
 
@@ -25,28 +25,32 @@ func newSlices(width, height int) [][][]rune {
 	return b
 }
 
-// New creates a new, empty waffle game.
+// New creates an empty waffle game solver
 func New(w board.Waffle) Solver {
 	var s Solver
 
 	s.game = w
-	s.possibles = newSlices(s.game.Width(), s.game.Height())
+	s.possibles = newSlices(s.Width(), s.Height())
 
 	return s
 }
 
+// Width returns the width of the waffle game
 func (s *Solver) Width() int {
 	return s.game.Width()
 }
 
+// Width returns the height of the waffle game
 func (s *Solver) Height() int {
 	return s.game.Height()
 }
 
+// Get returns the letter and color at row, col
 func (s *Solver) Get(row, col int) (rune, rune) {
 	return s.game.Get(row, col)
 }
 
+// Set sets the letter and color at row, col
 func (s *Solver) Set(row, col int, l, c rune) {
 	s.game.Set(row, col, l, c)
 }
@@ -59,16 +63,16 @@ func (s *Solver) GetSolution(row, col int) rune {
 }
 
 func (s *Solver) SetPossibles() {
-	for row := 0; row < s.game.Height(); row++ {
-		for col := 0; col < s.game.Width(); col++ {
+	for row := 0; row < s.Height(); row++ {
+		for col := 0; col < s.Width(); col++ {
 			s.possibles[row][col] = s.PossibleLetters(row, col)
 		}
 	}
 }
 
-// PossibleLetters returns the set of all possible letters for the given cell.
+// PossibleLetters returns the set of all possible letters for the given tile
 func (s *Solver) PossibleLetters(row, col int) []rune {
-	letter, color := s.game.Get(row, col)
+	letter, color := s.Get(row, col)
 
 	if color == board.Border || color == board.Empty {
 		return []rune{}
@@ -104,9 +108,9 @@ func (s *Solver) PossibleLetters(row, col int) []rune {
 func (s *Solver) WhiteTiles() map[rune]int {
 	m := map[rune]int{}
 
-	for row := 0; row < s.game.Height(); row++ {
-		for col := 0; col < s.game.Width(); col++ {
-			l, c := s.game.Get(row, col)
+	for row := 0; row < s.Height(); row++ {
+		for col := 0; col < s.Width(); col++ {
+			l, c := s.Get(row, col)
 			if c == board.White {
 				m[l]++
 			}
@@ -119,9 +123,9 @@ func (s *Solver) WhiteTiles() map[rune]int {
 func (s *Solver) YellowDupes() map[rune]int {
 	m := map[rune]int{}
 
-	for row := 0; row < s.game.Height(); row++ {
-		for col := 0; col < s.game.Width(); col++ {
-			l, c := s.game.Get(row, col)
+	for row := 0; row < s.Height(); row++ {
+		for col := 0; col < s.Width(); col++ {
+			l, c := s.Get(row, col)
 			if c == board.Yellow {
 				m[l]++
 			}
@@ -141,9 +145,9 @@ func (s *Solver) YellowDupes() map[rune]int {
 func (s *Solver) TilesInRow(row, col int, match rune) map[rune]int {
 	m := map[rune]int{}
 
-	// Tiles to the left.
+	// Tiles to the left
 	for colRef := col - 1; colRef >= 0; colRef-- {
-		l, c := s.game.Get(row, colRef)
+		l, c := s.Get(row, colRef)
 		if c == board.Empty || c == board.Border {
 			break
 		}
@@ -152,9 +156,9 @@ func (s *Solver) TilesInRow(row, col int, match rune) map[rune]int {
 		}
 	}
 
-	// This tile and ones to the right.
-	for colRef := col; colRef < s.game.Width(); colRef++ {
-		l, c := s.game.Get(row, colRef)
+	// This tile and ones to the right
+	for colRef := col; colRef < s.Width(); colRef++ {
+		l, c := s.Get(row, colRef)
 		if c == board.Empty || c == board.Border {
 			break
 		}
@@ -169,9 +173,9 @@ func (s *Solver) TilesInRow(row, col int, match rune) map[rune]int {
 func (s *Solver) TilesInCol(row, col int, match rune) map[rune]int {
 	m := map[rune]int{}
 
-	// Tiles to the up.
+	// Tiles to the up
 	for rowRef := row - 1; rowRef >= 0; rowRef-- {
-		l, c := s.game.Get(rowRef, col)
+		l, c := s.Get(rowRef, col)
 		if c == board.Empty || c == board.Border {
 			break
 		}
@@ -180,9 +184,9 @@ func (s *Solver) TilesInCol(row, col int, match rune) map[rune]int {
 		}
 	}
 
-	// This tile and ones to the down.
-	for rowRef := row; rowRef < s.game.Width(); rowRef++ {
-		l, c := s.game.Get(rowRef, col)
+	// This tile and ones to the down
+	for rowRef := row; rowRef < s.Width(); rowRef++ {
+		l, c := s.Get(rowRef, col)
 		if c == board.Empty || c == board.Border {
 			break
 		}
@@ -200,7 +204,7 @@ func (s *Solver) RegexAcross(i int) string {
 	}
 
 	re := "^"
-	for col := 0; col < s.game.Width(); col++ {
+	for col := 0; col < s.Width(); col++ {
 		re += "["
 		for _, l := range s.possibles[i][col] {
 			re += string(l)
@@ -218,7 +222,7 @@ func (s *Solver) RegexDown(i int) string {
 	}
 
 	re := "^"
-	for row := 0; row < s.game.Height(); row++ {
+	for row := 0; row < s.Height(); row++ {
 		re += "["
 		for _, l := range s.possibles[row][i] {
 			re += string(l)
@@ -233,11 +237,11 @@ func (s *Solver) RegexDown(i int) string {
 func (s *Solver) YellowEvenRow(i int) []string {
 	y := []string{}
 
-	for col := 0; col < s.game.Width(); col++ {
+	for col := 0; col < s.Width(); col++ {
 		if col%2 == 0 {
 			continue
 		}
-		l, c := s.game.Get(i, col)
+		l, c := s.Get(i, col)
 		if c == board.Yellow {
 			y = append(y, "["+string(l)+"]")
 		}
@@ -249,11 +253,11 @@ func (s *Solver) YellowEvenRow(i int) []string {
 func (s *Solver) YellowEvenCol(i int) []string {
 	y := []string{}
 
-	for row := 0; row < s.game.Height(); row++ {
+	for row := 0; row < s.Height(); row++ {
 		if row%2 == 0 {
 			continue
 		}
-		l, c := s.game.Get(row, i)
+		l, c := s.Get(row, i)
 		if c == board.Yellow {
 			y = append(y, "["+string(l)+"]")
 		}
@@ -293,7 +297,7 @@ func MatchWords(re string, dict []string, ye []string) []string {
 	return matches
 }
 
-// UniqueLetters returns the letters in a column in a slice of words.
+// UniqueLetters returns the letters in a column in a slice of words
 func UniqueLetters(words []string, index int) []rune {
 	m := map[rune]int{}
 
@@ -308,12 +312,12 @@ func UniqueLetters(words []string, index int) []rune {
 func (s *Solver) GetAllLetters() map[rune]int {
 	m := map[rune]int{}
 
-	for row := 0; row < s.game.Height(); row++ {
-		for col := 0; col < s.game.Width(); col++ {
+	for row := 0; row < s.Height(); row++ {
+		for col := 0; col < s.Width(); col++ {
 			if row%2 == 1 && col%2 == 1 {
 				continue
 			}
-			l, _ := s.game.Get(row, col)
+			l, _ := s.Get(row, col)
 			m[l]++
 		}
 	}
@@ -321,13 +325,13 @@ func (s *Solver) GetAllLetters() map[rune]int {
 	return m
 }
 
-// NarrowPossibles finds matches for each word and records those letters.
+// NarrowPossibles finds matches for each word and records those letters
 func (s *Solver) NarrowPossibles(dict []string) {
 	// For each across/down word, look up its regex in dict.
 	// For each match, replace possible letters with set
 	// of letters from matched words.
 
-	for row := 0; row < s.game.Height(); row++ {
+	for row := 0; row < s.Height(); row++ {
 		if row%2 == 1 {
 			continue
 		}
@@ -335,12 +339,12 @@ func (s *Solver) NarrowPossibles(dict []string) {
 		ye := s.YellowEvenRow(row)
 		matches := MatchWords(re, dict, ye)
 
-		for col := 0; col < s.game.Width(); col++ {
+		for col := 0; col < s.Width(); col++ {
 			s.possibles[row][col] = UniqueLetters(matches, col)
 		}
 	}
 
-	for col := 0; col < s.game.Width(); col++ {
+	for col := 0; col < s.Width(); col++ {
 		if col%2 == 1 {
 			continue
 		}
@@ -348,7 +352,7 @@ func (s *Solver) NarrowPossibles(dict []string) {
 		ye := s.YellowEvenCol(col)
 		matches := MatchWords(re, dict, ye)
 
-		for row := 0; row < s.game.Height(); row++ {
+		for row := 0; row < s.Height(); row++ {
 			s.possibles[row][col] = UniqueLetters(matches, row)
 		}
 	}
@@ -362,9 +366,9 @@ func (s *Solver) NarrowPossibles(dict []string) {
 
 	sl := s.GetAllLetters()
 
-	// Find letters that still need to be placed.
-	for row := 0; row < s.game.Height(); row++ {
-		for col := 0; col < s.game.Width(); col++ {
+	// Find letters that still need to be placed
+	for row := 0; row < s.Height(); row++ {
+		for col := 0; col < s.Width(); col++ {
 			if row%2 == 1 && col%2 == 1 {
 				continue
 			}
@@ -380,9 +384,9 @@ func (s *Solver) NarrowPossibles(dict []string) {
 
 	tbp := string(util.Keys(sl))
 
-	// Remove any letters not in the to-be-placed set.
-	for row := 0; row < s.game.Height(); row++ {
-		for col := 0; col < s.game.Width(); col++ {
+	// Remove any letters not in the to-be-placed set
+	for row := 0; row < s.Height(); row++ {
+		for col := 0; col < s.Width(); col++ {
 			if row%2 == 1 && col%2 == 1 {
 				continue
 			}
@@ -404,11 +408,11 @@ func (s *Solver) NarrowPossibles(dict []string) {
 	}
 }
 
-// Print prints a representation of the [][]rune state to the console.
+// Print prints a representation of the solver state to the console
 func (s *Solver) Print() {
 	s.game.Print()
 
-	for row := 0; row < s.game.Height(); row++ {
+	for row := 0; row < s.Height(); row++ {
 		if row%2 == 1 {
 			continue
 		}
@@ -418,7 +422,7 @@ func (s *Solver) Print() {
 
 	fmt.Println()
 
-	for col := 0; col < s.game.Width(); col++ {
+	for col := 0; col < s.Width(); col++ {
 		if col%2 == 1 {
 			continue
 		}
@@ -427,10 +431,10 @@ func (s *Solver) Print() {
 	}
 }
 
-// Solved returns true if the waffle [][]rune is solved.
+// Solved returns true if the waffle game is solved
 func (s *Solver) Solved() bool {
-	for row := 0; row < s.game.Height(); row++ {
-		for col := 0; col < s.game.Width(); col++ {
+	for row := 0; row < s.Height(); row++ {
+		for col := 0; col < s.Width(); col++ {
 			if row%2 == 1 && col%2 == 1 {
 				continue
 			}
@@ -452,8 +456,9 @@ func loadDict(wordLen int) []string {
 	return guessables
 }
 
+// Solve solves the waffle board game
 func (s *Solver) Solve() bool {
-	guessables := loadDict(s.game.Width())
+	guessables := loadDict(s.Width())
 
 	s.SetPossibles()
 	attempts := 0
