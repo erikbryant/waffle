@@ -54,42 +54,41 @@ func New(width, height int) Waffle {
 	return w
 }
 
-// Width returns the width of the waffle game.
+// Width returns the width of the waffle game
 func (w *Waffle) Width() int {
 	return w.width
 }
 
-// Height returns the height of the waffle game.
+// Height returns the height of the waffle game
 func (w *Waffle) Height() int {
 	return w.height
 }
 
-// Get returns the letter and color at row,col.
+// Get returns the letter and color at row, col
 func (w *Waffle) Get(row, col int) (rune, rune) {
 	if row < 0 || row >= w.Height() || col < 0 || col >= w.Width() {
 		return Border, Border
 	}
-	// If row and col are odd, this is a gap. Return 'empty'.
-	if row%2 == 1 && col%2 == 1 {
-		return Empty, Empty
-	}
 	return w.letters[row][col], w.colors[row][col]
 }
 
-// Set sets the letter and color at row,col.
+// Set sets the letter and color at row, col
 func (w *Waffle) Set(row, col int, l, c rune) {
+	// We are outside the bounds of the grid
 	if row < 0 || row >= w.Height() || col < 0 || col >= w.Width() {
 		return
 	}
-	// If row and col are odd, this is a gap.
+
+	// If row and col are odd, this is a hole in the grid
 	if row%2 == 1 && col%2 == 1 {
 		return
 	}
+
 	w.letters[row][col] = l
 	w.colors[row][col] = c
 }
 
-// Print prints the game board state to the console.
+// Print prints the game board state to the console
 func (w *Waffle) Print() {
 	fmt.Printf("Waffle (%dx%d)\n", w.Width(), w.Height())
 
@@ -117,6 +116,7 @@ func (w *Waffle) Print() {
 	fmt.Printf("\n")
 }
 
+// Parse unpacks a string into its corresponding waffle board
 func Parse(serial string) Waffle {
 	tiles := (len(serial) - 1) / 2
 	size := int(math.Sqrt(float64(tiles)))
@@ -124,9 +124,6 @@ func Parse(serial string) Waffle {
 
 	for row := 0; row < w.Height(); row++ {
 		for col := 0; col < w.Width(); col++ {
-			if row%2 == 1 && col%2 == 1 {
-				continue
-			}
 			l := serial[row*size+col]
 			c := serial[row*size+col+(tiles+1)]
 			w.Set(row, col, rune(l), rune(c))
