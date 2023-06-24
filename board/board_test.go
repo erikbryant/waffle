@@ -76,3 +76,39 @@ func TestSetGet(t *testing.T) {
 		}
 	}
 }
+
+func TestParse(t *testing.T) {
+	testCases := []struct {
+		serial  string
+		expectW int
+		expectH int
+		row     int
+		col     int
+		expectL rune
+		expectC rune
+	}{
+		{"fboueg.i.ulsoomg.e.loemna/gwwggw.w.wgygyyw.y.wgyywg", 5, 5, 4, 4, 'a', Green},
+		{"eifdstal.i.p.apertislt.e.e.senithvte.m.t.ueuedrra/yygygwyw.w.w.wgwgggwgw.w.y.wgwgggwgw.w.y.wywgygww", 7, 7, 1, 2, 'i', White},
+	}
+
+	for _, testCase := range testCases {
+		waffle := Parse(testCase.serial)
+
+		val := waffle.Width()
+		if val != testCase.expectW {
+			t.Errorf("ERROR: For width expected %d got %d", testCase.expectW, val)
+		}
+		val = waffle.Height()
+		if val != testCase.expectH {
+			t.Errorf("ERROR: For height expected %d got %d", testCase.expectH, val)
+		}
+
+		letter, color := waffle.Get(testCase.row, testCase.col)
+		if letter != testCase.expectL {
+			t.Errorf("ERROR: For (%d, %d) letter expected '%c' got '%c'", testCase.row, testCase.col, testCase.expectL, letter)
+		}
+		if color != testCase.expectC {
+			t.Errorf("ERROR: For (%d, %d) color expected '%c' got '%c'", testCase.row, testCase.col, testCase.expectC, color)
+		}
+	}
+}
