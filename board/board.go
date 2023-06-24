@@ -14,41 +14,42 @@ const (
 	White  = 'w'
 )
 
-// Waffle implements a waffle game board.
+type Grid [][]rune
+
+// Waffle implements a waffle game board
 type Waffle struct {
 	width   int
 	height  int
-	letters [][]rune
-	colors  [][]rune
+	letters Grid
+	colors  Grid
 }
 
-// new creates a new board, populated with empty squares.
-func new(width, height int) [][]rune {
-	var board [][]rune
+// newGrid creates a new grid, populated with empty squares
+func newGrid(width, height int) Grid {
+	var grid Grid
 
-	board = make([][]rune, height)
+	grid = make(Grid, height)
 	for row := 0; row < height; row++ {
-		board[row] = make([]rune, width)
+		grid[row] = make([]rune, width)
 	}
 
 	for row := 0; row < height; row++ {
 		for col := 0; col < width; col++ {
-			board[row][col] = Empty
+			grid[row][col] = Empty
 		}
 	}
 
-	return board
+	return grid
 }
 
-// New creates a new, empty waffle game.
+// New creates an empty waffle game board
 func New(width, height int) Waffle {
 	var w Waffle
 
 	w.width = width
 	w.height = height
-
-	w.letters = new(w.width, w.height)
-	w.colors = new(w.width, w.height)
+	w.letters = newGrid(w.Width(), w.Height())
+	w.colors = newGrid(w.Width(), w.Height())
 
 	return w
 }
@@ -88,7 +89,7 @@ func (w *Waffle) Set(row, col int, l, c rune) {
 	w.colors[row][col] = c
 }
 
-// Print prints a representation of the [][]rune state to the console.
+// Print prints the game board state to the console.
 func (w *Waffle) Print() {
 	fmt.Printf("Waffle (%dx%d)\n", w.Width(), w.Height())
 
