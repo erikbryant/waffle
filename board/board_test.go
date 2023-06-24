@@ -29,3 +29,50 @@ func TestWidthHeight(t *testing.T) {
 		}
 	}
 }
+
+func TestNew(t *testing.T) {
+	waffle := New(3, 4)
+
+	for row := 0; row < waffle.Height(); row++ {
+		for col := 0; col < waffle.Width(); col++ {
+			letter, color := waffle.Get(row, col)
+			if letter != Empty {
+				t.Errorf("ERROR: For letter expected '%c' got '%c'", Empty, letter)
+			}
+			if color != Empty {
+				t.Errorf("ERROR: For color expected '%c' got '%c'", Empty, color)
+			}
+		}
+	}
+}
+
+func TestSetGet(t *testing.T) {
+	testCases := []struct {
+		row     int
+		col     int
+		letter  rune
+		color   rune
+		expectL rune
+		expectC rune
+	}{
+		{0, 0, 'e', Green, 'e', Green},
+		{0, 0, 'f', Yellow, 'f', Yellow},
+		{1, 1, 'p', Yellow, Empty, Empty},
+		{3, 3, 'l', Yellow, Empty, Empty},
+		{4, 4, 'k', White, 'k', White},
+		{4, 4, 'z', Green, 'z', Green},
+	}
+
+	waffle := New(5, 5)
+
+	for _, testCase := range testCases {
+		waffle.Set(testCase.row, testCase.col, testCase.letter, testCase.color)
+		letter, color := waffle.Get(testCase.row, testCase.col)
+		if letter != testCase.expectL {
+			t.Errorf("ERROR: For (%d, %d) letter expected '%c' got '%c'", testCase.row, testCase.col, testCase.expectL, letter)
+		}
+		if color != testCase.expectC {
+			t.Errorf("ERROR: For (%d, %d) color expected '%c' got '%c'", testCase.row, testCase.col, testCase.expectC, color)
+		}
+	}
+}
