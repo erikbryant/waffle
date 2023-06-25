@@ -109,7 +109,7 @@ func (s *Solver) YellowDupes() map[rune]int {
 
 	for key, val := range m {
 		if val < 2 {
-			// TODO: Is this safe?
+			// Remove non-duplicates
 			delete(m, key)
 		}
 	}
@@ -122,8 +122,8 @@ func (s *Solver) TilesInRow(row, col int, matchColor rune) map[rune]int {
 	m := map[rune]int{}
 
 	// Tiles to the left
-	for colRef := col - 1; colRef >= 0; colRef-- {
-		l, c := s.Get(row, colRef)
+	for i := col - 1; i >= 0; i-- {
+		l, c := s.Get(row, i)
 		if c == board.Empty {
 			break
 		}
@@ -133,8 +133,8 @@ func (s *Solver) TilesInRow(row, col int, matchColor rune) map[rune]int {
 	}
 
 	// This tile and ones to the right
-	for colRef := col; colRef < s.Width(); colRef++ {
-		l, c := s.Get(row, colRef)
+	for i := col; i < s.Width(); i++ {
+		l, c := s.Get(row, i)
 		if c == board.Empty {
 			break
 		}
@@ -147,27 +147,27 @@ func (s *Solver) TilesInRow(row, col int, matchColor rune) map[rune]int {
 }
 
 // TilesInCol returns the set of letters of a given color (and their count) adjacent to the given coord
-func (s *Solver) TilesInCol(row, col int, match rune) map[rune]int {
+func (s *Solver) TilesInCol(row, col int, matchColor rune) map[rune]int {
 	m := map[rune]int{}
 
 	// Tiles to the up
-	for rowRef := row - 1; rowRef >= 0; rowRef-- {
-		l, c := s.Get(rowRef, col)
+	for i := row - 1; i >= 0; i-- {
+		l, c := s.Get(i, col)
 		if c == board.Empty {
 			break
 		}
-		if c == match {
+		if c == matchColor {
 			m[l]++
 		}
 	}
 
 	// This tile and ones to the down
-	for rowRef := row; rowRef < s.Width(); rowRef++ {
-		l, c := s.Get(rowRef, col)
+	for i := row; i < s.Height(); i++ {
+		l, c := s.Get(i, col)
 		if c == board.Empty {
 			break
 		}
-		if c == match {
+		if c == matchColor {
 			m[l]++
 		}
 	}
