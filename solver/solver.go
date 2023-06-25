@@ -165,22 +165,18 @@ func (s *Solver) setPossibles() {
 }
 
 // regexAcross returns the regular expression of the possible letters for the given row
-func (s *Solver) regexAcross(i int) string {
-	if i%2 == 1 {
+func (s *Solver) regexAcross(row int) string {
+	if row%2 == 1 {
 		return ""
 	}
 
 	re := "^"
-	for col := 0; col < s.Size(); col++ {
-		if len(s.possibles[i][col]) == 1 {
-			re += string(s.possibles[i][col][0])
+	for i := 0; i < s.Size(); i++ {
+		if len(s.possibles[row][i]) == 1 {
+			re += string(s.possibles[row][i][0])
 			continue
 		}
-		re += "["
-		for _, l := range s.possibles[i][col] {
-			re += string(l)
-		}
-		re += "]"
+		re += "[" + string(s.possibles[row][i]) + "]"
 	}
 	re += "$"
 
@@ -188,22 +184,18 @@ func (s *Solver) regexAcross(i int) string {
 }
 
 // regexDown returns the regular expression of the possible letters for the given col
-func (s *Solver) regexDown(i int) string {
-	if i%2 == 1 {
+func (s *Solver) regexDown(col int) string {
+	if col%2 == 1 {
 		return ""
 	}
 
 	re := "^"
-	for row := 0; row < s.Size(); row++ {
-		if len(s.possibles[row][i]) == 1 {
-			re += string(s.possibles[row][i][0])
+	for i := 0; i < s.Size(); i++ {
+		if len(s.possibles[i][col]) == 1 {
+			re += string(s.possibles[i][col][0])
 			continue
 		}
-		re += "["
-		for _, l := range s.possibles[row][i] {
-			re += string(l)
-		}
-		re += "]"
+		re += "[" + string(s.possibles[i][col]) + "]"
 	}
 	re += "$"
 
