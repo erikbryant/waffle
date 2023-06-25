@@ -276,8 +276,8 @@ func matchWords(re string, ye []rune, dict []string) []string {
 	return matches
 }
 
-// uniqueLetters returns the letters in a column in a slice of words
-func uniqueLetters(words []string, index int) []rune {
+// letterUnion returns the set of letters in a given position in slice of words
+func letterUnion(words []string, index int) []rune {
 	m := map[rune]int{}
 
 	for _, word := range words {
@@ -303,7 +303,7 @@ func (s *Solver) narrowPossibles(dict []string) {
 		matches := matchWords(re, ye, dict)
 
 		for col := 0; col < s.Size(); col++ {
-			s.possibles[row][col] = uniqueLetters(matches, col)
+			s.possibles[row][col] = letterUnion(matches, col)
 		}
 	}
 
@@ -316,7 +316,7 @@ func (s *Solver) narrowPossibles(dict []string) {
 		matches := matchWords(re, ye, dict)
 
 		for row := 0; row < s.Size(); row++ {
-			s.possibles[row][col] = uniqueLetters(matches, row)
+			s.possibles[row][col] = letterUnion(matches, row)
 		}
 	}
 
