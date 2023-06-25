@@ -47,8 +47,8 @@ func (p *Path) Size() int {
 //
 // func (p *Path) RemoveCorrect() {
 // 	// Remove all letters that are already correct
-// 	for row := 0; row < p.Height(); row++ {
-// 		for col := 0; col < p.Width(); col++ {
+// 	for row := 0; row < p.Size(); row++ {
+// 		for col := 0; col < p.Size(); col++ {
 // 			if row%2 == 1 && col%2 == 1 {
 // 				continue
 // 			}

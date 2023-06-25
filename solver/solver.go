@@ -14,12 +14,12 @@ type Solver struct {
 }
 
 // newSlices creates a board.Grid, populated with empty []rune slices
-func newSlices(width, height int) [][][]rune {
+func newSlices(size int) [][][]rune {
 	var b [][][]rune
 
-	b = make([][][]rune, height)
-	for row := 0; row < height; row++ {
-		b[row] = make([][]rune, width)
+	b = make([][][]rune, size)
+	for row := 0; row < size; row++ {
+		b[row] = make([][]rune, size)
 	}
 
 	return b
@@ -30,7 +30,7 @@ func New(w board.Waffle) Solver {
 	var s Solver
 
 	s.game = w
-	s.possibles = newSlices(s.Size(), s.Size())
+	s.possibles = newSlices(s.Size())
 
 	return s
 }
