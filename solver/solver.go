@@ -6,6 +6,7 @@ import (
 	"github.com/erikbryant/waffle/board"
 	"golang.org/x/exp/maps"
 	"regexp"
+	"strings"
 )
 
 type Solver struct {
@@ -217,8 +218,8 @@ func (s *Solver) RegexDown(i int) string {
 }
 
 // YellowEvenRow returns the letters on yellow tiles in non-intersections for the given row
-func (s *Solver) YellowEvenRow(i int) []string {
-	y := []string{}
+func (s *Solver) YellowEvenRow(i int) []rune {
+	y := []rune{}
 
 	for col := 0; col < s.Size(); col++ {
 		if col%2 == 0 {
@@ -226,7 +227,7 @@ func (s *Solver) YellowEvenRow(i int) []string {
 		}
 		l, c := s.Get(i, col)
 		if c == board.Yellow {
-			y = append(y, string(l))
+			y = append(y, l)
 		}
 	}
 
@@ -236,8 +237,8 @@ func (s *Solver) YellowEvenRow(i int) []string {
 }
 
 // YellowEvenCol returns the letters on yellow tiles in non-intersections for the given col
-func (s *Solver) YellowEvenCol(i int) []string {
-	y := []string{}
+func (s *Solver) YellowEvenCol(i int) []rune {
+	y := []rune{}
 
 	for row := 0; row < s.Size(); row++ {
 		if row%2 == 0 {
@@ -245,7 +246,7 @@ func (s *Solver) YellowEvenCol(i int) []string {
 		}
 		l, c := s.Get(row, i)
 		if c == board.Yellow {
-			y = append(y, string(l))
+			y = append(y, l)
 		}
 	}
 
@@ -255,7 +256,7 @@ func (s *Solver) YellowEvenCol(i int) []string {
 }
 
 // MatchWords returns all dictionary words that match the given re and ye criteria
-func MatchWords(re string, dict []string, ye []string) []string {
+func MatchWords(re string, dict []string, ye []rune) []string {
 	matches := []string{}
 	for _, word := range dict {
 		matched, err := regexp.MatchString(re, word)
@@ -265,11 +266,7 @@ func MatchWords(re string, dict []string, ye []string) []string {
 		if matched {
 			usesYe := true
 			for _, re2 := range ye {
-				matched, err := regexp.MatchString(re2, word)
-				if err != nil {
-					fmt.Println("ERROR! 2", err, re, word)
-				}
-				if !matched {
+				if !strings.ContainsRune(word, re2) {
 					usesYe = false
 					break
 				}
