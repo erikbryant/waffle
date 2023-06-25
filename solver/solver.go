@@ -29,7 +29,7 @@ func New(w board.Waffle) Solver {
 	return s
 }
 
-// Size returns the size of the waffle game
+// Size returns the size of the waffle game board
 func (s *Solver) Size() int {
 	return s.game.Size()
 }
@@ -42,49 +42,6 @@ func (s *Solver) Get(row, col int) (rune, rune) {
 // Set sets the letter and color at row, col
 func (s *Solver) Set(row, col int, l, c rune) {
 	s.game.Set(row, col, l, c)
-}
-
-// setPossibles assigns the set of possible letters to each tile
-func (s *Solver) setPossibles() {
-	for _, tile := range s.game.Tiles() {
-		s.possibles[tile.Row][tile.Col] = s.possibleLetters(tile.Row, tile.Col)
-	}
-}
-
-// possibleLetters returns the set of all possible letters for the given tile
-func (s *Solver) possibleLetters(row, col int) []rune {
-	letter, color := s.Get(row, col)
-
-	if color == board.Empty {
-		return []rune{}
-	}
-
-	if color == board.Green {
-		return []rune{letter}
-	}
-
-	// The set of possible letters is defined as:
-	// pl := w + yd - w(row) - w(col) + y(row) + y(col) - s
-
-	possible := s.WhiteTiles()
-	for k := range s.YellowDupes() {
-		possible[k]++
-	}
-	for k := range s.TilesInRow(row, col, board.White) {
-		delete(possible, k)
-	}
-	for k := range s.TilesInCol(row, col, board.White) {
-		delete(possible, k)
-	}
-	for k := range s.TilesInRow(row, col, board.Yellow) {
-		possible[k]++
-	}
-	for k := range s.TilesInCol(row, col, board.Yellow) {
-		possible[k]++
-	}
-	delete(possible, letter)
-
-	return maps.Keys(possible)
 }
 
 // WhiteTiles returns the letters on all of the white tiles
@@ -164,8 +121,51 @@ func (s *Solver) TilesInCol(row, col int, matchColor rune) map[rune]int {
 	return m
 }
 
-// RegexAcross returns the regular expression of the possible letters for the given row
-func (s *Solver) RegexAcross(i int) string {
+// possibleLetters returns the set of all possible letters for the given tile
+func (s *Solver) possibleLetters(row, col int) []rune {
+	letter, color := s.Get(row, col)
+
+	if color == board.Empty {
+		return []rune{}
+	}
+
+	if color == board.Green {
+		return []rune{letter}
+	}
+
+	// The set of possible letters is defined as:
+	// pl := w + yd - w(row) - w(col) + y(row) + y(col) - s
+
+	possible := s.WhiteTiles()
+	for k := range s.YellowDupes() {
+		possible[k]++
+	}
+	for k := range s.TilesInRow(row, col, board.White) {
+		delete(possible, k)
+	}
+	for k := range s.TilesInCol(row, col, board.White) {
+		delete(possible, k)
+	}
+	for k := range s.TilesInRow(row, col, board.Yellow) {
+		possible[k]++
+	}
+	for k := range s.TilesInCol(row, col, board.Yellow) {
+		possible[k]++
+	}
+	delete(possible, letter)
+
+	return maps.Keys(possible)
+}
+
+// setPossibles assigns the set of possible letters to each tile
+func (s *Solver) setPossibles() {
+	for _, tile := range s.game.Tiles() {
+		s.possibles[tile.Row][tile.Col] = s.possibleLetters(tile.Row, tile.Col)
+	}
+}
+
+// regexAcross returns the regular expression of the possible letters for the given row
+func (s *Solver) regexAcross(i int) string {
 	if i%2 == 1 {
 		return ""
 	}
@@ -187,8 +187,8 @@ func (s *Solver) RegexAcross(i int) string {
 	return re
 }
 
-// RegexCown returns the regular expression of the possible letters for the given col
-func (s *Solver) RegexDown(i int) string {
+// regexDown returns the regular expression of the possible letters for the given col
+func (s *Solver) regexDown(i int) string {
 	if i%2 == 1 {
 		return ""
 	}
@@ -248,8 +248,8 @@ func (s *Solver) YellowEvenCol(i int) []rune {
 	return y
 }
 
-// MatchWords returns all dictionary words that match the given re and ye criteria
-func MatchWords(re string, ye []rune, dict []string) []string {
+// matchWords returns all dictionary words that match the given re and ye criteria
+func matchWords(re string, ye []rune, dict []string) []string {
 	matches := []string{}
 	for _, word := range dict {
 		matched, err := regexp.MatchString(re, word)
@@ -276,8 +276,8 @@ func MatchWords(re string, ye []rune, dict []string) []string {
 	return matches
 }
 
-// UniqueLetters returns the letters in a column in a slice of words
-func UniqueLetters(words []string, index int) []rune {
+// uniqueLetters returns the letters in a column in a slice of words
+func uniqueLetters(words []string, index int) []rune {
 	m := map[rune]int{}
 
 	for _, word := range words {
@@ -295,12 +295,10 @@ func (s *Solver) GetAllLetters() map[rune]int {
 		m[tile.Letter]++
 	}
 
-	delete(m, board.Empty)
-
 	return m
 }
 
-// NarrowPossibles finds matches for each word and records those letters
+// narrowPossibles finds matches for each word and records those letters
 func (s *Solver) narrowPossibles(dict []string) {
 	// For each across/down word, look up its regex in dict.
 	// For each match, replace possible letters with set
@@ -310,12 +308,12 @@ func (s *Solver) narrowPossibles(dict []string) {
 		if row%2 == 1 {
 			continue
 		}
-		re := s.RegexAcross(row)
+		re := s.regexAcross(row)
 		ye := s.YellowEvenRow(row)
-		matches := MatchWords(re, ye, dict)
+		matches := matchWords(re, ye, dict)
 
 		for col := 0; col < s.Size(); col++ {
-			s.possibles[row][col] = UniqueLetters(matches, col)
+			s.possibles[row][col] = uniqueLetters(matches, col)
 		}
 	}
 
@@ -323,12 +321,12 @@ func (s *Solver) narrowPossibles(dict []string) {
 		if col%2 == 1 {
 			continue
 		}
-		re := s.RegexDown(col)
+		re := s.regexDown(col)
 		ye := s.YellowEvenCol(col)
-		matches := MatchWords(re, ye, dict)
+		matches := matchWords(re, ye, dict)
 
 		for row := 0; row < s.Size(); row++ {
-			s.possibles[row][col] = UniqueLetters(matches, row)
+			s.possibles[row][col] = uniqueLetters(matches, row)
 		}
 	}
 
@@ -382,7 +380,7 @@ func (s *Solver) Print() {
 		if row%2 == 1 {
 			continue
 		}
-		re := s.RegexAcross(row)
+		re := s.regexAcross(row)
 		fmt.Printf("A%d: egrep '%s' ../dictionaries/merged.dict\n", row, re)
 	}
 
@@ -392,7 +390,7 @@ func (s *Solver) Print() {
 		if col%2 == 1 {
 			continue
 		}
-		re := s.RegexDown(col)
+		re := s.regexDown(col)
 		fmt.Printf("C%d: egrep '%s' ../dictionaries/merged.dict\n", col, re)
 	}
 }
