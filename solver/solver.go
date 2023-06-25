@@ -14,24 +14,17 @@ type Solver struct {
 	possibles [][][]rune
 }
 
-// newSlices creates a board.Grid, populated with empty []rune slices
-func newSlices(size int) [][][]rune {
-	var b [][][]rune
-
-	b = make([][][]rune, size)
-	for row := 0; row < size; row++ {
-		b[row] = make([][]rune, size)
-	}
-
-	return b
-}
-
 // New creates an empty waffle game solver
 func New(w board.Waffle) Solver {
 	var s Solver
 
 	s.game = w
-	s.possibles = newSlices(s.Size())
+
+	// An empty square of []rune slices
+	s.possibles = make([][][]rune, s.Size())
+	for row := 0; row < s.Size(); row++ {
+		s.possibles[row] = make([][]rune, s.Size())
+	}
 
 	return s
 }
