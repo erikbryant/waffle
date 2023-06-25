@@ -110,6 +110,19 @@ func (w *Waffle) Tiles() []Tile {
 	return tiles
 }
 
+// Letters returns the letters of a given color and their count
+func (w *Waffle) Letters(c rune) map[rune]int {
+	m := map[rune]int{}
+
+	for _, tile := range w.Tiles() {
+		if tile.Color == c {
+			m[tile.Letter]++
+		}
+	}
+
+	return m
+}
+
 // maskForColor returns the console text mask for the given tile color
 func maskForColor(c rune) *color.Color {
 	mask := color.New(color.FgWhite, color.Bold)

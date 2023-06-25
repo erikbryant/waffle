@@ -55,15 +55,15 @@ func (s *Solver) Set(row, col int, l, c rune) {
 	s.game.Set(row, col, l, c)
 }
 
-// SetPossibles assigns the set of possible letters to each tile
-func (s *Solver) SetPossibles() {
+// setPossibles assigns the set of possible letters to each tile
+func (s *Solver) setPossibles() {
 	for _, tile := range s.game.Tiles() {
-		s.possibles[tile.Row][tile.Col] = s.PossibleLetters(tile.Row, tile.Col)
+		s.possibles[tile.Row][tile.Col] = s.possibleLetters(tile.Row, tile.Col)
 	}
 }
 
-// PossibleLetters returns the set of all possible letters for the given tile
-func (s *Solver) PossibleLetters(row, col int) []rune {
+// possibleLetters returns the set of all possible letters for the given tile
+func (s *Solver) possibleLetters(row, col int) []rune {
 	letter, color := s.Get(row, col)
 
 	if color == board.Empty {
@@ -100,26 +100,12 @@ func (s *Solver) PossibleLetters(row, col int) []rune {
 
 // WhiteTiles returns the letters on all of the white tiles
 func (s *Solver) WhiteTiles() map[rune]int {
-	m := map[rune]int{}
-
-	for _, tile := range s.game.Tiles() {
-		if tile.Color == board.White {
-			m[tile.Letter]++
-		}
-	}
-
-	return m
+	return s.game.Letters(board.White)
 }
 
 // YellowDupes returns any yellow tile letters that are duplicates of each other
 func (s *Solver) YellowDupes() map[rune]int {
-	m := map[rune]int{}
-
-	for _, tile := range s.game.Tiles() {
-		if tile.Color == board.Yellow {
-			m[tile.Letter]++
-		}
-	}
+	m := s.game.Letters(board.Yellow)
 
 	for key, val := range m {
 		if val < 2 {
@@ -131,8 +117,8 @@ func (s *Solver) YellowDupes() map[rune]int {
 	return m
 }
 
-// TilesInRow returns the set of letters (and their count) from the given row
-func (s *Solver) TilesInRow(row, col int, match rune) map[rune]int {
+// TilesInRow returns the set of letters of a given color (and their count) adjacent to the given coord
+func (s *Solver) TilesInRow(row, col int, matchColor rune) map[rune]int {
 	m := map[rune]int{}
 
 	// Tiles to the left
@@ -141,7 +127,7 @@ func (s *Solver) TilesInRow(row, col int, match rune) map[rune]int {
 		if c == board.Empty {
 			break
 		}
-		if c == match {
+		if c == matchColor {
 			m[l]++
 		}
 	}
@@ -152,7 +138,7 @@ func (s *Solver) TilesInRow(row, col int, match rune) map[rune]int {
 		if c == board.Empty {
 			break
 		}
-		if c == match {
+		if c == matchColor {
 			m[l]++
 		}
 	}
@@ -160,7 +146,7 @@ func (s *Solver) TilesInRow(row, col int, match rune) map[rune]int {
 	return m
 }
 
-// TilesInCol returns the set of letters (and their count) from the given col
+// TilesInCol returns the set of letters of a given color (and their count) adjacent to the given coord
 func (s *Solver) TilesInCol(row, col int, match rune) map[rune]int {
 	m := map[rune]int{}
 
@@ -330,7 +316,7 @@ func (s *Solver) GetAllLetters() map[rune]int {
 }
 
 // NarrowPossibles finds matches for each word and records those letters
-func (s *Solver) NarrowPossibles(dict []string) {
+func (s *Solver) narrowPossibles(dict []string) {
 	// For each across/down word, look up its regex in dict.
 	// For each match, replace possible letters with set
 	// of letters from matched words.
@@ -449,10 +435,10 @@ func loadDict(wordLen int) []string {
 func (s *Solver) Solve() bool {
 	guessables := loadDict(s.Width())
 
-	s.SetPossibles()
+	s.setPossibles()
 	attempts := 0
 	for !s.Solved() {
-		s.NarrowPossibles(guessables)
+		s.narrowPossibles(guessables)
 		attempts++
 		if attempts > 10 {
 			return false
