@@ -82,7 +82,8 @@ func (s *Solver) PossibleLetters(row, col int) []rune {
 		return []rune{letter}
 	}
 
-	//   pl := w + yd - w(row) - w(col) + y(row) + y(col) - s
+	// The set of possible letters is defined as:
+	// pl := w + yd - w(row) - w(col) + y(row) + y(col) - s
 
 	possible := s.WhiteTiles()
 	for k := range s.YellowDupes() {
@@ -105,6 +106,7 @@ func (s *Solver) PossibleLetters(row, col int) []rune {
 	return util.Keys(possible)
 }
 
+// WhiteTiles returns the letters on all of the white tiles
 func (s *Solver) WhiteTiles() map[rune]int {
 	m := map[rune]int{}
 
@@ -120,6 +122,7 @@ func (s *Solver) WhiteTiles() map[rune]int {
 	return m
 }
 
+// YellowDupes returns any yellow tile letters that are duplicates of each other
 func (s *Solver) YellowDupes() map[rune]int {
 	m := map[rune]int{}
 
@@ -142,6 +145,7 @@ func (s *Solver) YellowDupes() map[rune]int {
 	return m
 }
 
+// TilesInRow returns the set of letters (and their count) from the given row
 func (s *Solver) TilesInRow(row, col int, match rune) map[rune]int {
 	m := map[rune]int{}
 
@@ -170,6 +174,7 @@ func (s *Solver) TilesInRow(row, col int, match rune) map[rune]int {
 	return m
 }
 
+// TilesInCol returns the set of letters (and their count) from the given col
 func (s *Solver) TilesInCol(row, col int, match rune) map[rune]int {
 	m := map[rune]int{}
 
@@ -198,6 +203,7 @@ func (s *Solver) TilesInCol(row, col int, match rune) map[rune]int {
 	return m
 }
 
+// RegexAcross returns the regular expression of the possible letters for the given row
 func (s *Solver) RegexAcross(i int) string {
 	if i%2 == 1 {
 		return ""
@@ -216,6 +222,7 @@ func (s *Solver) RegexAcross(i int) string {
 	return re
 }
 
+// RegexCown returns the regular expression of the possible letters for the given col
 func (s *Solver) RegexDown(i int) string {
 	if i%2 == 1 {
 		return ""
@@ -234,6 +241,7 @@ func (s *Solver) RegexDown(i int) string {
 	return re
 }
 
+// YellowEvenRow returns the letters on yellow tiles in non-intersections for the given row
 func (s *Solver) YellowEvenRow(i int) []string {
 	y := []string{}
 
@@ -250,6 +258,7 @@ func (s *Solver) YellowEvenRow(i int) []string {
 	return y
 }
 
+// YellowEvenCol returns the letters on yellow tiles in non-intersections for the given col
 func (s *Solver) YellowEvenCol(i int) []string {
 	y := []string{}
 
@@ -266,6 +275,7 @@ func (s *Solver) YellowEvenCol(i int) []string {
 	return y
 }
 
+// MatchWords returns all dictionary words that match the given re and ye criteria
 func MatchWords(re string, dict []string, ye []string) []string {
 	matches := []string{}
 	for _, word := range dict {
