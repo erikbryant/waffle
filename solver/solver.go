@@ -40,7 +40,7 @@ func (s *Solver) Width() int {
 	return s.game.Width()
 }
 
-// Width returns the height of the waffle game
+// Height returns the height of the waffle game
 func (s *Solver) Height() int {
 	return s.game.Height()
 }
@@ -55,13 +55,7 @@ func (s *Solver) Set(row, col int, l, c rune) {
 	s.game.Set(row, col, l, c)
 }
 
-func (s *Solver) GetSolution(row, col int) rune {
-	if len(s.possibles[row][col]) != 1 {
-		fmt.Println("ERROR! Z3", row, col, s.possibles[row][col])
-	}
-	return s.possibles[row][col][0]
-}
-
+// SetPossibles assigns the set of possible letters to each tile
 func (s *Solver) SetPossibles() {
 	for row := 0; row < s.Height(); row++ {
 		for col := 0; col < s.Width(); col++ {
