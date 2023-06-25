@@ -251,7 +251,7 @@ func (s *Solver) YellowEvenRow(i int) []string {
 		}
 		l, c := s.Get(i, col)
 		if c == board.Yellow {
-			y = append(y, "["+string(l)+"]")
+			y = append(y, string(l))
 		}
 	}
 
@@ -268,7 +268,7 @@ func (s *Solver) YellowEvenCol(i int) []string {
 		}
 		l, c := s.Get(row, i)
 		if c == board.Yellow {
-			y = append(y, "["+string(l)+"]")
+			y = append(y, string(l))
 		}
 	}
 
