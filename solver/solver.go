@@ -4,7 +4,7 @@ import (
 	"fmt"
 	"github.com/erikbryant/dictionaries"
 	"github.com/erikbryant/waffle/board"
-	"github.com/erikbryant/waffle/util"
+	"golang.org/x/exp/maps"
 	"regexp"
 )
 
@@ -103,7 +103,7 @@ func (s *Solver) PossibleLetters(row, col int) []rune {
 	}
 	delete(possible, letter)
 
-	return util.Keys(possible)
+	return maps.Keys(possible)
 }
 
 // WhiteTiles returns the letters on all of the white tiles
@@ -328,7 +328,7 @@ func UniqueLetters(words []string, index int) []rune {
 		m[rune(l)]++
 	}
 
-	return util.Keys(m)
+	return maps.Keys(m)
 }
 
 func (s *Solver) GetAllLetters() map[rune]int {
@@ -404,7 +404,7 @@ func (s *Solver) NarrowPossibles(dict []string) {
 		}
 	}
 
-	tbp := string(util.Keys(sl))
+	tbp := string(maps.Keys(sl))
 
 	// Remove any letters not in the to-be-placed set
 	for row := 0; row < s.Height(); row++ {
