@@ -288,16 +288,6 @@ func uniqueLetters(words []string, index int) []rune {
 	return maps.Keys(m)
 }
 
-func (s *Solver) GetAllLetters() map[rune]int {
-	m := map[rune]int{}
-
-	for _, tile := range s.game.Tiles() {
-		m[tile.Letter]++
-	}
-
-	return m
-}
-
 // narrowPossibles finds matches for each word and records those letters
 func (s *Solver) narrowPossibles(dict []string) {
 	// For each across/down word, look up its regex in dict.
@@ -337,7 +327,7 @@ func (s *Solver) narrowPossibles(dict []string) {
 	// possibles (sets > lenght one) contain letters other than
 	// these, remove the extraneous letters.
 
-	sl := s.GetAllLetters()
+	sl := s.game.AllLetters()
 
 	// Find letters that still need to be placed
 	for _, tile := range s.game.Tiles() {
