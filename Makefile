@@ -11,8 +11,8 @@ run: test
 	cd main ; go run ./...
 
 regress: test
-	cd test ; go run test.go -cpuprofile cpu.prof
-	echo "top10" | go tool pprof test/cpu.prof
+	cd regress ; go run regress.go -cpuprofile cpu.prof
+	echo "top10" | go tool pprof regress/cpu.prof
 
 # Targets that do not represent actual files
 .PHONY: fmt vet test regress run

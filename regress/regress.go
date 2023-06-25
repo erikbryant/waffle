@@ -44,7 +44,7 @@ func TestSolve() {
 }
 
 func main() {
-	fmt.Println("Welcome to waffle!")
+	fmt.Println("Welcome to waffle regression tests!")
 
 	flag.Parse()
 	if *cpuprofile != "" {
