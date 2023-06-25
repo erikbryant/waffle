@@ -46,7 +46,12 @@ func TestSolve() {
 	for _, testCase := range testCases {
 		waffle := board.Parse(testCase)
 		s := solver.New(waffle)
-		s.Solve()
+		solved := s.Solve()
+		if !solved {
+			fmt.Println("Unable to solve:", testCase)
+			s.Print()
+			fmt.Println()
+		}
 	}
 }
 
