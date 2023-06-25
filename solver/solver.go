@@ -74,7 +74,7 @@ func (s *Solver) SetPossibles() {
 func (s *Solver) PossibleLetters(row, col int) []rune {
 	letter, color := s.Get(row, col)
 
-	if color == board.Border || color == board.Empty {
+	if color == board.Empty {
 		return []rune{}
 	}
 
@@ -152,7 +152,7 @@ func (s *Solver) TilesInRow(row, col int, match rune) map[rune]int {
 	// Tiles to the left
 	for colRef := col - 1; colRef >= 0; colRef-- {
 		l, c := s.Get(row, colRef)
-		if c == board.Empty || c == board.Border {
+		if c == board.Empty {
 			break
 		}
 		if c == match {
@@ -163,7 +163,7 @@ func (s *Solver) TilesInRow(row, col int, match rune) map[rune]int {
 	// This tile and ones to the right
 	for colRef := col; colRef < s.Width(); colRef++ {
 		l, c := s.Get(row, colRef)
-		if c == board.Empty || c == board.Border {
+		if c == board.Empty {
 			break
 		}
 		if c == match {
@@ -181,7 +181,7 @@ func (s *Solver) TilesInCol(row, col int, match rune) map[rune]int {
 	// Tiles to the up
 	for rowRef := row - 1; rowRef >= 0; rowRef-- {
 		l, c := s.Get(rowRef, col)
-		if c == board.Empty || c == board.Border {
+		if c == board.Empty {
 			break
 		}
 		if c == match {
@@ -192,7 +192,7 @@ func (s *Solver) TilesInCol(row, col int, match rune) map[rune]int {
 	// This tile and ones to the down
 	for rowRef := row; rowRef < s.Width(); rowRef++ {
 		l, c := s.Get(rowRef, col)
-		if c == board.Empty || c == board.Border {
+		if c == board.Empty {
 			break
 		}
 		if c == match {

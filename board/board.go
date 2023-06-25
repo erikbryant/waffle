@@ -8,7 +8,6 @@ import (
 
 const (
 	Empty  = ' '
-	Border = 'X'
 	Green  = 'g'
 	Yellow = 'y'
 	White  = 'w'
@@ -67,7 +66,7 @@ func (w *Waffle) Height() int {
 // Get returns the letter and color at row, col
 func (w *Waffle) Get(row, col int) (rune, rune) {
 	if row < 0 || row >= w.Height() || col < 0 || col >= w.Width() {
-		return Border, Border
+		return Empty, Empty
 	}
 	return w.letters[row][col], w.colors[row][col]
 }
