@@ -211,6 +211,10 @@ func (s *Solver) RegexAcross(i int) string {
 
 	re := "^"
 	for col := 0; col < s.Width(); col++ {
+		if len(s.possibles[i][col]) == 1 {
+			re += string(s.possibles[i][col][0])
+			continue
+		}
 		re += "["
 		for _, l := range s.possibles[i][col] {
 			re += string(l)
@@ -230,6 +234,10 @@ func (s *Solver) RegexDown(i int) string {
 
 	re := "^"
 	for row := 0; row < s.Height(); row++ {
+		if len(s.possibles[row][i]) == 1 {
+			re += string(s.possibles[row][i][0])
+			continue
+		}
 		re += "["
 		for _, l := range s.possibles[row][i] {
 			re += string(l)
