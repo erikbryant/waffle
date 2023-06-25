@@ -10,9 +10,9 @@ test: vet
 run: test
 	cd main ; go run ./...
 
-pprof: test
-	cd main ; go run waffle.go -cpuprofile cpu.prof
-	echo "top10" | go tool pprof main/cpu.prof
+regress: test
+	cd test ; go run test.go -cpuprofile cpu.prof
+	echo "top10" | go tool pprof test/cpu.prof
 
 # Targets that do not represent actual files
-.PHONY: fmt vet test run pprof
+.PHONY: fmt vet test regress run
