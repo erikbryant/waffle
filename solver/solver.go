@@ -329,33 +329,27 @@ func (s *Solver) narrowPossibles(dict []string) {
 	// possibles (sets > length one) contain letters other than
 	// these, remove the extraneous letters.
 
-	sl := s.game.AllLetters()
+	all := s.game.AllLetters()
 
-	// Find letters that still need to be placed
+	// Remove letters that are already placed
 	for _, tile := range s.game.Tiles() {
 		p := s.possibles[tile.Row][tile.Col]
 		if len(p) == 1 {
 			// We have narrowed possibles down to just one
-			sl[p[0]]--
-			if sl[p[0]] == 0 {
-				delete(sl, p[0])
+			all[p[0]]--
+			if all[p[0]] == 0 {
+				delete(all, p[0])
 			}
 		}
 	}
 
-	tbp := string(maps.Keys(sl))
-
-	// Remove any letters not in the to-be-placed set
+	// Remove from possibles letters that are not in to-be-placed
 	for _, tile := range s.game.Tiles() {
 		p := s.possibles[tile.Row][tile.Col]
 		if len(p) > 1 {
 			newP := []rune{}
 			for _, l := range p {
-				matched, err := regexp.MatchString(string(l), tbp)
-				if err != nil {
-					fmt.Println("ERROR! A", string(l), tbp)
-				}
-				if matched {
+				if all[l] != 0 {
 					newP = append(newP, l)
 				}
 			}
