@@ -4,37 +4,30 @@ import (
 	"testing"
 )
 
-func TestWidthHeight(t *testing.T) {
+func TestSize(t *testing.T) {
 	testCases := []struct {
-		width  int
-		height int
+		size int
 	}{
-		{0, 0},
-		{1, 0},
-		{0, 1},
-		{1, 1},
-		{5, 5},
-		{7, 7},
+		{0},
+		{1},
+		{5},
+		{7},
 	}
 
 	for _, testCase := range testCases {
-		waffle := New(testCase.width, testCase.height)
-		val := waffle.Width()
-		if val != testCase.width {
-			t.Errorf("ERROR: For width expected %d got %d", testCase.width, val)
-		}
-		val = waffle.Height()
-		if val != testCase.height {
-			t.Errorf("ERROR: For height expected %d got %d", testCase.height, val)
+		waffle := New(testCase.size)
+		size := waffle.Size()
+		if size != testCase.size {
+			t.Errorf("ERROR: Expected %d got %d", testCase.size, size)
 		}
 	}
 }
 
 func TestNew(t *testing.T) {
-	waffle := New(3, 4)
+	waffle := New(4)
 
-	for row := 0; row < waffle.Height(); row++ {
-		for col := 0; col < waffle.Width(); col++ {
+	for row := 0; row < waffle.Size(); row++ {
+		for col := 0; col < waffle.Size(); col++ {
 			letter, color := waffle.Get(row, col)
 			if letter != Empty {
 				t.Errorf("ERROR: For letter expected '%c' got '%c'", Empty, letter)
@@ -63,7 +56,7 @@ func TestSetGet(t *testing.T) {
 		{4, 4, 'z', Green, 'z', Green},
 	}
 
-	waffle := New(5, 5)
+	waffle := New(5)
 
 	for _, testCase := range testCases {
 		waffle.Set(testCase.row, testCase.col, testCase.letter, testCase.color)
@@ -79,28 +72,23 @@ func TestSetGet(t *testing.T) {
 
 func TestParse(t *testing.T) {
 	testCases := []struct {
-		serial  string
-		expectW int
-		expectH int
-		row     int
-		col     int
-		expectL rune
-		expectC rune
+		serial     string
+		expectSize int
+		row        int
+		col        int
+		expectL    rune
+		expectC    rune
 	}{
-		{"fboueg.i.ulsoomg.e.loemna/gwwggw.w.wgygyyw.y.wgyywg", 5, 5, 4, 4, 'a', Green},
-		{"eifdstal.i.p.apertislt.e.e.senithvte.m.t.ueuedrra/yygygwyw.w.w.wgwgggwgw.w.y.wgwgggwgw.w.y.wywgygww", 7, 7, 1, 2, 'i', White},
+		{"fboueg i ulsoomg e loemna/gwwggw w wgygyyw y wgyywg", 5, 4, 4, 'a', Green},
+		{"eifdstal i p apertislt e e senithvte m t ueuedrra/yygygwyw w w wgwgggwgw w y wgwgggwgw w y wywgygww", 7, 1, 2, 'i', White},
 	}
 
 	for _, testCase := range testCases {
 		waffle := Parse(testCase.serial)
 
-		val := waffle.Width()
-		if val != testCase.expectW {
-			t.Errorf("ERROR: For width expected %d got %d", testCase.expectW, val)
-		}
-		val = waffle.Height()
-		if val != testCase.expectH {
-			t.Errorf("ERROR: For height expected %d got %d", testCase.expectH, val)
+		size := waffle.Size()
+		if size != testCase.expectSize {
+			t.Errorf("ERROR: Expected %d got %d", testCase.expectSize, size)
 		}
 
 		letter, color := waffle.Get(testCase.row, testCase.col)
@@ -109,6 +97,23 @@ func TestParse(t *testing.T) {
 		}
 		if color != testCase.expectC {
 			t.Errorf("ERROR: For (%d, %d) color expected '%c' got '%c'", testCase.row, testCase.col, testCase.expectC, color)
+		}
+	}
+}
+
+func TestSerialize(t *testing.T) {
+	testCases := []struct {
+		serial string
+	}{
+		{"fboueg i ulsoomg e loemna/gwwggw w wgygyyw y wgyywg"},
+		{"eifdstal i p apertislt e e senithvte m t ueuedrra/yygygwyw w w wgwgggwgw w y wgwgggwgw w y wywgygww"},
+	}
+
+	for _, testCase := range testCases {
+		waffle := Parse(testCase.serial)
+		serial := waffle.Serialize()
+		if serial != testCase.serial {
+			t.Errorf("ERROR: Expected %s got %s", testCase.serial, serial)
 		}
 	}
 }

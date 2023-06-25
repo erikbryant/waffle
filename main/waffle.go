@@ -28,7 +28,7 @@ func main() {
 		defer pprof.StopCPUProfile()
 	}
 
-	serial := "smkupm.w.nknbeui.e.rgaiey/gyywgw.w.ywygwyw.y.wgwyyg" // 515
+	serial := "smkupm w nknbeui e rgaiey/gyywgw w ywygwyw y wgwyyg" // 515
 
 	waffle := board.Parse(serial)
 	s := solver.New(waffle)

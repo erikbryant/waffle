@@ -30,19 +30,14 @@ func New(w board.Waffle) Solver {
 	var s Solver
 
 	s.game = w
-	s.possibles = newSlices(s.Width(), s.Height())
+	s.possibles = newSlices(s.Size(), s.Size())
 
 	return s
 }
 
-// Width returns the width of the waffle game
-func (s *Solver) Width() int {
-	return s.game.Width()
-}
-
-// Height returns the height of the waffle game
-func (s *Solver) Height() int {
-	return s.game.Height()
+// Size returns the size of the waffle game
+func (s *Solver) Size() int {
+	return s.game.Size()
 }
 
 // Get returns the letter and color at row, col
@@ -133,7 +128,7 @@ func (s *Solver) TilesInRow(row, col int, matchColor rune) map[rune]int {
 	}
 
 	// This tile and ones to the right
-	for i := col; i < s.Width(); i++ {
+	for i := col; i < s.Size(); i++ {
 		l, c := s.Get(row, i)
 		if c == board.Empty {
 			break
@@ -162,7 +157,7 @@ func (s *Solver) TilesInCol(row, col int, matchColor rune) map[rune]int {
 	}
 
 	// This tile and ones to the down
-	for i := row; i < s.Height(); i++ {
+	for i := row; i < s.Size(); i++ {
 		l, c := s.Get(i, col)
 		if c == board.Empty {
 			break
@@ -182,7 +177,7 @@ func (s *Solver) RegexAcross(i int) string {
 	}
 
 	re := "^"
-	for col := 0; col < s.Width(); col++ {
+	for col := 0; col < s.Size(); col++ {
 		if len(s.possibles[i][col]) == 1 {
 			re += string(s.possibles[i][col][0])
 			continue
@@ -205,7 +200,7 @@ func (s *Solver) RegexDown(i int) string {
 	}
 
 	re := "^"
-	for row := 0; row < s.Height(); row++ {
+	for row := 0; row < s.Size(); row++ {
 		if len(s.possibles[row][i]) == 1 {
 			re += string(s.possibles[row][i][0])
 			continue
@@ -225,7 +220,7 @@ func (s *Solver) RegexDown(i int) string {
 func (s *Solver) YellowEvenRow(i int) []string {
 	y := []string{}
 
-	for col := 0; col < s.Width(); col++ {
+	for col := 0; col < s.Size(); col++ {
 		if col%2 == 0 {
 			continue
 		}
@@ -244,7 +239,7 @@ func (s *Solver) YellowEvenRow(i int) []string {
 func (s *Solver) YellowEvenCol(i int) []string {
 	y := []string{}
 
-	for row := 0; row < s.Height(); row++ {
+	for row := 0; row < s.Size(); row++ {
 		if row%2 == 0 {
 			continue
 		}
@@ -321,7 +316,7 @@ func (s *Solver) narrowPossibles(dict []string) {
 	// For each match, replace possible letters with set
 	// of letters from matched words.
 
-	for row := 0; row < s.Height(); row++ {
+	for row := 0; row < s.Size(); row++ {
 		if row%2 == 1 {
 			continue
 		}
@@ -329,12 +324,12 @@ func (s *Solver) narrowPossibles(dict []string) {
 		ye := s.YellowEvenRow(row)
 		matches := MatchWords(re, dict, ye)
 
-		for col := 0; col < s.Width(); col++ {
+		for col := 0; col < s.Size(); col++ {
 			s.possibles[row][col] = UniqueLetters(matches, col)
 		}
 	}
 
-	for col := 0; col < s.Width(); col++ {
+	for col := 0; col < s.Size(); col++ {
 		if col%2 == 1 {
 			continue
 		}
@@ -342,7 +337,7 @@ func (s *Solver) narrowPossibles(dict []string) {
 		ye := s.YellowEvenCol(col)
 		matches := MatchWords(re, dict, ye)
 
-		for row := 0; row < s.Height(); row++ {
+		for row := 0; row < s.Size(); row++ {
 			s.possibles[row][col] = UniqueLetters(matches, row)
 		}
 	}
@@ -393,7 +388,7 @@ func (s *Solver) narrowPossibles(dict []string) {
 func (s *Solver) Print() {
 	s.game.Print()
 
-	for row := 0; row < s.Height(); row++ {
+	for row := 0; row < s.Size(); row++ {
 		if row%2 == 1 {
 			continue
 		}
@@ -403,7 +398,7 @@ func (s *Solver) Print() {
 
 	fmt.Println()
 
-	for col := 0; col < s.Width(); col++ {
+	for col := 0; col < s.Size(); col++ {
 		if col%2 == 1 {
 			continue
 		}
@@ -433,7 +428,7 @@ func loadDict(wordLen int) []string {
 
 // Solve solves the waffle board game
 func (s *Solver) Solve() bool {
-	guessables := loadDict(s.Width())
+	guessables := loadDict(s.Size())
 
 	s.setPossibles()
 	attempts := 0

@@ -17,8 +17,7 @@ type Grid [][]rune
 
 // Waffle implements a waffle game board
 type Waffle struct {
-	width   int
-	height  int
+	size    int
 	letters Grid
 	colors  Grid
 }
@@ -31,16 +30,16 @@ type Tile struct {
 }
 
 // newGrid creates a new grid, populated with empty squares
-func newGrid(width, height int) Grid {
+func newGrid(size int) Grid {
 	var grid Grid
 
-	grid = make(Grid, height)
-	for row := 0; row < height; row++ {
-		grid[row] = make([]rune, width)
+	grid = make(Grid, size)
+	for row := 0; row < size; row++ {
+		grid[row] = make([]rune, size)
 	}
 
-	for row := 0; row < height; row++ {
-		for col := 0; col < width; col++ {
+	for row := 0; row < size; row++ {
+		for col := 0; col < size; col++ {
 			grid[row][col] = Empty
 		}
 	}
@@ -49,30 +48,24 @@ func newGrid(width, height int) Grid {
 }
 
 // New creates an empty waffle game board
-func New(width, height int) Waffle {
+func New(size int) Waffle {
 	var w Waffle
 
-	w.width = width
-	w.height = height
-	w.letters = newGrid(w.Width(), w.Height())
-	w.colors = newGrid(w.Width(), w.Height())
+	w.size = size
+	w.letters = newGrid(w.Size())
+	w.colors = newGrid(w.Size())
 
 	return w
 }
 
-// Width returns the width of the waffle game
-func (w *Waffle) Width() int {
-	return w.width
-}
-
-// Height returns the height of the waffle game
-func (w *Waffle) Height() int {
-	return w.height
+// Size returns the size of the waffle game
+func (w *Waffle) Size() int {
+	return w.size
 }
 
 // Get returns the letter and color at row, col
 func (w *Waffle) Get(row, col int) (rune, rune) {
-	if row < 0 || row >= w.Height() || col < 0 || col >= w.Width() {
+	if row < 0 || row >= w.Size() || col < 0 || col >= w.Size() {
 		return Empty, Empty
 	}
 	return w.letters[row][col], w.colors[row][col]
@@ -81,7 +74,7 @@ func (w *Waffle) Get(row, col int) (rune, rune) {
 // Set sets the letter and color at row, col
 func (w *Waffle) Set(row, col int, l, c rune) {
 	// We are outside the bounds of the grid
-	if row < 0 || row >= w.Height() || col < 0 || col >= w.Width() {
+	if row < 0 || row >= w.Size() || col < 0 || col >= w.Size() {
 		return
 	}
 
@@ -98,8 +91,8 @@ func (w *Waffle) Set(row, col int, l, c rune) {
 func (w *Waffle) Tiles() []Tile {
 	tiles := []Tile{}
 
-	for row := 0; row < w.Height(); row++ {
-		for col := 0; col < w.Width(); col++ {
+	for row := 0; row < w.Size(); row++ {
+		for col := 0; col < w.Size(); col++ {
 			l, c := w.Get(row, col)
 			if l != Empty {
 				tiles = append(tiles, Tile{row, col, l, c})
@@ -145,10 +138,10 @@ func maskForColor(c rune) *color.Color {
 
 // Print prints the waffle game board state to the console
 func (w *Waffle) Print() {
-	fmt.Printf("Waffle (%dx%d)\n", w.Width(), w.Height())
+	fmt.Printf("Waffle (%dx%d)\n", w.Size(), w.Size())
 
-	for row := 0; row < w.Height(); row++ {
-		for col := 0; col < w.Width(); col++ {
+	for row := 0; row < w.Size(); row++ {
+		for col := 0; col < w.Size(); col++ {
 			l, c := w.Get(row, col)
 			mask := maskForColor(c)
 			mask.Printf("%c", l)
@@ -163,10 +156,10 @@ func (w *Waffle) Print() {
 func Parse(serial string) Waffle {
 	tiles := (len(serial) - 1) / 2
 	size := int(math.Sqrt(float64(tiles)))
-	w := New(size, size)
+	w := New(size)
 
-	for row := 0; row < w.Height(); row++ {
-		for col := 0; col < w.Width(); col++ {
+	for row := 0; row < w.Size(); row++ {
+		for col := 0; col < w.Size(); col++ {
 			l := serial[row*size+col]
 			c := serial[row*size+col+(tiles+1)]
 			w.Set(row, col, rune(l), rune(c))
@@ -174,4 +167,27 @@ func Parse(serial string) Waffle {
 	}
 
 	return w
+}
+
+// Serialize packs a waffle game board into a string
+func (w *Waffle) Serialize() string {
+	s := ""
+
+	for row := 0; row < w.Size(); row++ {
+		for col := 0; col < w.Size(); col++ {
+			l, _ := w.Get(row, col)
+			s += string(l)
+		}
+	}
+
+	s += "/"
+
+	for row := 0; row < w.Size(); row++ {
+		for col := 0; col < w.Size(); col++ {
+			_, c := w.Get(row, col)
+			s += string(c)
+		}
+	}
+
+	return s
 }

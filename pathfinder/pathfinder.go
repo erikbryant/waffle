@@ -34,12 +34,8 @@ func New(s solver.Solver) Path {
 	return p
 }
 
-func (p *Path) Width() int {
-	return p.solution.Width()
-}
-
-func (p *Path) Height() int {
-	return p.solution.Height()
+func (p *Path) Size() int {
+	return p.solution.Size()
 }
 
 // func (p *Path) GetSolution(row, col int) rune {
