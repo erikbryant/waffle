@@ -110,26 +110,34 @@ func (w *Waffle) Tiles() []Tile {
 	return tiles
 }
 
-// Print prints the game board state to the console
+// maskForColor returns the console text mask for the given tile color
+func maskForColor(c rune) *color.Color {
+	mask := color.New(color.FgWhite, color.Bold)
+
+	switch c {
+	case Green:
+		mask = mask.Add(color.BgGreen)
+	case Yellow:
+		mask = mask.Add(color.BgYellow)
+	case White:
+		mask = color.New(color.FgBlack)
+		mask = mask.Add(color.BgWhite)
+	case Empty:
+	default:
+		mask = mask.Add(color.BgRed)
+	}
+
+	return mask
+}
+
+// Print prints the waffle game board state to the console
 func (w *Waffle) Print() {
 	fmt.Printf("Waffle (%dx%d)\n", w.Width(), w.Height())
 
 	for row := 0; row < w.Height(); row++ {
 		for col := 0; col < w.Width(); col++ {
 			l, c := w.Get(row, col)
-			mask := color.New(color.FgWhite, color.Bold)
-			switch c {
-			case Green:
-				mask = mask.Add(color.BgGreen)
-			case Yellow:
-				mask = mask.Add(color.BgYellow)
-			case White:
-				mask = color.New(color.FgBlack)
-				mask = mask.Add(color.BgWhite)
-			case Empty:
-			default:
-				mask = mask.Add(color.BgRed)
-			}
+			mask := maskForColor(c)
 			mask.Printf("%c", l)
 		}
 		fmt.Printf("\n")
@@ -138,7 +146,7 @@ func (w *Waffle) Print() {
 	fmt.Printf("\n")
 }
 
-// Parse unpacks a string into its corresponding waffle board
+// Parse unpacks a string into its corresponding waffle game board
 func Parse(serial string) Waffle {
 	tiles := (len(serial) - 1) / 2
 	size := int(math.Sqrt(float64(tiles)))
