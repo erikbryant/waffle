@@ -23,6 +23,13 @@ type Waffle struct {
 	colors  Grid
 }
 
+type Tile struct {
+	Row    int
+	Col    int
+	Letter rune
+	Color  rune
+}
+
 // newGrid creates a new grid, populated with empty squares
 func newGrid(width, height int) Grid {
 	var grid Grid
@@ -85,6 +92,22 @@ func (w *Waffle) Set(row, col int, l, c rune) {
 
 	w.letters[row][col] = l
 	w.colors[row][col] = c
+}
+
+// Tiles returns a slice of every tile on the waffle game board
+func (w *Waffle) Tiles() []Tile {
+	tiles := []Tile{}
+
+	for row := 0; row < w.Height(); row++ {
+		for col := 0; col < w.Width(); col++ {
+			l, c := w.Get(row, col)
+			if l != Empty {
+				tiles = append(tiles, Tile{row, col, l, c})
+			}
+		}
+	}
+
+	return tiles
 }
 
 // Print prints the game board state to the console

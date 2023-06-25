@@ -57,10 +57,8 @@ func (s *Solver) Set(row, col int, l, c rune) {
 
 // SetPossibles assigns the set of possible letters to each tile
 func (s *Solver) SetPossibles() {
-	for row := 0; row < s.Height(); row++ {
-		for col := 0; col < s.Width(); col++ {
-			s.possibles[row][col] = s.PossibleLetters(row, col)
-		}
+	for _, tile := range s.game.Tiles() {
+		s.possibles[tile.Row][tile.Col] = s.PossibleLetters(tile.Row, tile.Col)
 	}
 }
 
@@ -104,12 +102,9 @@ func (s *Solver) PossibleLetters(row, col int) []rune {
 func (s *Solver) WhiteTiles() map[rune]int {
 	m := map[rune]int{}
 
-	for row := 0; row < s.Height(); row++ {
-		for col := 0; col < s.Width(); col++ {
-			l, c := s.Get(row, col)
-			if c == board.White {
-				m[l]++
-			}
+	for _, tile := range s.game.Tiles() {
+		if tile.Color == board.White {
+			m[tile.Letter]++
 		}
 	}
 
@@ -120,19 +115,16 @@ func (s *Solver) WhiteTiles() map[rune]int {
 func (s *Solver) YellowDupes() map[rune]int {
 	m := map[rune]int{}
 
-	for row := 0; row < s.Height(); row++ {
-		for col := 0; col < s.Width(); col++ {
-			l, c := s.Get(row, col)
-			if c == board.Yellow {
-				m[l]++
-			}
+	for _, tile := range s.game.Tiles() {
+		if tile.Color == board.Yellow {
+			m[tile.Letter]++
 		}
 	}
 
-	for k, v := range m {
-		if v < 2 {
+	for key, val := range m {
+		if val < 2 {
 			// TODO: Is this safe?
-			delete(m, k)
+			delete(m, key)
 		}
 	}
 
@@ -328,15 +320,11 @@ func UniqueLetters(words []string, index int) []rune {
 func (s *Solver) GetAllLetters() map[rune]int {
 	m := map[rune]int{}
 
-	for row := 0; row < s.Height(); row++ {
-		for col := 0; col < s.Width(); col++ {
-			if row%2 == 1 && col%2 == 1 {
-				continue
-			}
-			l, _ := s.Get(row, col)
-			m[l]++
-		}
+	for _, tile := range s.game.Tiles() {
+		m[tile.Letter]++
 	}
+
+	delete(m, board.Empty)
 
 	return m
 }
@@ -383,17 +371,13 @@ func (s *Solver) NarrowPossibles(dict []string) {
 	sl := s.GetAllLetters()
 
 	// Find letters that still need to be placed
-	for row := 0; row < s.Height(); row++ {
-		for col := 0; col < s.Width(); col++ {
-			if row%2 == 1 && col%2 == 1 {
-				continue
-			}
-			p := s.possibles[row][col]
-			if len(p) == 1 {
-				sl[p[0]]--
-				if sl[p[0]] == 0 {
-					delete(sl, p[0])
-				}
+	for _, tile := range s.game.Tiles() {
+		p := s.possibles[tile.Row][tile.Col]
+		if len(p) == 1 {
+			// We have narrowed possibles down to just one
+			sl[p[0]]--
+			if sl[p[0]] == 0 {
+				delete(sl, p[0])
 			}
 		}
 	}
@@ -401,25 +385,20 @@ func (s *Solver) NarrowPossibles(dict []string) {
 	tbp := string(maps.Keys(sl))
 
 	// Remove any letters not in the to-be-placed set
-	for row := 0; row < s.Height(); row++ {
-		for col := 0; col < s.Width(); col++ {
-			if row%2 == 1 && col%2 == 1 {
-				continue
-			}
-			p := s.possibles[row][col]
-			if len(p) > 1 {
-				newP := []rune{}
-				for _, l := range p {
-					matched, err := regexp.MatchString(string(l), tbp)
-					if err != nil {
-						fmt.Println("ERROR! A", string(l), tbp)
-					}
-					if matched {
-						newP = append(newP, l)
-					}
+	for _, tile := range s.game.Tiles() {
+		p := s.possibles[tile.Row][tile.Col]
+		if len(p) > 1 {
+			newP := []rune{}
+			for _, l := range p {
+				matched, err := regexp.MatchString(string(l), tbp)
+				if err != nil {
+					fmt.Println("ERROR! A", string(l), tbp)
 				}
-				s.possibles[row][col] = newP
+				if matched {
+					newP = append(newP, l)
+				}
 			}
+			s.possibles[tile.Row][tile.Col] = newP
 		}
 	}
 }
@@ -449,18 +428,12 @@ func (s *Solver) Print() {
 
 // Solved returns true if the waffle game is solved
 func (s *Solver) Solved() bool {
-	for row := 0; row < s.Height(); row++ {
-		for col := 0; col < s.Width(); col++ {
-			if row%2 == 1 && col%2 == 1 {
-				continue
-			}
-			p := s.possibles[row][col]
-			if len(p) > 1 {
-				return false
-			}
+	for _, tile := range s.game.Tiles() {
+		p := s.possibles[tile.Row][tile.Col]
+		if len(p) > 1 {
+			return false
 		}
 	}
-
 	return true
 }
 
