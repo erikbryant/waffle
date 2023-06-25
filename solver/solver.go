@@ -232,7 +232,7 @@ func (s *Solver) YellowEvenRow(i int) []rune {
 	}
 
 	// TODO: return the count of each letter so we can make sure
-	// the candidate word isn't using more of them than it should
+	// the candidate word isn't using fewer of them than it should
 	return y
 }
 
@@ -251,7 +251,7 @@ func (s *Solver) YellowEvenCol(i int) []rune {
 	}
 
 	// TODO: return the count of each letter so we can make sure
-	// the candidate word isn't using more of them than it should
+	// the candidate word isn't using fewer of them than it should
 	return y
 }
 
