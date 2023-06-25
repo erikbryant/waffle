@@ -294,6 +294,7 @@ func (s *Solver) narrowPossibles(dict []string) {
 	// For each match, replace possible letters with set
 	// of letters from matched words.
 
+	// For each word across
 	for row := 0; row < s.Size(); row++ {
 		if row%2 == 1 {
 			continue
@@ -307,6 +308,7 @@ func (s *Solver) narrowPossibles(dict []string) {
 		}
 	}
 
+	// For each word down
 	for col := 0; col < s.Size(); col++ {
 		if col%2 == 1 {
 			continue
@@ -324,7 +326,7 @@ func (s *Solver) narrowPossibles(dict []string) {
 	// (the set of possibles is of length one). Subtract these
 	// from the list of starting letters. The remainder will be
 	// the letters that have yet to be positioned. If any of the
-	// possibles (sets > lenght one) contain letters other than
+	// possibles (sets > length one) contain letters other than
 	// these, remove the extraneous letters.
 
 	sl := s.game.AllLetters()
