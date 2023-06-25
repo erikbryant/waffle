@@ -256,7 +256,7 @@ func (s *Solver) YellowEvenCol(i int) []rune {
 }
 
 // MatchWords returns all dictionary words that match the given re and ye criteria
-func MatchWords(re string, dict []string, ye []rune) []string {
+func MatchWords(re string, ye []rune, dict []string) []string {
 	matches := []string{}
 	for _, word := range dict {
 		matched, err := regexp.MatchString(re, word)
@@ -319,7 +319,7 @@ func (s *Solver) narrowPossibles(dict []string) {
 		}
 		re := s.RegexAcross(row)
 		ye := s.YellowEvenRow(row)
-		matches := MatchWords(re, dict, ye)
+		matches := MatchWords(re, ye, dict)
 
 		for col := 0; col < s.Size(); col++ {
 			s.possibles[row][col] = UniqueLetters(matches, col)
@@ -332,7 +332,7 @@ func (s *Solver) narrowPossibles(dict []string) {
 		}
 		re := s.RegexDown(col)
 		ye := s.YellowEvenCol(col)
-		matches := MatchWords(re, dict, ye)
+		matches := MatchWords(re, ye, dict)
 
 		for row := 0; row < s.Size(); row++ {
 			s.possibles[row][col] = UniqueLetters(matches, row)
