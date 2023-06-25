@@ -31,11 +31,11 @@ func main() {
 	serial := "smkupm.w.nknbeui.e.rgaiey/gyywgw.w.ywygwyw.y.wgwyyg" // 515
 
 	waffle := board.Parse(serial)
-	solver := solver.New(waffle)
-	solver.Solve()
-	solver.Print()
+	s := solver.New(waffle)
+	s.Solve()
+	s.Print()
 
-	path := pathfinder.New(solver)
+	path := pathfinder.New(s)
 	path.Find()
 	path.Print()
 }
