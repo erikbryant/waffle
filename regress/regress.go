@@ -13,14 +13,7 @@ import (
 
 var (
 	cpuprofile = flag.String("cpuprofile", "", "write cpu profile to file")
-)
-
-func TestSolve() {
-	testCases := []string{
-		// Deluxe Waffles
-		"eifdstal i p apertislt e e senithvte m t ueuedrra/yygygwyw w w wgwgggwgw w y wgwgggwgw w y wywgygww", // 056
-		"deoitnai e i oaamcnrcd o n bdtsraida s e iglsdeel/yygwgwyy w w wgygwgwgw g g wgwgygygw y w ywwgygww", // 057
-
+	testCases5 = []string{
 		// Daily Waffles
 		"fboueg i ulsoomg e loemna/gwwggw w wgygyyw y wgyywg", // 001
 		"scgoln n dindeer i uffare/gwwwgg w yyggwyw y wgwyyg", // 002
@@ -47,13 +40,25 @@ func TestSolve() {
 		"damnyg g ererame n ikuled/gwgwgw y yyygyww w ygwwyg", // 521
 		"tgheea i osreemt a htigrn/gwywgw w wwgggww y wgyyyg", // 522
 	}
+	testCases7 = []string{
+		// Deluxe Waffles
+		"eifdstal i p apertislt e e senithvte m t ueuedrra/yygygwyw w w wgwgggwgw w y wgwgggwgw w y wywgygww", // 056
+		"deoitnai e i oaamcnrcd o n bdtsraida s e iglsdeel/yygwgwyy w w wgygwgwgw g g wgwgygygw y w ywwgygww", // 057
+	}
+)
 
+func TestSolve(testCases []string) {
+	total := 0
+	count := 0
 	for _, testCase := range testCases {
 		waffle := board.Parse(testCase)
 		s := solver.New(waffle)
 		if s.Solve() {
 			path := pathfinder.New(s)
 			path.Find()
+			count++
+			total += path.PathLen()
+			fmt.Println("Average steps:", float64(total)/float64(count))
 		} else {
 			fmt.Println("Unable to solve:", testCase)
 			s.Print()
@@ -75,5 +80,7 @@ func main() {
 		defer pprof.StopCPUProfile()
 	}
 
-	TestSolve()
+	TestSolve(testCases7)
+	fmt.Println()
+	TestSolve(testCases5)
 }
