@@ -44,6 +44,19 @@ func (s *Solver) Set(row, col int, l, c rune) {
 	s.game.Set(row, col, l, c)
 }
 
+// GetSolution returns the solution letter and color at row, col
+func (s *Solver) GetSolution(row, col int) rune {
+	if len(s.possibles[row][col]) != 1 {
+		fmt.Printf("ERROR: length of possibles[%d][%d] is not 1 %v\n", row, col, s.possibles[row][col])
+		return board.Empty
+	}
+	return s.possibles[row][col][0]
+}
+
+func (s *Solver) Tiles() []board.Tile {
+	return s.game.Tiles()
+}
+
 // WhiteTiles returns the letters on all of the white tiles
 func (s *Solver) WhiteTiles() map[rune]int {
 	return s.game.Letters(board.White)
@@ -367,7 +380,7 @@ func (s *Solver) Print() {
 func (s *Solver) Solved() bool {
 	for _, tile := range s.game.Tiles() {
 		p := s.possibles[tile.Row][tile.Col]
-		if len(p) > 1 {
+		if len(p) != 1 {
 			return false
 		}
 	}
