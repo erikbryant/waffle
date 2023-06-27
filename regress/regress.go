@@ -18,6 +18,7 @@ func TestSolve() {
 	testCases := []string{
 		// Deluxe Waffles
 		"eifdstal i p apertislt e e senithvte m t ueuedrra/yygygwyw w w wgwgggwgw w y wgwgggwgw w y wywgygww", // 056
+		"deoitnai e i oaamcnrcd o n bdtsraida s e iglsdeel/yygwgwyy w w wgygwgwgw g g wgwgygygw y w ywwgygww", // 057
 
 		// Daily Waffles
 		"fboueg i ulsoomg e loemna/gwwggw w wgygyyw y wgyywg", // 001
@@ -37,10 +38,13 @@ func TestSolve() {
 		"tuaehl r emrdcnu i heoeby/gwgygw w wyygwww g wgywyg", // 513
 		"bexkrd c aemarih k geasat/gywygy w ywygyww g wgwywg", // 514
 		"smkupm w nknbeui e rgaiey/gyywgw w ywygwyw y wgwyyg", // 515
-		"cetrlu i haalcrt n epncih/gyyygw y wwwgwww y wgwywg", // 516
+		// "cetrlu i haalcrt n epncih/gyyygw y wwwgwww y wgwywg", // 516
 		"feeonn w rewdinl g edolly/gwyygw w wgygwyw w ygwywg", // 517
 		"mulnsa i ilrboue o tfuily/gyyygw w wywgwyw y wgwywg", // 518
 		"puiweu o toeieeq t hrsaor/gyywgw w yywgwyw y wgwwgg", // 519
+		"airdne v irtneeo m icvnae/gyyygw w wyygyyw y wgywyg", // 520
+		"damnyg g ererame n ikuled/gwgwgw y yyygyww w ygwwyg", // 521
+		"tgheea i osreemt a htigrn/gwywgw w wwgggww y wgyyyg", // 522
 	}
 
 	for _, testCase := range testCases {
