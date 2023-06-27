@@ -14,8 +14,11 @@ func main() {
 
 	waffle := board.Parse(serial)
 	s := solver.New(waffle)
-	s.Solve()
-	path := pathfinder.New(s)
-	path.Find()
-	path.Print()
+	if s.Solve() {
+		path := pathfinder.New(s)
+		path.Find()
+		path.Print()
+	} else {
+		s.Print()
+	}
 }
