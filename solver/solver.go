@@ -67,23 +67,18 @@ func (s *Solver) YellowDupes() map[rune]int {
 func (s *Solver) TilesInRow(row, col int, matchColor rune) map[rune]int {
 	m := map[rune]int{}
 
-	// Tiles to the left
-	for i := col - 1; i >= 0; i-- {
-		l, c := s.Get(row, i)
-		if c == board.Empty {
-			break
-		}
+	if row%2 == 1 {
+		// This is a standalone tile
+		l, c := s.Get(row, col)
 		if c == matchColor {
 			m[l]++
 		}
+		return m
 	}
 
-	// This tile and ones to the right
-	for i := col; i < s.Size(); i++ {
+	// This is a full word
+	for i := 0; i < s.Size(); i++ {
 		l, c := s.Get(row, i)
-		if c == board.Empty {
-			break
-		}
 		if c == matchColor {
 			m[l]++
 		}
@@ -96,23 +91,18 @@ func (s *Solver) TilesInRow(row, col int, matchColor rune) map[rune]int {
 func (s *Solver) TilesInCol(row, col int, matchColor rune) map[rune]int {
 	m := map[rune]int{}
 
-	// Tiles to the up
-	for i := row - 1; i >= 0; i-- {
-		l, c := s.Get(i, col)
-		if c == board.Empty {
-			break
-		}
+	if col%2 == 1 {
+		// This is a standalone tile
+		l, c := s.Get(row, col)
 		if c == matchColor {
 			m[l]++
 		}
+		return m
 	}
 
-	// This tile and ones to the down
-	for i := row; i < s.Size(); i++ {
+	// This is a full word
+	for i := 0; i < s.Size(); i++ {
 		l, c := s.Get(i, col)
-		if c == board.Empty {
-			break
-		}
 		if c == matchColor {
 			m[l]++
 		}
