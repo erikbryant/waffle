@@ -77,7 +77,6 @@ func findFirst(want rune, swappable []Swappable) int {
 	for i, swap := range swappable {
 		if swap.have == swap.want {
 			// The letter is already on the right tile; don't swap it
-			fmt.Println("Skipping (1)", swap)
 			continue
 		}
 		if swap.have == want {
