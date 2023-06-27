@@ -44,32 +44,9 @@ func (p *Path) Size() int {
 	return p.solution.Size()
 }
 
-// findLowest returns the index of the lowest key in the slice
-func findLowest(swappable []Swappable) int {
-	lowVal := swappable[0].want
-	lowIndex := 0
-
-	for i := range swappable {
-		if swappable[i].want < lowVal {
-			lowVal = swappable[i].want
-			lowIndex = i
-		}
-	}
-
-	return lowIndex
-}
-
-// sortWant sorts swappable by 'want'
-func sortWant(swappable []Swappable) []Swappable {
-	for i := 0; i < len(swappable)-1; i++ {
-		lowIndex := findLowest(swappable[i+1:]) + i + 1
-		if swappable[lowIndex].want < swappable[i].want {
-			// Swap!
-			swappable[i], swappable[lowIndex] = swappable[lowIndex], swappable[i]
-		}
-	}
-
-	return swappable
+// PathLen returns the number of swaps in the path
+func (p *Path) PathLen() int {
+	return len(p.swaps)
 }
 
 // findFirst finds the first letter that is swappable and matches 'want'
@@ -123,9 +100,6 @@ func (p *Path) Find() {
 		swappable = append(swappable, Swappable{tile.Row, tile.Col, tile.Letter, want})
 	}
 
-	// Sort 'swappable' by 'swappable.want'
-	swappable = sortWant(swappable)
-
 	// Sort 'swappable' by 'swappable.have', recording each swap
 	swappable, p.swaps = sortHave(swappable)
 }
@@ -136,6 +110,6 @@ func (p *Path) Print() {
 	fmt.Println()
 	fmt.Printf("A solution in %d swaps:\n", len(p.swaps))
 	for _, swap := range p.swaps {
-		fmt.Printf("  %c @ (%d, %d) <-> %c @ (%d, %d)\n", swap.l1, swap.r1, swap.c1, swap.l2, swap.r2, swap.c2)
+		fmt.Printf("  %c (%d, %d) <-> %c (%d, %d)\n", swap.l1, swap.r1, swap.c1, swap.l2, swap.r2, swap.c2)
 	}
 }
