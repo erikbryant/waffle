@@ -5,10 +5,12 @@ import (
 	"github.com/erikbryant/waffle/solver"
 )
 
-// swap contains the coordinates of two tiles to swap.
+// swap contains two tiles to swap
 type swap struct {
+	l1 rune
 	r1 int
 	c1 int
+	l2 rune
 	r2 int
 	c2 int
 }
@@ -38,38 +40,20 @@ func (p *Path) Size() int {
 	return p.solution.Size()
 }
 
-// func (p *Path) GetSolution(row, col int) rune {
-// 	if len(p.solution.possibles[row][col]) != 1 {
-// 		fmt.Println("ERROR! Z3", row, col, p.solution.possibles[row][col])
-// 	}
-// 	return p.solution.possibles[row][col][0]
-// }
-//
-// func (p *Path) RemoveCorrect() {
-// 	// Remove all letters that are already correct
-// 	for row := 0; row < p.Size(); row++ {
-// 		for col := 0; col < p.Size(); col++ {
-// 			if row%2 == 1 && col%2 == 1 {
-// 				continue
-// 			}
-// 			l1, c := p.solution.Get(row, col)
-// 			l2 := p.solution.GetSolution(row, col)
-// 			if l1 == l2 {
-// 				p.solution.Set(row, col, board.Empty, c)
-// 			}
-// 		}
-// 	}
-// }
-
 func (p *Path) Find() {
 	fmt.Println("Finding path...")
 
-	// p.RemoveCorrect()
+	// Do stuff...
 
-	p.path = append(p.path, swap{0, 1, 0, 2})
+	p.path = append(p.path, swap{'a', 0, 1, 'v', 0, 2})
+	p.path = append(p.path, swap{'r', 1, 1, 'k', 2, 2})
 }
 
 func (p *Path) Print() {
 	p.solution.Print()
-	fmt.Println("An optimal path is:", p.path)
+	fmt.Println()
+	fmt.Println("A shortest set of swaps is:")
+	for _, p := range p.path {
+		fmt.Printf("  %c @ (%d, %d) <-> %c @ (%d, %d)\n", p.l1, p.r1, p.c1, p.l2, p.r2, p.c2)
+	}
 }
