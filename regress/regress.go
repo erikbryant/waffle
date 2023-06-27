@@ -4,6 +4,7 @@ import (
 	"flag"
 	"fmt"
 	"github.com/erikbryant/waffle/board"
+	"github.com/erikbryant/waffle/pathfinder"
 	"github.com/erikbryant/waffle/solver"
 	"log"
 	"os"
@@ -50,8 +51,10 @@ func TestSolve() {
 	for _, testCase := range testCases {
 		waffle := board.Parse(testCase)
 		s := solver.New(waffle)
-		solved := s.Solve()
-		if !solved {
+		if s.Solve() {
+			path := pathfinder.New(s)
+			path.Find()
+		} else {
 			fmt.Println("Unable to solve:", testCase)
 			s.Print()
 			fmt.Println()
