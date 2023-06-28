@@ -49,7 +49,22 @@ func (p *Path) PathLen() int {
 	return len(p.swaps)
 }
 
-// findFirst finds the first letter that is swappable and matches 'want'
+// findDouble returns the index of the first double swap (if any)
+func findDouble(want, have rune, swappable []Swappable) int {
+	for i, swap := range swappable {
+		if swap.have == swap.want {
+			// The letter is already on the right tile; don't swap it
+			continue
+		}
+		if swap.have == want && swap.want == have {
+			return i
+		}
+	}
+
+	return -999
+}
+
+// findFirst returns the index of the first letter that is swappable and matches 'want'
 func findFirst(want rune, swappable []Swappable) int {
 	for i, swap := range swappable {
 		if swap.have == swap.want {
@@ -74,7 +89,13 @@ func sortHave(swappable []Swappable) ([]Swappable, []Swap) {
 			// The letter is already on the right tile; don't swap it
 			continue
 		}
-		index := findFirst(swappable[i].want, swappable[i+1:]) + i + 1
+
+		// Swap any double swaps first
+		index := findDouble(swappable[i].want, swappable[i].have, swappable[i+1:]) + i + 1
+		if index < 0 {
+			// If no double swap, just swap with the first matching tile
+			index = findFirst(swappable[i].want, swappable[i+1:]) + i + 1
+		}
 
 		// Record the swap
 		s1 := swappable[index]
