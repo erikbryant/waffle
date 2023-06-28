@@ -51,7 +51,7 @@ var (
 func TestSolve(testCases []string) {
 	total := 0
 	count := 0
-	for _, testCase := range testCases {
+	for i, testCase := range testCases {
 		waffle := board.Parse(testCase)
 		s := solver.New(waffle)
 		if s.Solve() {
@@ -59,7 +59,7 @@ func TestSolve(testCases []string) {
 			path.Find()
 			count++
 			total += path.PathLen()
-			fmt.Println("Average steps:", float64(total)/float64(count))
+			fmt.Printf("Game: %3d Steps: %2d Average: %3.2f\n", i, path.PathLen(), float64(total)/float64(count))
 		} else {
 			fmt.Println("Unable to solve:", testCase)
 			s.Print()
