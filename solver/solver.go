@@ -378,7 +378,7 @@ func (s *Solver) Print() {
 			continue
 		}
 		re := s.regexDown(col)
-		fmt.Printf("C%d: egrep '%s' ../dictionaries/merged.dict\n", col, re)
+		fmt.Printf("D%d: egrep '%s' ../dictionaries/merged.dict\n", col, re)
 	}
 }
 
