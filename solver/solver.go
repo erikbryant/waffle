@@ -289,6 +289,12 @@ func (s *Solver) narrowPossibles(dict []string) {
 	// For each match, replace possible letters with set
 	// of letters from matched words.
 
+	// TODO: Check each match against the set of possible letters.
+	// Are there enough possible letters to construct the match
+	// word? That is, if the match is m..ch and there is only one
+	// 'e' in possible letters then the word 'meech' is not a match.
+	// (One too many of the letter 'e'.)
+
 	// For each word across
 	for row := 0; row < s.Size(); row++ {
 		if row%2 == 1 {
