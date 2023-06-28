@@ -6,7 +6,7 @@ import (
 	"github.com/erikbryant/waffle/solver"
 )
 
-// swap contains two tiles to swap
+// Swap contains two tiles to swap
 type Swap struct {
 	l1 rune
 	r1 int
@@ -16,7 +16,7 @@ type Swap struct {
 	c2 int
 }
 
-// swappable contains the coordinates of a tile that needs swapping.
+// Swappable contains the coordinates of a tile that needs swapping
 type Swappable struct {
 	row  int
 	col  int
@@ -24,6 +24,7 @@ type Swappable struct {
 	want rune
 }
 
+// Path contains the game and the swaps that solve it
 type Path struct {
 	solution solver.Solver
 	swaps    []Swap
@@ -44,7 +45,7 @@ func (p *Path) Size() int {
 	return p.solution.Size()
 }
 
-// PathLen returns the number of swaps in the path
+// PathLen returns the number of swaps in the final path
 func (p *Path) PathLen() int {
 	return len(p.swaps)
 }
@@ -80,8 +81,8 @@ func findFirst(want rune, swappable []Swappable) int {
 	return -999
 }
 
-// sortHave sorts swappable by 'have' in the fewest swaps
-func sortHave(swappable []Swappable) ([]Swappable, []Swap) {
+// swap returns a list of swaps that solve the game
+func swap(swappable []Swappable) []Swap {
 	swaps := []Swap{}
 
 	for i := 0; i < len(swappable)-1; i++ {
@@ -106,13 +107,13 @@ func sortHave(swappable []Swappable) ([]Swappable, []Swap) {
 		swappable[i].have, swappable[index].have = swappable[index].have, swappable[i].have
 	}
 
-	return swappable, swaps
+	return swaps
 }
 
-// Find finds a shortest path for swapping tiles to get to the solution
-func (p *Path) Find() {
-	// Collect all tiles that need to be swapped and what letter they want to be
+// thisToThat returns all tiles that need to be swapped and what letter they want to be
+func (p *Path) thisToThat() []Swappable {
 	swappable := []Swappable{}
+
 	for _, tile := range p.solution.Tiles() {
 		if tile.Color == board.Green {
 			continue
@@ -121,8 +122,13 @@ func (p *Path) Find() {
 		swappable = append(swappable, Swappable{tile.Row, tile.Col, tile.Letter, want})
 	}
 
-	// Sort 'swappable' by 'swappable.have', recording each swap
-	swappable, p.swaps = sortHave(swappable)
+	return swappable
+}
+
+// Find finds a shortest path for swapping tiles to get to the solution
+func (p *Path) Find() {
+	swappable := p.thisToThat()
+	p.swaps = swap(swappable)
 }
 
 // Print prints a representation of the solver state and shortest path to the console
