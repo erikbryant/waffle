@@ -40,7 +40,7 @@ var (
 		"tuaehl r emrdcnu i heoeby/gwgygw w wyygwww g wgywyg", // 513
 		"bexkrd c aemarih k geasat/gywygy w ywygyww g wgwywg", // 514
 		"smkupm w nknbeui e rgaiey/gyywgw w ywygwyw y wgwyyg", // 515
-		// "cetrlu i haalcrt n epncih/gyyygw y wwwgwww y wgwywg", // 516
+		"cetrlu i haalcrt n epncih/gyyygw y wwwgwww y wgwywg", // 516
 		"feeonn w rewdinl g edolly/gwyygw w wgygwyw w ygwywg", // 517
 		"mulnsa i ilrboue o tfuily/gyyygw w wywgwyw y wgwywg", // 518
 		"puiweu o toeieeq t hrsaor/gyywgw w yywgwyw y wgwwgg", // 519
@@ -48,6 +48,7 @@ var (
 		"damnyg g ererame n ikuled/gwgwgw y yyygyww w ygwwyg", // 521
 		"tgheea i osreemt a htigrn/gwywgw w wwgggww y wgyyyg", // 522
 		"snilna r eueiblc a lmwigh/gwyygy w gwwggyw y wgwwwg", // 523
+		"ctcrms n drnoaal h rmaihy/gwwwgw y wyygyyw w wgwywg", // 524
 	}
 	testCases7 = []string{
 		// Deluxe Waffles
@@ -67,7 +68,7 @@ func TestSolve(testCases []string) {
 			path.Find()
 			count++
 			total += path.PathLen()
-			fmt.Printf("Game: %3d Steps: %2d Average: %3.2f\n", i, path.PathLen(), float64(total)/float64(count))
+			fmt.Printf("Game: %3d Steps: %3d Average: %3.2f\n", i, path.PathLen(), float64(total)/float64(count))
 		} else {
 			fmt.Println("Unable to solve:", testCase)
 			s.Print()

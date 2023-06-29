@@ -9,9 +9,20 @@ import (
 	"strings"
 )
 
+type Possibles [][][]rune
+
 type Solver struct {
 	game      board.Waffle
-	possibles [][][]rune
+	possibles Possibles
+}
+
+// newPossible returns an empty possibles grid
+func newPossible(size int) Possibles {
+	np := make(Possibles, size)
+	for row := 0; row < size; row++ {
+		np[row] = make([][]rune, size)
+	}
+	return np
 }
 
 // New creates an empty waffle game solver
@@ -21,10 +32,7 @@ func New(w board.Waffle) Solver {
 	s.game = w
 
 	// An empty square of []rune slices
-	s.possibles = make([][][]rune, s.Size())
-	for row := 0; row < s.Size(); row++ {
-		s.possibles[row] = make([][]rune, s.Size())
-	}
+	s.possibles = newPossible(s.Size())
 
 	return s
 }
@@ -359,6 +367,124 @@ func (s *Solver) narrowPossibles(dict []string) {
 	}
 }
 
+// isValidSolution returns whether solution solves the waffle board game
+func (s *Solver) isValidSolution(solution Possibles) bool {
+	all := s.game.AllLetters()
+
+	for r, row := range solution {
+		for c, tile := range row {
+			if r%2 == 1 && c%2 == 1 {
+				// Skip empty tiles
+				continue
+			}
+			if len(tile) != 1 {
+				fmt.Println("ERROR Q3: Expected exactly 1 letter", tile)
+				return false
+			}
+			l := tile[0]
+			if all[l] < 1 {
+				return false
+			}
+			all[l]--
+		}
+	}
+
+	for key, val := range all {
+		if val != 0 {
+			fmt.Println("ERROR Q4: Expected zero letters", key, val)
+			return false
+		}
+	}
+
+	return true
+}
+
+func copy(p Possibles) Possibles {
+	newP := newPossible(len(p[0]))
+
+	for r, row := range p {
+		for c := range row {
+			for _, l := range p[r][c] {
+				newP[r][c] = append(newP[r][c], l)
+			}
+		}
+	}
+
+	return newP
+}
+
+func (s *Solver) allCombos() []Possibles {
+	queue := []Possibles{}
+
+	queue = append(queue, newPossible(s.Size()))
+
+	for r, row := range s.possibles {
+		for c, tile := range row {
+			if r%2 == 1 && c%2 == 1 {
+				// Skip the missing tiles
+				continue
+			}
+			queue2 := []Possibles{}
+			for _, entry := range queue {
+				for _, l := range tile {
+					entry2 := copy(entry)
+					entry2[r][c] = []rune{l}
+					queue2 = append(queue2, entry2)
+				}
+			}
+			queue = queue2
+		}
+	}
+
+	return queue
+}
+
+func collapseValidPossibles(validPossibles []Possibles) Possibles {
+	if len(validPossibles) < 1 {
+		fmt.Println("Error Z9: Too few possibles")
+		return Possibles{}
+	}
+
+	if len(validPossibles) == 1 {
+		return validPossibles[0]
+	}
+
+	p := newPossible(len(validPossibles[0][0]))
+
+	for row, vpRow := range validPossibles[0] {
+		for col := range vpRow {
+			if row%2 == 1 && col%2 == 1 {
+				// Skip the missing tiles
+				continue
+			}
+			// For each valid possible grid, get the letter at (x, y).
+			// Collapse those values into a map. Put those uniqued values
+			// into the final grid.
+			m := map[rune]int{}
+			for _, vp := range validPossibles {
+				l := vp[row][col][0]
+				m[l]++
+			}
+			p[row][col] = maps.Keys(m)
+		}
+	}
+
+	return p
+}
+
+// findValidPossibles returns the set of possibles that are compatible with the set of tiles
+func (s *Solver) findValidPossibles() {
+	vp := []Possibles{}
+
+	for _, c := range s.allCombos() {
+		if s.isValidSolution(c) {
+			vp = append(vp, c)
+		}
+	}
+
+	s.possibles = collapseValidPossibles(vp)
+}
+
 // Print prints a representation of the solver state to the console
 func (s *Solver) Print() {
 	s.game.Print()
@@ -405,14 +531,15 @@ func loadDict(wordLen int) []string {
 func (s *Solver) Solve() bool {
 	guessables := loadDict(s.Size())
 
+	count := 0
 	s.setPossibles()
-	attempts := 0
 	for !s.Solved() {
-		s.narrowPossibles(guessables)
-		attempts++
-		if attempts > 10 {
+		count++
+		if count > 5 {
 			return false
 		}
+		s.narrowPossibles(guessables)
+		s.findValidPossibles()
 	}
 
 	return true

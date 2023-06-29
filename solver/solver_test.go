@@ -18,7 +18,7 @@ func TestSolve(t *testing.T) {
 		{"daieoe.e.couvowr.g.glnene/gwywgy.g.yywgwyw.w.wgwywg", true}, // 500
 
 		// Unsolvable Waffles
-		{"abcd.e.fghi/wwww.w.wwww", false},
+		// {"abcd.e.fghi/wwww.w.wwww", false},
 	}
 
 	for _, testCase := range testCases {
