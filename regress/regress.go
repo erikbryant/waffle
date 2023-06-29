@@ -20,6 +20,11 @@ var (
 		"speeda t ptocirn e mpeiey/gggwgw w yywgwyw g wgyywg", // 003
 		"ndeeye e ltraeck a idnsks/gygygy y wwwgwyy w ygwywg", // 004
 		"crmvpe r glaivye n belouy/ggwwgw w yywgwyw w wgwywg", // 005
+		// "socopr t ceatsen t amfeoy/gyyggy y wywgwww w ygwywg", // 006
+		"onwigr o nrrtcra v rtxpee/gyyygy y wywgwyw w wgwywg", // 007
+		"slropa m orodcht r ontreh/gwywgw w gyygwww w wgygwg", // 008
+		"tjmilo r agoailn l kneaia/gwwggg w ywggwyw w wgwyyg", // 009
+		"bnebkn e avlidll n vemalt/gyywgw w wyggwyy w wgwywg", // 010
 		"mmkoye u iaomerr o pahcln/gwywgw y wyggwyw w wgwwwg", // 100
 		"lieirs w riipese n rcouye/gwywgw y wygggyw w wgwywg", // 200
 		"agdrml r ueianeu l oeibrr/gwywgw y wwygywg w ggwywg", // 300
