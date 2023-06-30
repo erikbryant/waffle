@@ -5,7 +5,7 @@ go 1.20
 require (
 	github.com/erikbryant/dictionaries v0.1.0
 	github.com/fatih/color v1.15.0
-	golang.org/x/exp v0.0.0-20230522175609-2e198f4a06a1
+	golang.org/x/exp v0.0.0-20230626212559-97b1e661b5df
 )
 
 require (
