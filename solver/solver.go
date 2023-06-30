@@ -424,6 +424,13 @@ func (s *Solver) allCombos() []Possibles {
 				// Skip the missing tiles
 				continue
 			}
+			if len(tile) == 1 {
+				// If only one letter, just insert it. Faster than making copies.
+				for _, entry := range queue {
+					entry[r][c] = []rune{tile[0]}
+				}
+				continue
+			}
 			queue2 := []Possibles{}
 			for _, entry := range queue {
 				for _, l := range tile {
