@@ -489,22 +489,12 @@ func (s *Solver) findValidPossibles() {
 func (s *Solver) Print() {
 	s.game.Print()
 
-	for row := 0; row < s.Size(); row++ {
-		if row%2 == 1 {
+	for i := 0; i < s.Size(); i++ {
+		if i%2 == 1 {
 			continue
 		}
-		re := s.regexAcross(row)
-		fmt.Printf("A%d: egrep '%s' ../dictionaries/merged.dict\n", row, re)
-	}
-
-	fmt.Println()
-
-	for col := 0; col < s.Size(); col++ {
-		if col%2 == 1 {
-			continue
-		}
-		re := s.regexDown(col)
-		fmt.Printf("D%d: egrep '%s' ../dictionaries/merged.dict\n", col, re)
+		fmt.Printf("A%d: egrep '%s' ../dictionaries/waffle.dict\n", i, s.regexAcross(i))
+		fmt.Printf("D%d: egrep '%s' ../dictionaries/waffle.dict\n", i, s.regexDown(i))
 	}
 }
 
@@ -521,7 +511,7 @@ func (s *Solver) Solved() bool {
 
 // loadDict returns the guessable word list
 func loadDict(wordLen int) []string {
-	guessables := dictionaries.LoadFile("../../dictionaries/merged.dict")
+	guessables := dictionaries.LoadFile("../../dictionaries/waffle.dict")
 	guessables = dictionaries.FilterByLen(guessables, wordLen)
 	guessables = dictionaries.SortUnique(guessables)
 	return guessables
