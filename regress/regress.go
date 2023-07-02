@@ -49,6 +49,16 @@ var (
 		"lieirs w riipese n rcouye/gwywgw y wygggyw w wgwywg", // 200
 		"agdrml r ueianeu l oeibrr/gwywgw y wwygywg w ggwywg", // 300
 		"bsmcye s eaiarsl l adeeks/gwywgy y yywgwyw y wgwgwg", // 400
+		"miidcr g aognone m alirie/ggywgw w wyygwyy y wgwgwg", // 401
+		"mmubyc t eecnoui i dreuda/gwywgw w wyygyyw g wgwywg", // 402
+		"tpalti g msourea i rriynd/gwwwgy y wwwgwgy w yggywg", // 403
+		"thfrmr u ulcocat o etnteh/gwwwgg w gywgwyw w wgyyyg", // 404
+		"txrite i iiramct a realpl/gwyggw w yyygwwy w ygwwyg", // 405
+		"ttolbo i uiraego n spharo/gwywgw w wyygyyw w wgwywg", // 406
+		"pealnr n ltosaro l aeonyy/gwwygw w wyygyyw y ygwwwg", // 407
+		"idrare d gkliaot u elnnee/gwywgy y yywgwyw w wgwwwg", // 408
+		// "ssnotl r acataer n atcoxt/gwywgw y gyyggww w wgwywg", // 409 <-- Slow!
+		"hplntt i ganisea r geeear/gwwwgy w yyygyyw w wgywyg", // 410
 		"daieoe e couvowr g glnene/gwywgy g yywgwyw w wgwywg", // 500
 		"seostl l seohatn e upeecr/gyywgy w wywgyww y ygywwg", // 501
 		"cmnsar i haochwi y etthot/gwywgw y wygggyw y wgwywg", // 502
@@ -76,9 +86,11 @@ var (
 		"ctcrms n drnoaal h rmaihy/gwwwgw y wyygyyw w wgwywg", // 524
 		"frbnhl o ooemeat o dmiiuy/gwywgw y gywggyw w wgwywg", // 525
 		"adluyk i iclnbio a eelery/gwgwgw g wywgwyw w wgyyyg", // 526
+		"sctrpm e tatobio u sftauy/ggywgw w ywygwww g wgyywg", // 527
 	}
 	testCases7 = []string{
 		// Deluxe Waffles
+		"taenergt r e perpsersd m x iaretaler m n vscsrevd/ywgygyww y w wgygygwgy w w ygygwgwgy w w wwwgygwy", // 001
 		"eifdstal i p apertislt e e senithvte m t ueuedrra/yygygwyw w w wgwgggwgw w y wgwgggwgw w y wywgygww", // 056
 		"deoitnai e i oaamcnrcd o n bdtsraida s e iglsdeel/yygwgwyy w w wgygwgwgw g g wgwgygygw y w ywwgygww", // 057
 	}
