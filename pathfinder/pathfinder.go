@@ -52,11 +52,11 @@ func (p *Path) PathLen() int {
 
 // findDouble returns the index of the first double swap (if any)
 func findDouble(want, have rune, swappable []Swappable) int {
+	if want == have {
+		fmt.Printf("ERROR: H54 want == have %v %v\n", want, have)
+		return -999
+	}
 	for i, swap := range swappable {
-		if swap.have == swap.want {
-			// The letter is already on the right tile; don't swap it
-			continue
-		}
 		if swap.have == want && swap.want == have {
 			return i
 		}
