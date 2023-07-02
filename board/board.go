@@ -87,7 +87,7 @@ func (w *Waffle) Set(row, col int, l, c rune) {
 	w.colors[row][col] = c
 }
 
-// Tiles returns a slice of every tile on the waffle game board
+// Tiles returns a slice containing every tile on the waffle game board
 func (w *Waffle) Tiles() []Tile {
 	tiles := []Tile{}
 

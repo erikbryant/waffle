@@ -4,6 +4,22 @@ import (
 	"testing"
 )
 
+func TestNew(t *testing.T) {
+	waffle := New(4)
+
+	for row := 0; row < waffle.Size(); row++ {
+		for col := 0; col < waffle.Size(); col++ {
+			letter, color := waffle.Get(row, col)
+			if letter != Empty {
+				t.Errorf("ERROR: For letter expected '%c' got '%c'", Empty, letter)
+			}
+			if color != Empty {
+				t.Errorf("ERROR: For color expected '%c' got '%c'", Empty, color)
+			}
+		}
+	}
+}
+
 func TestSize(t *testing.T) {
 	testCases := []struct {
 		size int
@@ -19,22 +35,6 @@ func TestSize(t *testing.T) {
 		size := waffle.Size()
 		if size != testCase.size {
 			t.Errorf("ERROR: Expected %d got %d", testCase.size, size)
-		}
-	}
-}
-
-func TestNew(t *testing.T) {
-	waffle := New(4)
-
-	for row := 0; row < waffle.Size(); row++ {
-		for col := 0; col < waffle.Size(); col++ {
-			letter, color := waffle.Get(row, col)
-			if letter != Empty {
-				t.Errorf("ERROR: For letter expected '%c' got '%c'", Empty, letter)
-			}
-			if color != Empty {
-				t.Errorf("ERROR: For color expected '%c' got '%c'", Empty, color)
-			}
 		}
 	}
 }
