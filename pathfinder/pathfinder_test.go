@@ -25,7 +25,7 @@ func TestFindDouble(t *testing.T) {
 	}
 }
 
-func TestFindFirst(t *testing.T) {
+func TestFindSingle(t *testing.T) {
 	testCases := []struct {
 		swappable []Swappable
 		want      rune
@@ -39,7 +39,7 @@ func TestFindFirst(t *testing.T) {
 	}
 
 	for _, testCase := range testCases {
-		index := findFirst(testCase.want, testCase.swappable)
+		index := findSingle(testCase.want, testCase.swappable)
 		if index != testCase.expected {
 			t.Errorf("ERROR: For %v expected %d got %d", testCase.swappable, testCase.expected, index)
 		}
