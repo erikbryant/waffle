@@ -57,7 +57,7 @@ var (
 		"ttolbo i uiraego n spharo/gwywgw w wyygyyw w wgwywg", // 406
 		"pealnr n ltosaro l aeonyy/gwwygw w wyygyyw y ygwwwg", // 407
 		"idrare d gkliaot u elnnee/gwywgy y yywgwyw w wgwwwg", // 408
-		// "ssnotl r acataer n atcoxt/gwywgw y gyyggww w wgwywg", // 409 <-- Slow!
+		"ssnotl r acataer n atcoxt/gwywgw y gyyggww w wgwywg", // 409
 		"hplntt i ganisea r geeear/gwwwgy w yyygyyw w wgywyg", // 410
 		"woeadt l reabulh r efmwll/ggywgw w wyygwyy y ygwwwg", // 411
 		"pemtob n acvorgn e vhiyaa/gwwwgw w wyygyyw y wgwywg", // 412
@@ -98,6 +98,7 @@ var (
 		"adluyk i iclnbio a eelery/gwgwgw g wywgwyw w wgyyyg", // 526
 		"sctrpm e tatobio u sftauy/ggywgw w ywygwww g wgyywg", // 527
 		"wikwnt n nnoonhr j ehceaa/gwgwgy g yywgwyw w wgwywg", // 528
+		"cecuke r oocdorn t aaamha/gwyygw y wyygwgw w ygwwwg", // 529
 	}
 	testCases7 = []string{
 		// Deluxe Waffles
@@ -107,6 +108,10 @@ var (
 		"ruorglcu p u gorttaaen h t rsephouto t r uetsearh/yygwgwwy w w wgygwgwgw w w ygwgwgygw w y wyygygyy", // 004
 		"muinoeum c m siaputtsn r c naneiorec t s mrdscesw/wygygwww w y wgwgygwgy g g ygwgwgwgw w w wyygygyw", // 005
 		"cespnbsa n e saeoatdds a n irilrapem l e nstdgeee/yygwgyyy w w ygygwgygw w w wgwgwgwgy w w yywgwgwy", // 006
+		"inmoacrm e e iaigolncc h e dstaeerdw s e lemeitna/yygygyyw w w wgygwgygy w w ygwgygwgw w w wywgwgwy", // 007
+		"hiawtcsn u o irydaaete r c esteltdeo d i srrsarpl/yygwgyyw w y wgwgygwgy g g wgwgwgwgw y w wwwgwgwy", // 008
+		"ceninrai t c uaatretsa c e stfrmines p i uaelired/yygygwyy w w wgwgggwgw w y ygwgggwgw w w wwwgygww", // 009
+		"autasedr n i onfrrafap d y eooieiynn i v senrpgoa/ywgwgwyy w w wgwgwgwgw g g ygygwgwgw w w wywgwgyy", // 010
 		"eifdstal i p apertislt e e senithvte m t ueuedrra/yygygwyw w w wgwgggwgw w y wgwgggwgw w y wywgygww", // 056
 		"deoitnai e i oaamcnrcd o n bdtsraida s e iglsdeel/yygwgwyy w w wgygwgwgw g g wgwgygygw y w ywwgygww", // 057
 		"ussputbi r e mftnrsper b t leduiasee t c yelnhetl/wwgygyyw y w wgwgwgwgw g g wgwgwgwgy w w yyygwgyw", // 058
@@ -116,7 +121,7 @@ var (
 func TestSolve(testCases []string) {
 	total := 0
 	count := 0
-	for i, testCase := range testCases {
+	for _, testCase := range testCases {
 		waffle := board.Parse(testCase)
 		s := solver.New(waffle)
 		if s.Solve() {
@@ -124,7 +129,7 @@ func TestSolve(testCases []string) {
 			path.Find()
 			count++
 			total += path.PathLen()
-			fmt.Printf("Game: %3d Steps: %3d Average: %3.2f\n", i, path.PathLen(), float64(total)/float64(count))
+			fmt.Printf("Game: %3d Steps: %3d Average: %3.2f\n", count, path.PathLen(), float64(total)/float64(count))
 		} else {
 			fmt.Println("Unable to solve:", testCase)
 			s.Print()
