@@ -535,6 +535,10 @@ func (s *Solver) Solve() bool {
 		if count > 5 {
 			return false
 		}
+		// Make two passes since the first pass won't eliminate all extraneous
+		// letters and calls to findValidPossibles are very expensive. Ideally,
+		// would loop until no change detected.
+		s.narrowPossibles(guessables)
 		s.narrowPossibles(guessables)
 		s.findValidPossibles()
 	}
