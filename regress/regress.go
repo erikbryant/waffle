@@ -101,6 +101,7 @@ var (
 		"cecuke r oocdorn t aaamha/gwyygw y wyygwgw w ygwwwg", // 529
 		"belbtr u aatmorn e utewrl/gwywgy y yywgwyw g wgwwwg", // 530
 		"caceki e lltsaoe i nmhlnl/gwywgy y yywgyww w ygwwwg", // 531
+		"jreeto e sdwieed n eltruy/gwywgw w wyygyyw y wgwywg", // 532
 	}
 	testCases7 = []string{
 		// Deluxe Waffles
