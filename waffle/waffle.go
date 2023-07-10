@@ -10,7 +10,7 @@ import (
 func main() {
 	fmt.Println("Welcome to waffle!")
 
-	serial := "jreeto e sdwieed n eltruy/gwywgw w wyygyyw y wgwywg" // 532
+	serial := "aselto e cmradrl g awnvlt/gwgwgy y yywgwyy w ygwywg" // 534
 
 	waffle := board.Parse(serial)
 	s := solver.New(waffle)
