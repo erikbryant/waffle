@@ -26,7 +26,7 @@ var (
 		{"tjmilo r agoailn l kneaia/gwwggg w ywggwyw w wgwyyg", 9},
 		{"bnebkn e avlidll n vemalt/gyywgw w wyggwyy w wgwywg", 10},
 		{"cldara h dxopeul i vreeey/gwwwgw w ywwgwyw w wgwywg", 11},
-		{"arcxet b ezmonje n aezodt/gwwwgw w yywggyw g wgwywg", 12}, // <-- Ambiguous
+		// {"arcxet b ezmonje n aezodt/gwwwgw w yywggyw g wgwywg", 12}, // <-- Ambiguous
 		{"dggoam e gioinwn h tllelt/gwgygw w gwwgwww w wgwwwg", 13},
 		{"siatno y odhdver h etrmoe/gyyygy y wwwgwyw w wgwywg", 14},
 		{"yiyltu e vharakl c isocpt/gwwwgw y wwwgwwy y ggwwgg", 15},
