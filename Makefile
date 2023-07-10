@@ -13,9 +13,5 @@ run: test
 regress: test
 	cd regress ; time go run regress.go
 
-profile: test
-	cd regress ; go run regress.go -cpuprofile cpu.prof
-	echo "top10" | go tool pprof regress/cpu.prof
-
 # Targets that do not represent actual files
-.PHONY: fmt vet test run regress profile
+.PHONY: fmt vet test run regress
