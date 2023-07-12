@@ -20,7 +20,6 @@ y(col) = {all yellow tiles in this col}
 s      = self
 ye     = any yellow letters in non-intersection tiles
 
-
 # Reduce that set by any that have already been assigned
 
 Once the sets of possible letters (pl) for each tile have been found,
