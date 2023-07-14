@@ -87,19 +87,6 @@ func (w *Waffle) Set(row, col int, l, c rune) {
 	w.colors[row][col] = c
 }
 
-// SetAllGreen sets all tiles to green
-func (w *Waffle) SetAllGreen() {
-	for row := 0; row < w.Size(); row++ {
-		for col := 0; col < w.Size(); col++ {
-			// If row and col are odd, this is a hole in the grid
-			if row%2 == 1 && col%2 == 1 {
-				continue
-			}
-			w.colors[row][col] = Green
-		}
-	}
-}
-
 // Tiles returns a slice containing every tile on the waffle game board
 func (w *Waffle) Tiles() []Tile {
 	tiles := []Tile{}
