@@ -5,6 +5,7 @@ import (
 	"github.com/erikbryant/dictionaries"
 	"github.com/erikbryant/waffle/board"
 	"golang.org/x/exp/maps"
+	"os"
 	"regexp"
 	"strings"
 )
@@ -273,7 +274,8 @@ func matchWords(re string, ye []rune, dict []string) []string {
 		}
 	}
 	if len(matches) == 0 {
-		fmt.Println("ERROR! 3", re)
+		fmt.Println("No matches found for regexp", re)
+		os.Exit(1)
 	}
 
 	return matches
