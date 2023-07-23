@@ -15,7 +15,7 @@ type Game struct {
 func main() {
 	fmt.Println("Welcome to waffle!")
 
-	serial := Game{"bneyha c municre t ettsha/gwywgy y wwggwwy y ygywyg", 547}
+	serial := Game{"bziler r taratsa o alpeir/gywygw y wyygyyw w wgwywg", 548}
 
 	waffle := board.Parse(serial.serial)
 	s := solver.New(waffle)
