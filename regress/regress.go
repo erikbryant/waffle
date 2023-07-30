@@ -77,6 +77,8 @@ var (
 		{"taenergt r e perpsersd m x iaretaler m n vscsrevd/ywgygyww y w wgygygwgy w w ygygwgwgy w w wwwgygwy", 1},
 	}
 	dailyWaffles = []TestCase{
+		{"tebtyi t smlasbo m udapiy/gwgwgy y wyygyww w ygwwyg", 555},
+		{"sllhtl g earplal u heetue/gyyygw w wwygyww w wgwywg", 554},
 		{"ipertn e reoifrk s oruunn/gywwgg w wywgyyw w ygywwg", 553},
 		{"aareet d srelabt i lmruih/gwywgw g wyygyyw y wgywyg", 552},
 		{"seegni o phuteoo w uednre/gwywgw y wywggyy w ygwwyg", 551},
@@ -211,9 +213,9 @@ func TestSolve(testCases []TestCase) {
 func main() {
 	fmt.Printf("Welcome to waffle regression tests!\n")
 
-	fmt.Printf("\nDeluxe Waffles\n")
-	TestSolve(deluxeWaffles)
-
 	fmt.Printf("\nDaily Waffles\n")
 	TestSolve(dailyWaffles)
+
+	fmt.Printf("\nDeluxe Waffles\n")
+	TestSolve(deluxeWaffles)
 }
