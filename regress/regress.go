@@ -159,6 +159,16 @@ var (
 		{"agdrml r ueianeu l oeibrr/gwywgw y wwygywg w ggwywg", 300},
 		{"lieirs w riipese n rcouye/gwywgw y wygggyw w wgwywg", 200},
 		{"mmkoye u iaomerr o pahcln/gwywgw y wyggwyw w wgwwwg", 100},
+		{"satemu r aeagbby c abugre/gyyygy y gwwggyw w wgwyyg", 40},
+		{"cmroac s opmiorc o heepdt/gwwggw w ygygyyw w wgywwg", 39},
+		// {"stcalu w tlldear i aetelh/gwwwgw w yywgwyw w wgyywg", 38}, <-- Ambiguous
+		{"qtguly u gduioet n eneily/gwwygw w ywwgwyw w wgwywg", 37},
+		{"frlels o eidinoi g ltmuar/ggywgy y ywwgyww w wgyywg", 36},
+		{"crhamt t bunokll r ietray/gyyygy y wwwgwgw w ygyywg", 35},
+		{"fslahm e gllikan l uevgay/gyyygy y wywgwyw g ygwywg", 34},
+		{"prhnya e dweanos e kkurhl/gwywgy y yywgwyw w wgwwwg", 33},
+		{"datrmu y tsaacro e revovr/gggwgw w wwwgwyy w wgwwwg", 32},
+		{"diloyn k tladreu e iynaws/gggwgy w ywwgyyw g wgyywg", 31},
 		{"luuhet e apgraut e olsmny/gwyggw w wgygwyw w wgywwg", 30},
 		{"aeaayo a lelrvls c rretet/gwywgw g wywgwww w wggwwg", 29},
 		{"mldaht o rnotial e utnuty/gwwwgw w yywgwyw w wgwywg", 28},
@@ -177,7 +187,7 @@ var (
 		{"yiyltu e vharakl c isocpt/gwwwgw y wwwgwwy y ggwwgg", 15},
 		{"siatno y odhdver h etrmoe/gyyygy y wwwgwyw w wgwywg", 14},
 		{"dggoam e gioinwn h tllelt/gwgygw w gwwgwww w wgwwwg", 13},
-		// {"arcxet b ezmonje n aezodt/gwwwgw w yywggyw g wgwywg", 12}, // <-- Ambiguous
+		// {"arcxet b ezmonje n aezodt/gwwwgw w yywggyw g wgwywg", 12}, <-- Ambiguous
 		{"cldara h dxopeul i vreeey/gwwwgw w ywwgwyw w wgwywg", 11},
 		{"bnebkn e avlidll n vemalt/gyywgw w wyggwyy w wgwywg", 10},
 		{"tjmilo r agoailn l kneaia/gwwggg w ywggwyw w wgwyyg", 9},
