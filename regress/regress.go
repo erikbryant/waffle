@@ -210,6 +210,7 @@ var (
 		{"speeda t ptocirn e mpeiey/gggwgw w yywgwyw g wgyywg", 3},
 		{"scgoln n dindeer i uffare/gwwwgg w yyggwyw y wgwyyg", 2},
 		{"fboueg i ulsoomg e loemna/gwwggw w wgygyyw y wgyywg", 1},
+		{"bcstda a ieuotln e dnrloy/gwywgg y gwygyyw y wgwwwg", -1}, // Waffle's webpage review image
 	}
 )
 
