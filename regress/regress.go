@@ -79,6 +79,7 @@ var (
 		{"taenergt r e perpsersd m x iaretaler m n vscsrevd/ywgygyww y w wgygygwgy w w ygygwgwgy w w wwwgygwy", 1},
 	}
 	dailyWaffles = []TestCase{
+		{"sneekc u tatucdr t pegliy/ggywgw w ywygwww g wgyywg", 567},
 		{"dvegyo s eutamgr a uatvst/gwywgg y gywgwyw w wgwywg", 566},
 		{"baeleg i creuego s secrlt/ggywgy w ywygwww g wgyywg", 565},
 		{"dedipb m frmiuuo f utreoy/gwywgy y yywgwyw w wgwwwg", 564},
@@ -210,7 +211,7 @@ var (
 		{"speeda t ptocirn e mpeiey/gggwgw w yywgwyw g wgyywg", 3},
 		{"scgoln n dindeer i uffare/gwwwgg w yyggwyw y wgwyyg", 2},
 		{"fboueg i ulsoomg e loemna/gwwggw w wgygyyw y wgyywg", 1},
-		{"bcstda a ieuotln e dnrloy/gwywgg y gwygyyw y wgwwwg", -1}, // Waffle's webpage review image
+		{"bcstda a ieuotln e dnrloy/gwywgg y gwygyyw y wgwwwg", 0}, // Waffle's webpage review image
 	}
 )
 
