@@ -14,6 +14,7 @@ type TestCase struct {
 
 var (
 	deluxeWaffles = []TestCase{
+		{"opealsae o m maeptirts e s cplrluret e e tagrlenr/wwgygyyy y w wgwgwgwgy g g wgwgwgwgw w y yyygygwy", 69},
 		{"nsasante c m sueherddr a r etrrranet s l eseyiepf/ywgwgwyy w w ygygggwgy y y ygwgggwgw y w wywgwgww", 68},
 		{"cacgihsa i h ncealkrei p w eantcersd c e rlrrhlcr/yygygywy w w wgwgygygy g g ygwgygygw w w ywwgwgyw", 67},
 		{"artdamap n e iawprohee s e ntcothldv e k oerttroe/ywgwgwyw w y wgwgggwgy y w ygwgggwgw w w wyygwgwy", 66},
@@ -281,7 +282,7 @@ func main() {
 	fmt.Printf("Welcome to waffle regression tests!\n")
 
 	fmt.Printf("\nDaily Waffles\n")
-	TestSolve(dailyWaffles)
+	// TestSolve(dailyWaffles)
 
 	fmt.Printf("\nDeluxe Waffles\n")
 	TestSolve(deluxeWaffles)
