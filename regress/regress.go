@@ -282,7 +282,7 @@ func main() {
 	fmt.Printf("Welcome to waffle regression tests!\n")
 
 	fmt.Printf("\nDaily Waffles\n")
-	// TestSolve(dailyWaffles)
+	TestSolve(dailyWaffles)
 
 	fmt.Printf("\nDeluxe Waffles\n")
 	TestSolve(deluxeWaffles)
