@@ -3,7 +3,7 @@ module github.com/erikbryant/waffle
 go 1.20
 
 require (
-	github.com/erikbryant/dictionaries v0.1.0
+	github.com/erikbryant/dictionaries v0.2.0
 	github.com/fatih/color v1.15.0
 	golang.org/x/exp v0.0.0-20230905200255-921286631fa9
 )

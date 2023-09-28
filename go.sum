@@ -1,5 +1,5 @@
-github.com/erikbryant/dictionaries v0.1.0 h1:FUB1qBAyIzYKAMepOdMDyo5RuXDiCOTAio+SKbNpv+A=
-github.com/erikbryant/dictionaries v0.1.0/go.mod h1:V9CGX+P7ZlBFe4F/RPpKheyPlBmprGIkbkqQa0gnZnU=
+github.com/erikbryant/dictionaries v0.2.0 h1:TOimLg+zhBBbpw9T8V6umdQsC9n9pF0zNcyq9HU97dI=
+github.com/erikbryant/dictionaries v0.2.0/go.mod h1:8W0bUqF02XAKe9weSSGef1MzT4OuQIYGag5fSTNuM6k=
 github.com/fatih/color v1.15.0 h1:kOqh6YHBtK8aywxGerMG2Eq3H6Qgoqeo13Bk2Mv/nBs=
 github.com/fatih/color v1.15.0/go.mod h1:0h5ZqXfHYED7Bhv2ZJamyIOUej9KtShiJESRwBDUSsw=
 github.com/mattn/go-colorable v0.1.13 h1:fFA4WZxdEF4tXPZVKMLwD8oUnCTTo08duU7wxecdEvA=
