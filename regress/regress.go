@@ -88,6 +88,7 @@ var (
 		{"taenergt r e perpsersd m x iaretaler m n vscsrevd/ywgygyww y w wgygygwgy w w ygygwgwgy w w wwwgygwy", 1},
 	}
 	dailyWaffles = []TestCase{
+		{"sayalo c etcaerv t rpwate/gwywgw w wyygyyw w wgwywg", 631},
 		{"cuelna d oieveiv n aroair/gwywgw w wywgwyy y ygwywg", 630},
 		{"oewear g rrlaced m nrlety/gywwgg w wyygwyy w wgwyyg", 629},
 		{"sfvdta r pieaehe c rtghnt/gwwwgw g wwygywy g ygwywg", 628},
