@@ -14,6 +14,7 @@ type TestCase struct {
 
 var (
 	deluxeWaffles = []TestCase{
+		{"aafuzvea a u tnnrnaaay e l nmemdomhi e t dienyslt/ywgygwyw y y ygygwgwgw g g wgwgwgygw w w ywwgygwy", 73},
 		{"dmauevab h l etxreigey e s rteactndi t s reeebdol/wwgwgywy w w ygwgygwgw g g wgygwgwgw w w wywgygwy", 72},
 		{"gnsdesdt n l csraitenn t r auaupulli i p sneastss/wygygyyw w w wgygwgwgw g g wgygwgwgy w w wyygygww", 71},
 		{"notogeen f c ssiroanmo n c cecoeibnu l c aoefsrar/yygygwyw y w wgwgwgwgy g g wgwgwgwgw w w wyygwgww", 70},
