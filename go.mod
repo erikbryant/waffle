@@ -1,6 +1,8 @@
 module github.com/erikbryant/waffle
 
-go 1.20
+go 1.21
+
+toolchain go1.21.4
 
 require (
 	github.com/erikbryant/dictionaries v0.2.0
