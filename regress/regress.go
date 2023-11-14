@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+
 	"github.com/erikbryant/waffle/board"
 	"github.com/erikbryant/waffle/pathfinder"
 	"github.com/erikbryant/waffle/solver"
@@ -14,6 +15,7 @@ type TestCase struct {
 
 var (
 	deluxeWaffles = []TestCase{
+		{"eaowttne s m eentrekec d d uptayfdll c u xwltehli/ywgwgyyw y w ygwgggwgw w w wgwgggwgw y w wwwgygwy", 77},
 		{"nrrteiid n r hrcgciigt a t wuiteitto o e siearncg/wygygwyw w w ygwgwgygy g g wgwgwgwgw w w wyygygww", 76},
 		{"aelennki c c nrlostsro s n eioitaaev m a torgtete/yygwgwww w w ygwgggwgy w w ygwgggwgy w w ywwgygwy", 75},
 		{"tnsiatod d i ecentaxnb r i eehitiagn t u ihdlngto/yygygyyy y w wgwgggwgw w w wgwgggwgw w w yyygwgyw", 74},
@@ -92,6 +94,7 @@ var (
 		{"taenergt r e perpsersd m x iaretaler m n vscsrevd/ywgygyww y w wgygygwgy w w ygygwgwgy w w wwwgygwy", 1},
 	}
 	dailyWaffles = []TestCase{
+		{"smdiyo w gnalwld e enarpy/gyyygw w wwygyww g wgwgwg", 662},
 		{"eoiaya l nchnioe y lsevtd/gyywgw y wyygwww g ggwywg", 661},
 		{"wirato a oeeiigs s nrdtco/gywygw w wywgwyy w ygwgwg", 660},
 		{"lrnsns o auessra i eriohe/gyywgy y wywgywy w wggwwg", 659},
