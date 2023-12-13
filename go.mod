@@ -7,7 +7,7 @@ toolchain go1.21.4
 require (
 	github.com/erikbryant/dictionaries v0.2.0
 	github.com/fatih/color v1.16.0
-	golang.org/x/exp v0.0.0-20231127185646-65229373498e
+	golang.org/x/exp v0.0.0-20231206192017-f3f8817b8deb
 )
 
 require (
