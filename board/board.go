@@ -2,8 +2,9 @@ package board
 
 import (
 	"fmt"
-	"github.com/fatih/color"
 	"math"
+
+	"github.com/fatih/color"
 )
 
 const (
@@ -31,9 +32,7 @@ type Tile struct {
 
 // newGrid creates a new grid, populated with empty squares
 func newGrid(size int) Grid {
-	var grid Grid
-
-	grid = make(Grid, size)
+	grid := make(Grid, size)
 	for row := 0; row < size; row++ {
 		grid[row] = make([]rune, size)
 	}
