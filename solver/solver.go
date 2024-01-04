@@ -2,12 +2,13 @@ package solver
 
 import (
 	"fmt"
-	"github.com/erikbryant/dictionaries"
-	"github.com/erikbryant/waffle/board"
-	"golang.org/x/exp/maps"
 	"os"
 	"regexp"
 	"strings"
+
+	"github.com/erikbryant/dictionaries"
+	"github.com/erikbryant/waffle/board"
+	"golang.org/x/exp/maps"
 )
 
 type Possibles [][][]rune
@@ -131,6 +132,76 @@ func (s *Solver) TilesInCol(row, col int, matchColor rune) map[rune]int {
 	}
 
 	return m
+}
+
+// ParseSolution returns the serialization of the game given a puzzle and a solution
+func ParseSolution(puzzle, solution string) string {
+	// Mark solved squares as green, others as white
+	colors := ""
+	for i := range puzzle {
+		if puzzle[i] == ' ' {
+			colors += " "
+			continue
+		}
+		if puzzle[i] == solution[i] {
+			colors += "g"
+			continue
+		}
+		colors += "w"
+	}
+
+	p := board.Parse(puzzle + "/" + colors)
+	s := board.Parse(solution + "/" + colors)
+
+	// If the row/col in s needs it, mark it yellow otherwise white
+	for row := 0; row < p.Size(); row++ {
+		for col := 0; col < p.Size(); col++ {
+
+			pl, pc := p.Get(row, col)
+			if pl == ' ' || pc == board.Green {
+				continue
+			}
+
+			// Does this (non-degenerative) row need this letter?
+			if row%2 == 0 {
+				found := false
+				for i := 0; i < p.Size(); i++ {
+					sl, sc := s.Get(row, i)
+					if sl == ' ' || sc == board.Green || sc == board.Yellow {
+						continue
+					}
+					if sl == pl {
+						p.Set(row, col, pl, board.Yellow)
+						s.Set(row, i, sl, board.Yellow)
+						found = true
+						break
+					}
+				}
+				if found {
+					// Don't also try to double-match it in a col
+					continue
+				}
+			}
+
+			// Does this (non-degenerative) col need this letter?
+			if col%2 == 0 {
+				for i := 0; i < p.Size(); i++ {
+					sl, sc := s.Get(i, col)
+					if sl == ' ' || sc == board.Green || sc == board.Yellow {
+						continue
+					}
+					if sl == pl {
+						p.Set(row, col, pl, board.Yellow)
+						s.Set(i, col, sl, board.Yellow)
+						break
+					}
+				}
+
+			}
+		}
+	}
+
+	return p.Serialize()
 }
 
 // possibleLetters returns the set of all possible letters for the given tile
@@ -406,9 +477,7 @@ func copy(p Possibles) Possibles {
 
 	for r, row := range p {
 		for c := range row {
-			for _, l := range p[r][c] {
-				newP[r][c] = append(newP[r][c], l)
-			}
+			newP[r][c] = append(newP[r][c], p[r][c]...)
 		}
 	}
 
