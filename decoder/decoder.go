@@ -6,8 +6,10 @@ import (
 	"fmt"
 	"io"
 	"log"
+	"math"
 	"strings"
 
+	"github.com/erikbryant/util-golang/util"
 	"github.com/erikbryant/waffle/solver"
 	"github.com/erikbryant/web"
 )
@@ -46,7 +48,7 @@ func parseJson(contents []byte) (map[string]interface{}, error) {
 	// Filter them out.
 	filtered := []byte{}
 	for _, b := range contents {
-		if b <= 0x1d {
+		if b <= 0x1f {
 			continue
 		}
 		filtered = append(filtered, b)
@@ -62,29 +64,61 @@ func parseJson(contents []byte) (map[string]interface{}, error) {
 	return jsonObject, nil
 }
 
+// calcSideLen returns the side length of the waffled square encoded by n
+func calcSideLen(n int) int {
+	// n is the difference of two squares (the whole board minus
+	// the waffle holes):
+	// n==4     4-0  2^2-0^2
+	// n==8     9-1  3^2-1^2
+	// n==21   25-4  5^2-2^2
+	// n==40   49-9  7^2-3^2
+	// n==65  81-16  9^2-4^2
+
+	root := 0
+	for {
+		if root >= n {
+			// n is not the difference of two squares
+			break
+		}
+		candidate := n + root*root
+		if util.IsSquare(candidate) {
+			return int(math.Sqrt(float64(candidate)))
+		}
+		root++
+	}
+
+	panic(fmt.Errorf("could not find a length for: %d", n))
+}
+
 // insertSpaces returns a string with spaces added to represent the waffle holes
 func insertSpaces(s string) string {
 	out := ""
 
-	for i := range s {
-		if i == 6 || i == 7 || i == 14 || i == 15 {
-			out += " "
+	sideLen := calcSideLen(len(s))
+
+	i := 0
+	for row := 0; row < sideLen; row++ {
+		for col := 0; col < sideLen; col++ {
+			if row%2 != 0 && col%2 != 0 {
+				out += " "
+				continue
+			}
+			out += s[i : i+1]
+			i++
 		}
-		out += s[i : i+1]
 	}
 
 	return out
 }
 
-// generateSignature returns code suitable for pasting into the regress tests
+// generateSignature returns letters/colors code suitable for pasting into the regress tests
 func generateSignature(number int, waffle string) string {
 	return fmt.Sprintf(`		{"%s", %d},`, waffle, number)
 }
 
-func main() {
-	fmt.Printf("Welcome to decoder!\n\n")
-
-	msg, err := download("https://wafflegame.net/daily1.txt")
+// signPuzzle downloads the given puzzle and returns its letters/colors signature
+func signPuzzle(url string) string {
+	msg, err := download(url)
 	if err != nil {
 		log.Fatal(err)
 	}
@@ -111,7 +145,15 @@ func main() {
 
 	waffle := solver.ParseSolution(puzzle, solution)
 
-	sig := generateSignature(number, waffle)
+	return generateSignature(number, waffle)
+}
 
-	fmt.Println(sig)
+func main() {
+	fmt.Printf("Welcome to decoder!\n\n")
+
+	for _, file := range []string{"daily1.txt", "daily2.txt", "deluxe1.txt", "deluxe2.txt"} {
+		sig := signPuzzle("https://wafflegame.net/" + file)
+		fmt.Println(file)
+		fmt.Println(sig)
+	}
 }
