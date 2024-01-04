@@ -88,50 +88,12 @@ func (s *Solver) YellowDupes() map[rune]int {
 
 // TilesInRow returns the set of letters of a given color (and their count) adjacent to the given coord
 func (s *Solver) TilesInRow(row, col int, matchColor rune) map[rune]int {
-	m := map[rune]int{}
-
-	if row%2 == 1 {
-		// This is a standalone tile
-		l, c := s.Get(row, col)
-		if c == matchColor {
-			m[l]++
-		}
-		return m
-	}
-
-	// This is a full word
-	for i := 0; i < s.Size(); i++ {
-		l, c := s.Get(row, i)
-		if c == matchColor {
-			m[l]++
-		}
-	}
-
-	return m
+	return s.game.TilesInRow(row, col, matchColor)
 }
 
 // TilesInCol returns the set of letters of a given color (and their count) adjacent to the given coord
 func (s *Solver) TilesInCol(row, col int, matchColor rune) map[rune]int {
-	m := map[rune]int{}
-
-	if col%2 == 1 {
-		// This is a standalone tile
-		l, c := s.Get(row, col)
-		if c == matchColor {
-			m[l]++
-		}
-		return m
-	}
-
-	// This is a full word
-	for i := 0; i < s.Size(); i++ {
-		l, c := s.Get(i, col)
-		if c == matchColor {
-			m[l]++
-		}
-	}
-
-	return m
+	return s.game.TilesInCol(row, col, matchColor)
 }
 
 // ParseSolution returns the serialization of the game given a puzzle and a solution
@@ -153,50 +115,36 @@ func ParseSolution(puzzle, solution string) string {
 	p := board.Parse(puzzle + "/" + colors)
 	s := board.Parse(solution + "/" + colors)
 
-	// If the row/col in s needs it, mark it yellow otherwise white
 	for row := 0; row < p.Size(); row++ {
+		if row%2 != 0 {
+			continue
+		}
+		needs := s.TilesInRow(row, 0, board.White)
 		for col := 0; col < p.Size(); col++ {
-
 			pl, pc := p.Get(row, col)
-			if pl == ' ' || pc == board.Green {
+			if pc == board.Green {
 				continue
 			}
-
-			// Does this (non-degenerative) row need this letter?
-			if row%2 == 0 {
-				found := false
-				for i := 0; i < p.Size(); i++ {
-					sl, sc := s.Get(row, i)
-					if sl == ' ' || sc == board.Green || sc == board.Yellow {
-						continue
-					}
-					if sl == pl {
-						p.Set(row, col, pl, board.Yellow)
-						s.Set(row, i, sl, board.Yellow)
-						found = true
-						break
-					}
-				}
-				if found {
-					// Don't also try to double-match it in a col
-					continue
-				}
+			if needs[pl] > 0 {
+				needs[pl]--
+				p.Set(row, col, pl, board.Yellow)
 			}
+		}
+	}
 
-			// Does this (non-degenerative) col need this letter?
-			if col%2 == 0 {
-				for i := 0; i < p.Size(); i++ {
-					sl, sc := s.Get(i, col)
-					if sl == ' ' || sc == board.Green || sc == board.Yellow {
-						continue
-					}
-					if sl == pl {
-						p.Set(row, col, pl, board.Yellow)
-						s.Set(i, col, sl, board.Yellow)
-						break
-					}
-				}
-
+	for col := 0; col < p.Size(); col++ {
+		if col%2 != 0 {
+			continue
+		}
+		needs := s.TilesInCol(0, col, board.White)
+		for row := 0; row < p.Size(); row++ {
+			pl, pc := p.Get(row, col)
+			if pc == board.Green {
+				continue
+			}
+			if needs[pl] > 0 {
+				needs[pl]--
+				p.Set(row, col, pl, board.Yellow)
 			}
 		}
 	}
@@ -574,6 +522,22 @@ func (s *Solver) Print() {
 		fmt.Printf("A%d: egrep '%s' ../dictionaries/waffle.dict\n", i, s.regexAcross(i))
 		fmt.Printf("D%d: egrep '%s' ../dictionaries/waffle.dict\n", i, s.regexDown(i))
 	}
+}
+
+// Serialize returns the solution as a string
+func (s *Solver) Serialize() string {
+	serial := ""
+
+	for row := 0; row < s.Size(); row++ {
+		for col := 0; col < s.Size(); col++ {
+			if row%2 == 1 && col%2 == 1 {
+				serial += " "
+			}
+			serial += string(s.possibles[row][col])
+		}
+	}
+
+	return serial
 }
 
 // Solved returns true if the waffle game is solved

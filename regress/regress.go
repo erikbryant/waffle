@@ -2,6 +2,7 @@ package main
 
 import (
 	"fmt"
+	"strings"
 
 	"github.com/erikbryant/waffle/board"
 	"github.com/erikbryant/waffle/pathfinder"
@@ -389,22 +390,48 @@ func TestSolve(testCases []TestCase) {
 	for _, testCase := range testCases {
 		waffle := board.Parse(testCase.serial)
 		s := solver.New(waffle)
-		if s.Solve() {
-			path := pathfinder.New(s)
-			path.Find()
-			count++
-			total += path.PathLen()
-			fmt.Printf("Game: %3d Steps: %3d Average: %3.2f\n", testCase.index, path.PathLen(), float64(total)/float64(count))
-		} else {
+		if !s.Solve() {
 			fmt.Println("Unable to solve:", testCase.serial)
 			s.Print()
 			fmt.Println()
+			continue
+		}
+		path := pathfinder.New(s)
+		path.Find()
+		count++
+		total += path.PathLen()
+		fmt.Printf("Game: %3d Steps: %3d Average: %3.2f\n", testCase.index, path.PathLen(), float64(total)/float64(count))
+	}
+}
+
+func TestParseSolution(testCases []TestCase) {
+	for _, testCase := range testCases {
+		waffle := board.Parse(testCase.serial)
+		s := solver.New(waffle)
+		if !s.Solve() {
+			fmt.Println("Unable to solve:", testCase.serial)
+			s.Print()
+			fmt.Println()
+			continue
+		}
+		puzzle := strings.Split(testCase.serial, "/")[0]
+		solution := s.Serialize()
+		signature := solver.ParseSolution(puzzle, solution)
+		if signature != testCase.serial {
+			s.Print()
+			fmt.Printf("Failed to generate expected signature\n  Expected: %s\n  Got:      %s\n", testCase.serial, signature)
 		}
 	}
 }
 
 func main() {
 	fmt.Printf("Welcome to waffle regression tests!\n")
+
+	fmt.Printf("\nDaily Waffles - ParseSolution\n")
+	TestParseSolution(dailyWaffles)
+
+	fmt.Printf("\nDeluxe Waffles - ParseSolution\n")
+	TestParseSolution(deluxeWaffles)
 
 	fmt.Printf("\nDaily Waffles\n")
 	TestSolve(dailyWaffles)

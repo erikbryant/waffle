@@ -102,6 +102,54 @@ func (w *Waffle) Tiles() []Tile {
 	return tiles
 }
 
+// TilesInRow returns the set of letters of a given color (and their count) adjacent to the given coord
+func (w *Waffle) TilesInRow(row, col int, matchColor rune) map[rune]int {
+	m := map[rune]int{}
+
+	if row%2 == 1 {
+		// This is a standalone tile
+		l, c := w.Get(row, col)
+		if c == matchColor {
+			m[l]++
+		}
+		return m
+	}
+
+	// This is a full word
+	for i := 0; i < w.Size(); i++ {
+		l, c := w.Get(row, i)
+		if c == matchColor {
+			m[l]++
+		}
+	}
+
+	return m
+}
+
+// TilesInCol returns the set of letters of a given color (and their count) adjacent to the given coord
+func (w *Waffle) TilesInCol(row, col int, matchColor rune) map[rune]int {
+	m := map[rune]int{}
+
+	if col%2 == 1 {
+		// This is a standalone tile
+		l, c := w.Get(row, col)
+		if c == matchColor {
+			m[l]++
+		}
+		return m
+	}
+
+	// This is a full word
+	for i := 0; i < w.Size(); i++ {
+		l, c := w.Get(i, col)
+		if c == matchColor {
+			m[l]++
+		}
+	}
+
+	return m
+}
+
 // Letters returns the letters of a given color and their count
 func (w *Waffle) Letters(c rune) map[rune]int {
 	m := map[rune]int{}
