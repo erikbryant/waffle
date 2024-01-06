@@ -1,7 +1,7 @@
 github.com/erikbryant/dictionaries v0.2.0 h1:TOimLg+zhBBbpw9T8V6umdQsC9n9pF0zNcyq9HU97dI=
 github.com/erikbryant/dictionaries v0.2.0/go.mod h1:8W0bUqF02XAKe9weSSGef1MzT4OuQIYGag5fSTNuM6k=
-github.com/erikbryant/util-golang v0.0.0 h1:RUOITpx5RCKd1TQeFAQ6ubARHIHj91lrFb9oVrVP/PQ=
-github.com/erikbryant/util-golang v0.0.0/go.mod h1:bWwyhcSvP5iTrpEItGKQy3KFfJYZfmweNpAxTDAH050=
+github.com/erikbryant/util-golang v0.0.2 h1:5XAvnh6tnM2zN4vjdP3qYxUQOC7XMopx8y+OLFYqo5w=
+github.com/erikbryant/util-golang v0.0.2/go.mod h1:iG3crIeE4GWbQk6DZPSXhHzQ62GwmJPyqqa6ieOXWa4=
 github.com/erikbryant/web v0.7.0 h1:x5TWZkY+Jcr8K31qGwybUfCjJvCfVoyvQr1IYLIbb7E=
 github.com/erikbryant/web v0.7.0/go.mod h1:T9X91jpCgLGuVTyCMZrRPnu+of2XZVQfpQA7emieISU=
 github.com/fatih/color v1.16.0 h1:zmkK9Ngbjj+K0yRhTVONQh1p/HknKYSlNT+vZCzyokM=
@@ -11,9 +11,9 @@ github.com/mattn/go-colorable v0.1.13/go.mod h1:7S9/ev0klgBDR4GtXTXX8a3vIGJpMovk
 github.com/mattn/go-isatty v0.0.16/go.mod h1:kYGgaQfpe5nmfYZH+SKPsOc2e4SrIfOl2e/yFXSvRLM=
 github.com/mattn/go-isatty v0.0.20 h1:xfD0iDuEKnDkl03q4limB+vH+GxLEtL/jb4xVJSWWEY=
 github.com/mattn/go-isatty v0.0.20/go.mod h1:W+V8PltTTMOvKvAeJH7IuucS94S2C6jfK/D7dTCTo3Y=
-golang.org/x/exp v0.0.0-20231226003508-02704c960a9b h1:kLiC65FbiHWFAOu+lxwNPujcsl8VYyTYYEZnsOO1WK4=
-golang.org/x/exp v0.0.0-20231226003508-02704c960a9b/go.mod h1:iRJReGqOEeBhDZGkGbynYwcHlctCvnjTYIamk7uXpHI=
+golang.org/x/exp v0.0.0-20240103183307-be819d1f06fc h1:ao2WRsKSzW6KuUY9IWPwWahcHCgR0s52IfwutMfEbdM=
+golang.org/x/exp v0.0.0-20240103183307-be819d1f06fc/go.mod h1:iRJReGqOEeBhDZGkGbynYwcHlctCvnjTYIamk7uXpHI=
 golang.org/x/sys v0.0.0-20220811171246-fbc7d0a398ab/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=
 golang.org/x/sys v0.6.0/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=
-golang.org/x/sys v0.15.0 h1:h48lPFYpsTvQJZF4EKyI4aLHaev3CxivZmv7yZig9pc=
-golang.org/x/sys v0.15.0/go.mod h1:/VUhepiaJMQUp4+oa/7Zr1D23ma6VTLIYjOOTFZPUcA=
+golang.org/x/sys v0.16.0 h1:xWw16ngr6ZMtmxDyKyIgsE93KNKz5HKmMa3b8ALHidU=
+golang.org/x/sys v0.16.0/go.mod h1:/VUhepiaJMQUp4+oa/7Zr1D23ma6VTLIYjOOTFZPUcA=
