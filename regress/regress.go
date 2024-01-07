@@ -16,6 +16,7 @@ type TestCase struct {
 
 var (
 	deluxeWaffles = []TestCase{
+		{"gebuorid e c iceuttlrt s p uaectisna y l lroruhno/wwgygwyy y y wgygggygw w w wgwgggwgw w w wywgwgww", 85},
 		{"nhruitvv l m orlcccyec r l seiuniset v e lseteeen/wwgygwyw w w wgygwgygy g g wgwgwgygw w w yywgwgwy", 84},
 		{"euadmlnn m u lamtsnimi e d utenrfdlt e n pioaelye/ywgygyww w y wgwgwgwgw g g wgygwgwgy w w yywgygwy", 83},
 		{"naiekoee h u sitspedtc h f rtiidertn c e nssgetnr/wwgygwyy w w wgwgggwgw w w ygwgggygw w y wywgygwy", 82},
@@ -102,6 +103,7 @@ var (
 		{"taenergt r e perpsersd m x iaretaler m n vscsrevd/ywgygyww y w wgygygwgy w w ygygwgwgy w w wwwgygwy", 1},
 	}
 	dailyWaffles = []TestCase{
+		{"llikne l enseuai g ttshay/gwyygw y wwygyyy w ggwwyg", 717},
 		{"brnhdu n eerdruu u dtanom/gwywgy w yywgwyw y wgwwwg", 716},
 		{"hoabre a gvdoiir l atseie/ggywgw w ywygwyw g wgyywg", 715},
 		{"snagwc o henirlr h hpehle/gwwwgg y gywgwyw y wgwywg", 714},
@@ -430,6 +432,22 @@ func TestParseSolution(testCases []TestCase) {
 
 func main() {
 	fmt.Printf("Welcome to waffle regression tests!\n")
+
+	fmt.Printf("\n---------- Quick sanity check ----------\n")
+
+	fmt.Printf("\nDaily Waffles - ParseSolution\n")
+	TestParseSolution(dailyWaffles[:2])
+
+	fmt.Printf("\nDeluxe Waffles - ParseSolution\n")
+	TestParseSolution(deluxeWaffles[:2])
+
+	fmt.Printf("\nDaily Waffles\n")
+	TestSolve(dailyWaffles[:2])
+
+	fmt.Printf("\nDeluxe Waffles\n")
+	TestSolve(deluxeWaffles[:2])
+
+	fmt.Printf("\n---------- Exhaustive run of all tests ----------\n")
 
 	fmt.Printf("\nDaily Waffles - ParseSolution\n")
 	TestParseSolution(dailyWaffles)
