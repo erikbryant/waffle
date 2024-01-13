@@ -9,7 +9,7 @@ import (
 	"math"
 	"strings"
 
-	"github.com/erikbryant/util-golang/util"
+	"github.com/erikbryant/util-golang/algebra"
 	"github.com/erikbryant/waffle/solver"
 	"github.com/erikbryant/web"
 )
@@ -81,7 +81,7 @@ func calcSideLen(n int) int {
 			break
 		}
 		candidate := n + root*root
-		if util.IsSquare(candidate) {
+		if algebra.IsSquare(candidate) {
 			return int(math.Sqrt(float64(candidate)))
 		}
 		root++
