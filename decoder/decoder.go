@@ -14,6 +14,12 @@ import (
 	"github.com/erikbryant/web"
 )
 
+var (
+	DailyFiles  = []string{"daily1.txt", "daily2.txt"}
+	DeluxeFiles = []string{"deluxe1.txt", "deluxe2.txt"}
+	BaseURL     = "https://wafflegame.net/"
+)
+
 // download returns the response body from requesting the given URL
 func download(url string) (string, error) {
 	response, err := web.Request2(url, map[string]string{})
@@ -111,13 +117,8 @@ func insertSpaces(s string) string {
 	return out
 }
 
-// generateSignature returns letters/colors code suitable for pasting into the regress tests
-func generateSignature(number int, waffle string) string {
-	return fmt.Sprintf(`		{"%s", %d},`, waffle, number)
-}
-
 // signPuzzle downloads the given puzzle and returns its letters/colors signature
-func signPuzzle(url string) string {
+func signPuzzle(url string) (int, string) {
 	msg, err := download(url)
 	if err != nil {
 		log.Fatal(err)
@@ -145,15 +146,24 @@ func signPuzzle(url string) string {
 
 	waffle := solver.ParseSolution(puzzle, solution)
 
-	return generateSignature(number, waffle)
+	return number, waffle
+}
+
+// generateSignature returns letters/colors code suitable for pasting into the regress tests
+func generateSignature(number int, waffle string) string {
+	return fmt.Sprintf(`		{"%s", %d},`, waffle, number)
 }
 
 func main() {
 	fmt.Printf("Welcome to decoder!\n\n")
 
-	for _, file := range []string{"daily1.txt", "daily2.txt", "deluxe1.txt", "deluxe2.txt"} {
-		sig := signPuzzle("https://wafflegame.net/" + file)
-		fmt.Println(file)
-		fmt.Println(sig)
+	for _, file := range DailyFiles {
+		number, waffle := signPuzzle(BaseURL + file)
+		fmt.Println(generateSignature(number, waffle))
+	}
+
+	for _, file := range DeluxeFiles {
+		number, waffle := signPuzzle(BaseURL + file)
+		fmt.Println(generateSignature(number, waffle))
 	}
 }
