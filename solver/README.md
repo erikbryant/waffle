@@ -6,7 +6,7 @@ The possible letters for a tile are given as the set:
 
 The match instruction for a word is given as:
 
-  mi := [pl1][pl2][pl3][pl4][pl5] | egrep [ye]
+  mi := `[pl1][pl2][pl3][pl4][pl5] | egrep [ye]`
 
 Where:
 

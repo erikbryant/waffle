@@ -163,7 +163,7 @@ func (w *Waffle) Letters(c rune) map[rune]int {
 	return m
 }
 
-// AllLetters returns all of the letters and their count
+// AllLetters returns all the letters and their count
 func (w *Waffle) AllLetters() map[rune]int {
 	m := map[rune]int{}
 

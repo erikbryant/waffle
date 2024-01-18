@@ -30,7 +30,7 @@ type Path struct {
 	swaps    []Swap
 }
 
-// New creates an empty waffle game shortest path finder
+// New creates an empty waffle game shortest-path finder
 func New(s solver.Solver) Path {
 	var p Path
 
