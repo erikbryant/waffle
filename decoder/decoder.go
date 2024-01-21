@@ -50,11 +50,11 @@ func decodeBase64(msg string) ([]byte, error) {
 
 // parseJson returns the JSON representation of the contents
 func parseJson(contents []byte) (map[string]interface{}, error) {
-	// The JSON fails to unmarshal if these special characters are present.
-	// Filter them out.
+	// The JSON fails to unmarshal if special characters are present.
+	// Filter them out any low/high non-printable.
 	filtered := []byte{}
 	for _, b := range contents {
-		if b <= 0x1f {
+		if b <= 0x1f || b >= 0x7f {
 			continue
 		}
 		filtered = append(filtered, b)
