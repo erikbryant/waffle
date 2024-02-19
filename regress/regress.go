@@ -16,6 +16,7 @@ type TestCase struct {
 
 var (
 	deluxeWaffles = []TestCase{
+		{"lveiadae p r rchasscce i e edtsseetl l n uotdxeie/yygwgwwy y y wgwgggwgy w w ygwgggwgw y w wywgwgwy", 91},
 		{"motnosli m l kcwuntuyr r e rasamadto r n npaiotcs/ywgwgwwy y y ygwgggwgw w w ygwgggygw w w ywwgygwy", 90},
 		{"ctuniuaa e a elltiilee e t ptdraignh o o dlsdtlon/wwgygwyw y y ygwgwgwgw g g wgwgwgwgy w w yywgwgww", 89},
 		{"nnoaepot e u iontgrrwa h r raschioep i r coeligvn/ywgwgyyw w w wgwgggwgw w w ygwgggwgy y w wyygwgwy", 88},
@@ -108,6 +109,7 @@ var (
 		{"taenergt r e perpsersd m x iaretaler m n vscsrevd/ywgygyww y w wgygygwgy w w ygygwgwgy w w wwwgygwy", 1},
 	}
 	dailyWaffles = []TestCase{
+		{"senaad l ahcigxa u lerlby/gwywgy w yywgwyy y ygwywg", 760},
 		{"bslobr o rtzhteu r teeeah/gwywgw w yywgwyw y ggwyyg", 759},
 		{"darlsr m aeobulc e erpesl/gwywgw g wywgwyy g ygwywg", 758},
 		{"skprlt e eneseah u ediulr/ggywgw y wywggyy y wgwwwg", 757},
