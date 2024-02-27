@@ -507,15 +507,15 @@ func main() {
 
 	fmt.Printf("\n---------- Exhaustive run of all tests ----------\n")
 
-	fmt.Printf("\nDaily Waffles - ParseSolution\n")
-	TestParseSolution(dailyWaffles)
-
-	fmt.Printf("\nDeluxe Waffles - ParseSolution\n")
-	TestParseSolution(deluxeWaffles)
-
 	fmt.Printf("\nDaily Waffles\n")
 	TestSolve(dailyWaffles)
 
 	fmt.Printf("\nDeluxe Waffles\n")
 	TestSolve(deluxeWaffles)
+
+	fmt.Printf("\nDaily Waffles - ParseSolution\n")
+	TestParseSolution(dailyWaffles)
+
+	fmt.Printf("\nDeluxe Waffles - ParseSolution\n")
+	TestParseSolution(deluxeWaffles)
 }
