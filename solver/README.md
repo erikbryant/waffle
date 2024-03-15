@@ -10,15 +10,15 @@ The match instruction for a word is given as:
 
 Where:
 
-g      = self is green
-w      = {all white tiles}
-yd     = {all yellow duplicates}
-w(row) = {all white tiles in this row}
-w(col) = {all white tiles in this col}
-y(row) = {all yellow tiles in this row}
-y(col) = {all yellow tiles in this col}
-s      = self
-ye     = any yellow letters in non-intersection tiles
+* g      = self is green
+* w      = {all white tiles}
+* yd     = {all yellow duplicates}
+* w(row) = {all white tiles in this row}
+* w(col) = {all white tiles in this col}
+* y(row) = {all yellow tiles in this row}
+* y(col) = {all yellow tiles in this col}
+* s      = self
+* ye     = any yellow letters in non-intersection tiles
 
 # Reduce that set by any that have already been assigned
 
