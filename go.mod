@@ -6,7 +6,7 @@ require (
 	github.com/erikbryant/dictionaries v0.2.0
 	github.com/erikbryant/util-golang v0.0.13
 	github.com/erikbryant/web v0.8.0
-	github.com/fatih/color v1.16.0
+	github.com/fatih/color v1.17.0
 	golang.org/x/exp v0.0.0-20240506185415-9bf2ced13842
 )
 
