@@ -16,6 +16,8 @@ type TestCase struct {
 
 var (
 	deluxeWaffles = []TestCase{
+		{"maoeercm w a lalauehrr t r ibtotnsey t r oesyrlsl/ywgwgwyw w y ygwgygwgy g g wgwgwgwgw w w wywgygwy", 103},
+		{"ectehuea d e ulandtrco k e atrakfrli s h iaadelut/yygwgwyw w w wgygwgwgy g g ygygwgwgw w w wwwgygwy", 102},
 		{"ulneicyp r h eaitacede e i nhlavisrg c a tueelrnl/ywgygwyy w y ygygggwgw w w wgwgggwgy y w wwwgygwy", 101},
 		{"bearhbse n r eopserees d c vsdecicsa n e oubsdees/yygwgwyy w w ygwgggwgw w w wgwgggwgy w y wywgygyw", 100},
 		{"raanigeo v r earrostln c l egoaniler l t hadyylrt/ywgygyww w w wgwgggwgw w y wgwgggwgy y y wywgygyy", 99},
@@ -119,6 +121,19 @@ var (
 		{"taenergt r e perpsersd m x iaretaler m n vscsrevd/ywgygyww y w wgygygwgy w w ygygwgwgy w w wwwgygwy", 1},
 	}
 	dailyWaffles = []TestCase{
+		{"basptd e lnntryl j recuit/gwwwgy y wwwgwgy w ygyywg", 849},
+		{"alfatu e heodugi r nloair/gwywgg y gywgwyw w wgwywg", 848},
+		// 847
+		// 846
+		// 845
+		// 844
+		// 843
+		{"mimofe o halutgc d aaoybr/gywygw g wywgwyw w wgywyg", 842},
+		{"cuskms n mraismr e veahvy/gwywgw g wyyggyw y wgwwyg", 841},
+		{"ssaofr i roitcar n fpette/gwwwgy y yywgwyw y wgwwwg", 840},
+		{"tirnnt g eaihthi e chsiee/gyywgy w wwygyyw g ygwywg", 839},
+		{"cyrsde l vkaortr i asrmre/gwywgw w wwygywy y ygwwwg", 838},
+		{"fluine t rnevron e ahoroy/gywwgw w wyygyww g ygwgwg", 837},
 		{"dnauki n nrxcrea t reucma/gywygw g wywgwyy y ygwwwg", 836},
 		{"ainhnh g sbiiniu l cegsgt/gyywgw y wywggyy w wgywwg", 835},
 		{"daaeaz m zlbarpm e otacwk/gwgwgw g wywgwyw y wgywyg", 834},
@@ -178,7 +193,7 @@ var (
 		{"bnvehe e slcvsar n atleie/gywygw g wywgwyw y wgwywg", 780},
 		{"celrhe s oasgeca v nnuuue/gwywgy w wywgyyw w yggywg", 779},
 		{"cecekt t ettainr v iporcy/gwywgw y wywgwyy y ygwwwg", 778},
-		{"ceegkr m rlorare e npeill/gygwgw w wywgyww w yggywg", 777},
+		{"ceegkr m rlorare e npeill/gygwgw w wywgyww w yggywg", 777}, // Fails to solve
 		{"goulme a mtmiukr o uysdry/gyyygw w wywgwyw y wgwywg", 776},
 		{"crenke s veuumnp a ithoed/gwwggy g wywgyyw w wgwwyg", 775},
 		{"sekmlo c atpeiml i gpstnh/gwywgy w yywgwyw y wgwgwg", 774},
