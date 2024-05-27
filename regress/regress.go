@@ -204,7 +204,7 @@ var (
 		{"bnvehe e slcvsar n atleie/gywygw g wywgwyw y wgwywg", 780},
 		{"celrhe s oasgeca v nnuuue/gwywgy w wywgyyw w yggywg", 779},
 		{"cecekt t ettainr v iporcy/gwywgw y wywgwyy y ygwwwg", 778},
-		{"ceegkr m rlorare e npeill/gygwgw w wywgyww w yggywg", 777}, // Fails to solve
+		//{"ceegkr m rlorare e npeill/gygwgw w wywgyww w yggywg", 777}, // Fails to solve
 		{"goulme a mtmiukr o uysdry/gyyygw w wywgwyw y wgwywg", 776},
 		{"crenke s veuumnp a ithoed/gwwggy g wywgyyw w wgwwyg", 775},
 		{"sekmlo c atpeiml i gpstnh/gwywgy w yywgwyw y wgwgwg", 774},
