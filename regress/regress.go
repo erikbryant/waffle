@@ -16,6 +16,7 @@ type TestCase struct {
 
 var (
 	deluxeWaffles = []TestCase{
+		//{"egcaaedo e i srpmxneee p e dhracskti e a ncosdabm/yygygwyw w y wgwgwgwgy g g wgwgwgwgw w w wywgygyw", 109},
 		{"rrttadel i u mpiatoanc o o sottraleg p v rdcrcoii/ywgygyyy w w wgwgggwgw y w ygwgggwgw w y wywgwgyy", 108},
 		{"cdirpmaf l e etsmbouae e f ohrrvelts p d dialotoe/yygwgwwy w w ygwgggwgy w w wgwgggwgw w w yywgwgwy", 107},
 		{"ngdnefbc d n iansratns s m eeeitidet o s toxrmeaa/ywgwgwww w y wgwgwgygy g g wgwgwgygy y w yywgwgwy", 106},
@@ -126,6 +127,14 @@ var (
 		{"taenergt r e perpsersd m x iaretaler m n vscsrevd/ywgygyww y w wgygygwgy w w ygygwgwgy w w wwwgygwy", 1},
 	}
 	dailyWaffles = []TestCase{
+		// 889
+		{"ideirr u ennbnim a cteeur/gwwwgy w yywgwyw y wgywyg", 888},
+		{"riised e epaelee f itwxll/ggywgw w yywgwyg y wgwwwg", 887},
+		{"stamea a glmoeni w yprlne/gywygy w yywgwyw w wgwwwg", 886},
+		{"kdepal f ueaodbh l kiaont/gwwwgw g wyyggyy y wgwwyg", 885},
+		{"llrmha n rmobnau d aaaegy/gwywgy y yywgwyw w wgwwwg", 884},
+		{"hnroyt a esarwuc m dymaay/gwywgy y wgygwyw w wgwywg", 883},
+		{"aluieh o oldapnr g lailrw/gwywgy w yyygyyw y wgwgwg", 882},
 		{"pgroeo a llisnba o ttnasy/gwywgy y wgwgwyw g wgyywg", 881},
 		{"muooet a bgyuerh n aleagr/gwywgw w wywgwyw g wgyyyg", 880},
 		{"sdaakl e hrcileb a npkllt/gwgwgw y wywgygw w ygwywg", 879},
@@ -508,6 +517,7 @@ var (
 		{"cmnsar i haochwi y etthot/gwywgw y wygggyw y wgwywg", 502},
 		{"seostl l seohatn e upeecr/gyywgy w wywgyww y ygywwg", 501},
 		{"daieoe e couvowr g glnene/gwywgy g yywgwyw w wgwywg", 500},
+		// ...
 		{"sielkr t uuadoin n epcwml/gwywgw w wyygyyw y wgwwwg", 420},
 		{"hamele e uoamivt o olyetr/gwwggy w wywgwwy y wgwyyg", 419},
 		{"crnsgi e emsarui s nplgns/gwywgy y yywgwyw w wgwwwg", 418},
@@ -529,9 +539,13 @@ var (
 		{"mmubyc t eecnoui i dreuda/gwywgw w wyygyyw g wgwywg", 402},
 		{"miidcr g aognone m alirie/ggywgw w wyygwyy y wgwgwg", 401},
 		{"bsmcye s eaiarsl l adeeks/gwywgy y yywgwyw y wgwgwg", 400},
+		// ...
 		{"agdrml r ueianeu l oeibrr/gwywgw y wwygywg w ggwywg", 300},
+		// ...
 		{"lieirs w riipese n rcouye/gwywgw y wygggyw w wgwywg", 200},
+		// ...
 		{"mmkoye u iaomerr o pahcln/gwywgw y wyggwyw w wgwwwg", 100},
+		// ...
 		{"satemu r aeagbby c abugre/gyyygy y gwwggyw w wgwyyg", 40},
 		{"cmroac s opmiorc o heepdt/gwwggw w ygygyyw w wgywwg", 39},
 		// {"stcalu w tlldear i aetelh/gwwwgw w yywgwyw w wgyywg", 38}, <-- Ambiguous
@@ -560,7 +574,7 @@ var (
 		{"yiyltu e vharakl c isocpt/gwwwgw y wwwgwwy y ggwwgg", 15},
 		{"siatno y odhdver h etrmoe/gyyygy y wwwgwyw w wgwywg", 14},
 		{"dggoam e gioinwn h tllelt/gwgygw w gwwgwww w wgwwwg", 13},
-		// {"arcxet b ezmonje n aezodt/gwwwgw w yywggyw g wgwywg", 12}, <-- Ambiguous
+		{"arcxet b ezmonje n aezodt/gwwwgw w yywggyw g wgwywg", 12},
 		{"cldara h dxopeul i vreeey/gwwwgw w ywwgwyw w wgwywg", 11},
 		{"bnebkn e avlidll n vemalt/gyywgw w wyggwyy w wgwywg", 10},
 		{"tjmilo r agoailn l kneaia/gwwggg w ywggwyw w wgwyyg", 9},
