@@ -129,14 +129,14 @@ var (
 	}
 	dailyWaffles = []TestCase{
 		{"clickb u umhiunr a hcpaet/gwwggy y yywgwww w wgwyyg", 897},
-		// 896
+		{"sliatm g fteaeir p hfarld/gywygw g wywgwyw g wgwywg", 896},
 		{"cawodn e rhnteoy s rsrefr/gwyygw y gyggyww w wgwwwg", 895},
 		{"lerinu s eyvsito n armehe/gywygw w wwygyww y wgywyg", 894},
-		// 893
-		// 892
-		// 891
-		// 890
-		// 889
+		{"poragr f eoneala t dlmegy/gyywgw w wwwggyg w ygwywg", 893},
+		{"puslek l eoeditv m atnroe/gywygw w wywgwyy w ygwgwg", 892},
+		{"mvaore n ispiiuk m wcelhy/gwyggw y wgygwww w wgywyg", 891},
+		{"cvrgbe p muiprue r aeuide/gwywgw g wyygyyw w wgwywg", 890},
+		{"geehnu e urrgaer n etrvae/gygwgw y wywgyyw w wgywwg", 889},
 		{"ideirr u ennbnim a cteeur/gwwwgy w yywgwyw y wgywyg", 888},
 		{"riised e epaelee f itwxll/ggywgw w yywgwyg y wgwwwg", 887},
 		{"stamea a glmoeni w yprlne/gywygy w yywgwyw w wgwwwg", 886},
