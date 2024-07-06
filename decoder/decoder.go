@@ -4,14 +4,14 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
+	"github.com/erikbryant/util-golang/algebra"
+	"github.com/erikbryant/waffle/solver"
+	"github.com/erikbryant/web"
 	"io"
 	"log"
 	"math"
 	"strings"
-
-	"github.com/erikbryant/util-golang/algebra"
-	"github.com/erikbryant/waffle/solver"
-	"github.com/erikbryant/web"
+	"unicode"
 )
 
 var (
@@ -50,19 +50,17 @@ func decodeBase64(msg string) ([]byte, error) {
 
 // parseJson returns the JSON representation of the contents
 func parseJson(contents []byte) (map[string]interface{}, error) {
-	// The JSON fails to unmarshal if special characters are present.
-	// Filter them out any low/high non-printable.
-	filtered := []byte{}
-	for _, b := range contents {
-		if b <= 0x1f || b >= 0x7f {
-			continue
+	// The JSON fails to unmarshal if non-printable unicode characters are present
+	filtered := strings.Map(func(r rune) rune {
+		if unicode.IsPrint(r) {
+			return r
 		}
-		filtered = append(filtered, b)
-	}
+		return -1
+	}, string(contents))
 
 	var jsonObject map[string]interface{}
 
-	err := json.Unmarshal(filtered, &jsonObject)
+	err := json.Unmarshal([]byte(filtered), &jsonObject)
 	if err != nil {
 		return nil, fmt.Errorf("unable to unmarshal json %s", err)
 	}
