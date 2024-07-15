@@ -15,8 +15,8 @@ import (
 )
 
 var (
-	DailyFiles  = []string{"daily1.txt", "daily2.txt"}
-	DeluxeFiles = []string{"deluxe1.txt", "deluxe2.txt"}
+	DailyFiles  = []string{"daily2.txt", "daily1.txt"}
+	DeluxeFiles = []string{"deluxe2.txt", "deluxe1.txt"}
 	BaseURL     = "https://wafflegame.net/"
 )
 
