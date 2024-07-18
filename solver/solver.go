@@ -580,3 +580,38 @@ func (s *Solver) Solve() bool {
 
 	return true
 }
+
+// Words returns a slice containing all words in the waffle solution (or nil if not solved)
+func (s *Solver) Words() []string {
+	if !s.Solved() {
+		return nil
+	}
+
+	words := []string{}
+
+	for row, tiles := range s.possibles {
+		if row%2 != 0 {
+			// Words are only in the even rows
+			continue
+		}
+		word := ""
+		for _, tile := range tiles {
+			word += string(tile)
+		}
+		words = append(words, word)
+	}
+
+	for col := 0; col < s.Size(); col++ {
+		if col%2 != 0 {
+			// Words are only in the even cols
+			continue
+		}
+		word := ""
+		for row := 0; row < s.Size(); row++ {
+			word += string(s.possibles[row][col])
+		}
+		words = append(words, word)
+	}
+
+	return words
+}

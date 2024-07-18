@@ -1,6 +1,7 @@
 package main
 
 import (
+	"flag"
 	"fmt"
 	"strings"
 
@@ -624,6 +625,61 @@ var (
 	}
 )
 
+type Stats struct {
+	minPuzzle int
+	maxPuzzle int
+	dict      map[string]bool
+	newWords  map[int]int
+}
+
+var (
+	stats = Stats{
+		0,
+		0,
+		map[string]bool{},
+		map[int]int{},
+	}
+)
+
+func recordPuzzle(index int, words []string, solved bool) {
+	stats.minPuzzle = min(stats.minPuzzle, index)
+	stats.maxPuzzle = max(stats.maxPuzzle, index)
+	stats.newWords[index] = 0
+
+	if !solved {
+		stats.newWords[index] = 0
+		return
+	}
+	for _, word := range words {
+		if !stats.dict[word] {
+			stats.newWords[index]++
+		}
+		stats.dict[word] = true
+	}
+}
+
+func printStats() {
+	fmt.Println()
+	fmt.Println("Index,NewWords")
+	for i := stats.minPuzzle; i <= stats.maxPuzzle; i++ {
+		newWords, ok := stats.newWords[i]
+		if !ok {
+			newWords = -1
+		}
+		fmt.Printf("%d, %d\n", i, newWords)
+	}
+}
+
+func dailyStats() {
+	testCases := dailyWaffles
+	for i := len(testCases) - 1; i >= 0; i-- {
+		waffle := board.Parse(testCases[i].serial)
+		s := solver.New(waffle)
+		s.Solve()
+		recordPuzzle(testCases[i].index, s.Words(), s.Solved())
+	}
+}
+
 func TestSolve(testCases []TestCase) {
 	total := 0
 	count := 0
@@ -666,6 +722,15 @@ func TestParseSolution(testCases []TestCase) {
 }
 
 func main() {
+	statsOnly := flag.Bool("stats-only", false, "Only print word count stats")
+	flag.Parse()
+
+	if *statsOnly {
+		dailyStats()
+		printStats()
+		return
+	}
+
 	fmt.Printf("Welcome to waffle regression tests!\n")
 
 	fmt.Printf("\n---------- Quick sanity check ----------\n")

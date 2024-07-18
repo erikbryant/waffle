@@ -13,5 +13,8 @@ run: test
 regress: test
 	cd regress ; time go run regress.go
 
+stats: test
+	cd regress ; go run regress.go -stats-only
+
 # Targets that do not represent actual files
-.PHONY: fmt vet test run regress
+.PHONY: fmt vet test run regress stats
