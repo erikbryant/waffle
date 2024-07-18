@@ -263,7 +263,7 @@ var (
 		{"bnvehe e slcvsar n atleie/gywygw g wywgwyw y wgwywg", 780},
 		{"celrhe s oasgeca v nnuuue/gwywgy w wywgyyw w yggywg", 779},
 		{"cecekt t ettainr v iporcy/gwywgw y wywgwyy y ygwwwg", 778},
-		//{"ceegkr m rlorare e npeill/gygwgw w wywgyww w yggywg", 777}, // Fails to solve
+		{"ceegkr m rlorare e npeill/gygwgw w wywgyww w yggywg", 777},
 		{"goulme a mtmiukr o uysdry/gyyygw w wywgwyw y wgwywg", 776},
 		{"crenke s veuumnp a ithoed/gwwggy g wywgyyw w wgwwyg", 775},
 		{"sekmlo c atpeiml i gpstnh/gwywgy w yywgwyw y wgwgwg", 774},
@@ -570,6 +570,16 @@ var (
 		// ...
 		{"mmkoye u iaomerr o pahcln/gwywgw y wyggwyw w wgwwwg", 100},
 		// ...
+		{"ldraly s oaoreat w atsloy/gwwggw y ggygwww w wgywwg", 50},
+		{"dsathp i ebiseet n otecuh/gwwggw w wgygwww w wggwwg", 49},
+		{"mhsioo i eruusbt t rlacre/gwyygw w ygwgwyw y wgwywg", 48},
+		{"mrhyac c gniaiai i tcetfc/gwywgw y wwwgwwg g ygwwwg", 47},
+		{"srduni e riocaer e ncivey/gwwwgy w yywgwyw w wgwywg", 46},
+		{"fnrhta r rlagoos o urtegy/gwywgw w wyygyww y wgyywg", 45},
+		{"sncemn c neligin o uprrae/gwywgw w ywwgwyw w wgwywg", 44},
+		{"tsperk f aexohae y itkoan/gwwggw w ggygwww w wgywyg", 43},
+		{"klados a tehstcy e aikzol/gwywgw w yywgyyw y ggwywg", 42},
+		{"meeleo r aeatech a troenr/ggyygy y wwwgwyw y ygwywg", 41},
 		{"satemu r aeagbby c abugre/gyyygy y gwwggyw w wgwyyg", 40},
 		{"cmroac s opmiorc o heepdt/gwwggw w ygygyyw w wgywwg", 39},
 		// {"stcalu w tlldear i aetelh/gwwwgw w yywgwyw w wgyywg", 38}, <-- Ambiguous
