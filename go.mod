@@ -7,7 +7,7 @@ require (
 	github.com/erikbryant/util-golang v0.0.13
 	github.com/erikbryant/web v0.8.0
 	github.com/fatih/color v1.17.0
-	golang.org/x/exp v0.0.0-20240716175740-e3f259677ff7
+	golang.org/x/exp v0.0.0-20240719175910-8a7402abbf56
 )
 
 require (
