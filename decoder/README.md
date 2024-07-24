@@ -15,3 +15,11 @@ go run decoder.go
 ```
 
 Paste the output into ../regress/regress.go.
+
+Alternately, generate the signatures from the archive. It is a similar format to the daily file, but there is one extra layer of encoding; botli.
+
+Download the latest archive file from https://assets.waffle.game/archive-27fddeb9.json (or whatever name it has). Rename it to `archive.json`.
+
+```zsh
+go run decoder.go -file archive.json
+```
