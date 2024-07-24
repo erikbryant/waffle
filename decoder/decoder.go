@@ -1,15 +1,19 @@
 package main
 
 import (
+	"bytes"
 	"encoding/base64"
 	"encoding/json"
+	"flag"
 	"fmt"
+	"github.com/andybalholm/brotli"
 	"github.com/erikbryant/util-golang/algebra"
 	"github.com/erikbryant/waffle/solver"
 	"github.com/erikbryant/web"
 	"io"
 	"log"
 	"math"
+	"os"
 	"strings"
 	"unicode"
 )
@@ -18,6 +22,7 @@ var (
 	DailyFiles  = []string{"daily2.txt", "daily1.txt"}
 	DeluxeFiles = []string{"deluxe2.txt", "deluxe1.txt"}
 	BaseURL     = "https://wafflegame.net/"
+	file        = flag.String("file", "", "Read input from JSON file")
 )
 
 // download returns the response body from requesting the given URL
@@ -116,15 +121,14 @@ func insertSpaces(s string) string {
 }
 
 // signPuzzle downloads the given puzzle and returns its letters/colors signature
-func signPuzzle(url string) (int, string) {
-	msg, err := download(url)
+func signPuzzle(msg string, hasBrotli bool) (int, string) {
+	plainText, err := decodeBase64(msg)
 	if err != nil {
 		log.Fatal(err)
 	}
 
-	plainText, err := decodeBase64(msg)
-	if err != nil {
-		log.Fatal(err)
+	if hasBrotli {
+		plainText = decodeBrotli(plainText)
 	}
 
 	jsonMap, err := parseJson(plainText)
@@ -152,16 +156,67 @@ func generateSignature(number int, waffle string) string {
 	return fmt.Sprintf(`		{"%s", %d},`, waffle, number)
 }
 
+// readJSON reads the contents of a JSON file and returns it as a map
+func readJSON(file string) map[int]string {
+	jsonFile, err := os.Open(file)
+	if err != nil {
+		log.Fatal(err)
+	}
+	defer jsonFile.Close()
+
+	byteValue, _ := io.ReadAll(jsonFile)
+
+	var archive map[int]string
+	err = json.Unmarshal(byteValue, &archive)
+	if err != nil {
+		log.Fatal(err)
+	}
+
+	return archive
+}
+
+func decodeBrotli(content []byte) []byte {
+	br := bytes.NewReader(content)
+	var decompressor io.Reader
+	decompressor = brotli.NewReader(br)
+	decompressed, err := io.ReadAll(decompressor)
+	if err != nil {
+		log.Fatal(err)
+	}
+	return decompressed
+}
+
 func main() {
 	fmt.Printf("Welcome to decoder!\n\n")
 
+	flag.Parse()
+
+	if *file != "" {
+		archive := readJSON(*file)
+
+		for i := len(archive); i > 0; i-- {
+			number, waffle := signPuzzle(archive[i], true)
+			fmt.Println(generateSignature(number, waffle))
+		}
+
+		return
+	}
+
 	for _, file := range DailyFiles {
-		number, waffle := signPuzzle(BaseURL + file)
+		msg, err := download(BaseURL + file)
+		if err != nil {
+			log.Fatal(err)
+		}
+		number, waffle := signPuzzle(msg, false)
 		fmt.Println(generateSignature(number, waffle))
 	}
 
 	for _, file := range DeluxeFiles {
-		number, waffle := signPuzzle(BaseURL + file)
+		msg, err := download(BaseURL + file)
+		if err != nil {
+			log.Fatal(err)
+		}
+		number, waffle := signPuzzle(msg, false)
 		fmt.Println(generateSignature(number, waffle))
 	}
 }
