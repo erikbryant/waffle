@@ -4,8 +4,8 @@ github.com/erikbryant/dictionaries v0.2.0 h1:TOimLg+zhBBbpw9T8V6umdQsC9n9pF0zNcy
 github.com/erikbryant/dictionaries v0.2.0/go.mod h1:8W0bUqF02XAKe9weSSGef1MzT4OuQIYGag5fSTNuM6k=
 github.com/erikbryant/util-golang v0.0.13 h1:3n4o5+GW95KU7io/fSiW2EIw2dfT5SL68POo9B6lQ34=
 github.com/erikbryant/util-golang v0.0.13/go.mod h1:bejdhk1CZnWwcoUErT7fi2k97yYkLxj48aYcCgOqpGw=
-github.com/erikbryant/web v0.8.0 h1:2AKBweydq8P6Xu6hOakK7QXTKQHVPORoWj5rV9NOvVI=
-github.com/erikbryant/web v0.8.0/go.mod h1:2RmWHCj2fNhQHSt8VO5e91EBf2flEBGGxQTiYhROcBo=
+github.com/erikbryant/web v0.9.0 h1:Fv5WqqtelStTekwA372ITSxhlG/E5PfaaHsawJ9oCJ8=
+github.com/erikbryant/web v0.9.0/go.mod h1:shFWOBm8w5XeWgP5IeIjDBp7oBlXF04SqwBtt4JuuMY=
 github.com/fatih/color v1.17.0 h1:GlRw1BRJxkpqUCBKzKOw098ed57fEsKeNjpTe3cSjK4=
 github.com/fatih/color v1.17.0/go.mod h1:YZ7TlrGPkiz6ku9fK3TLD/pl3CpsiFyu8N92HLgmosI=
 github.com/mattn/go-colorable v0.1.13 h1:fFA4WZxdEF4tXPZVKMLwD8oUnCTTo08duU7wxecdEvA=

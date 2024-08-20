@@ -6,7 +6,7 @@ require (
 	github.com/andybalholm/brotli v1.1.0
 	github.com/erikbryant/dictionaries v0.2.0
 	github.com/erikbryant/util-golang v0.0.13
-	github.com/erikbryant/web v0.8.0
+	github.com/erikbryant/web v0.9.0
 	github.com/fatih/color v1.17.0
 	golang.org/x/exp v0.0.0-20240808152545-0cdaa3abc0fa
 )
