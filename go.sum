@@ -2,8 +2,8 @@ github.com/andybalholm/brotli v1.2.0 h1:ukwgCxwYrmACq68yiUqwIWnGY0cTPox/M94sVwTo
 github.com/andybalholm/brotli v1.2.0/go.mod h1:rzTDkvFWvIrjDXZHkuS16NPggd91W3kUSvPlQ1pLaKY=
 github.com/erikbryant/dictionaries v0.3.0 h1:y0Z1ra7uM8TBBo+tok9SE53RQ1a1JF3Cs1DB+a9Cdpw=
 github.com/erikbryant/dictionaries v0.3.0/go.mod h1:P4Xj19Jg1KQ8sxAfQprqpl9nWaZACjhNl9s2pt7sL4Y=
-github.com/erikbryant/util-golang v0.13.0 h1:CyoWIYcHRhQPeu/HUP14eQn29uu0Eozvr9X8etBZAiA=
-github.com/erikbryant/util-golang v0.13.0/go.mod h1:q0E+g0QsKVEr8ij7l8+dSDlfTWte8M2k4PqSWg0ECm8=
+github.com/erikbryant/util-golang v0.14.0 h1:CnLJOaA/Awoa7StJ1k0xXo3SU4tNMdfp5OkSr8LUIsE=
+github.com/erikbryant/util-golang v0.14.0/go.mod h1:jkr/F6IMTtVXQrZXSoCHyoG4m+5Qd1vQbAxP+x0RdG8=
 github.com/erikbryant/web v0.10.0 h1:pVq1phHzm0xigWBY7qGxTqg5Cd3qA60N9X/ZIdLfI0g=
 github.com/erikbryant/web v0.10.0/go.mod h1:NNP71ST7uai5s5vV2s92LJQyoLlr67+fbz8spZJNW4c=
 github.com/fatih/color v1.18.0 h1:S8gINlzdQ840/4pfAwic/ZE0djQEH3wM94VfqLTZcOM=
