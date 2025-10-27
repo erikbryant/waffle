@@ -2,8 +2,8 @@ github.com/andybalholm/brotli v1.2.0 h1:ukwgCxwYrmACq68yiUqwIWnGY0cTPox/M94sVwTo
 github.com/andybalholm/brotli v1.2.0/go.mod h1:rzTDkvFWvIrjDXZHkuS16NPggd91W3kUSvPlQ1pLaKY=
 github.com/erikbryant/dictionaries v0.3.0 h1:y0Z1ra7uM8TBBo+tok9SE53RQ1a1JF3Cs1DB+a9Cdpw=
 github.com/erikbryant/dictionaries v0.3.0/go.mod h1:P4Xj19Jg1KQ8sxAfQprqpl9nWaZACjhNl9s2pt7sL4Y=
-github.com/erikbryant/util-golang v0.15.0 h1:+8re4hAz5fRmXzkQRJ9wvj9W+ZbBN7gl/ZPlxLwqLrE=
-github.com/erikbryant/util-golang v0.15.0/go.mod h1:jkr/F6IMTtVXQrZXSoCHyoG4m+5Qd1vQbAxP+x0RdG8=
+github.com/erikbryant/util-golang v0.24.0 h1:QSfGYOaPaTsA+cd+7rRiQSdTSVnfQ99IzkvHQJ/1znk=
+github.com/erikbryant/util-golang v0.24.0/go.mod h1:fLCQ+Czi8ZJCSaNJw+BU6YYwxs1OAIg2VfYYltW6KWA=
 github.com/erikbryant/web v0.10.0 h1:pVq1phHzm0xigWBY7qGxTqg5Cd3qA60N9X/ZIdLfI0g=
 github.com/erikbryant/web v0.10.0/go.mod h1:NNP71ST7uai5s5vV2s92LJQyoLlr67+fbz8spZJNW4c=
 github.com/fatih/color v1.18.0 h1:S8gINlzdQ840/4pfAwic/ZE0djQEH3wM94VfqLTZcOM=
@@ -14,8 +14,8 @@ github.com/mattn/go-isatty v0.0.20 h1:xfD0iDuEKnDkl03q4limB+vH+GxLEtL/jb4xVJSWWE
 github.com/mattn/go-isatty v0.0.20/go.mod h1:W+V8PltTTMOvKvAeJH7IuucS94S2C6jfK/D7dTCTo3Y=
 github.com/xyproto/randomstring v1.0.5 h1:YtlWPoRdgMu3NZtP45drfy1GKoojuR7hmRcnhZqKjWU=
 github.com/xyproto/randomstring v1.0.5/go.mod h1:rgmS5DeNXLivK7YprL0pY+lTuhNQW3iGxZ18UQApw/E=
-golang.org/x/exp v0.0.0-20251017212417-90e834f514db h1:by6IehL4BH5k3e3SJmcoNbOobMey2SLpAF79iPOEBvw=
-golang.org/x/exp v0.0.0-20251017212417-90e834f514db/go.mod h1:j/pmGrbnkbPtQfxEe5D0VQhZC6qKbfKifgD0oM7sR70=
+golang.org/x/exp v0.0.0-20251023183803-a4bb9ffd2546 h1:mgKeJMpvi0yx/sU5GsxQ7p6s2wtOnGAHZWCHUM4KGzY=
+golang.org/x/exp v0.0.0-20251023183803-a4bb9ffd2546/go.mod h1:j/pmGrbnkbPtQfxEe5D0VQhZC6qKbfKifgD0oM7sR70=
 golang.org/x/sys v0.6.0/go.mod h1:oPkhp1MJrh7nUepCBck5+mAzfO9JrbApNNgaTdGDITg=
 golang.org/x/sys v0.37.0 h1:fdNQudmxPjkdUTPnLn5mdQv7Zwvbvpaxqs831goi9kQ=
 golang.org/x/sys v0.37.0/go.mod h1:OgkHotnGiDImocRcuBABYBEXf8A9a87e/uXjp9XT3ks=
