@@ -1,6 +1,6 @@
 module github.com/erikbryant/waffle
 
-go 1.25.3
+go 1.25.5
 
 require (
 	github.com/andybalholm/brotli v1.2.0
@@ -8,7 +8,7 @@ require (
 	github.com/erikbryant/util-golang v0.41.0
 	github.com/erikbryant/web v0.10.0
 	github.com/fatih/color v1.18.0
-	golang.org/x/exp v0.0.0-20251209150349-8475f28825e9
+	golang.org/x/exp v0.0.0-20251219203646-944ab1f22d93
 )
 
 require (
