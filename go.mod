@@ -3,7 +3,7 @@ module github.com/erikbryant/waffle
 go 1.25.5
 
 require (
-	github.com/andybalholm/brotli v1.2.0
+	github.com/andybalholm/brotli v1.2.1
 	github.com/erikbryant/dictionaries v0.3.0
 	github.com/erikbryant/util-golang v0.41.0
 	github.com/erikbryant/web v0.10.0
