@@ -4,11 +4,11 @@ go 1.26.3
 
 require (
 	github.com/andybalholm/brotli v1.2.2
-	github.com/erikbryant/dictionaries v0.3.0
-	github.com/erikbryant/util-golang v0.41.0
-	github.com/erikbryant/web v0.10.0
+	github.com/erikbryant/dictionaries v0.4.0
+	github.com/erikbryant/util-golang v0.42.0
+	github.com/erikbryant/web v0.11.0
 	github.com/fatih/color v1.19.0
-	golang.org/x/exp v0.0.0-20260709172345-9ea1abe57597
+	golang.org/x/exp v0.0.0-20260718201538-764159d718ef
 )
 
 require (
