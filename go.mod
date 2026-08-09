@@ -1,6 +1,6 @@
 module github.com/erikbryant/waffle
 
-go 1.26.3
+go 1.26.5
 
 require (
 	github.com/andybalholm/brotli v1.2.2
