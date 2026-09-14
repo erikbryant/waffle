@@ -3,12 +3,12 @@ module github.com/erikbryant/waffle
 go 1.26.5
 
 require (
-	github.com/andybalholm/brotli v1.2.3
+	github.com/andybalholm/brotli v1.2.4
 	github.com/erikbryant/dictionaries v0.4.0
 	github.com/erikbryant/util-golang v0.42.0
 	github.com/erikbryant/web v0.12.0
 	github.com/fatih/color v1.19.0
-	golang.org/x/exp v0.0.0-20260824195058-e88cd73687aa
+	golang.org/x/exp v0.0.0-20260908205506-85c1c2202aba
 )
 
 require (
