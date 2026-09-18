@@ -6,16 +6,17 @@ import (
 	"encoding/json"
 	"flag"
 	"fmt"
-	"github.com/andybalholm/brotli"
-	"github.com/erikbryant/util-golang/algebra"
-	"github.com/erikbryant/waffle/solver"
-	"github.com/erikbryant/web"
 	"io"
 	"log"
 	"math"
 	"os"
 	"strings"
 	"unicode"
+
+	"github.com/andybalholm/brotli"
+	"github.com/erikbryant/util-golang/algebra"
+	"github.com/erikbryant/waffle/solver"
+	"github.com/erikbryant/web"
 )
 
 var (
@@ -27,7 +28,7 @@ var (
 
 // download returns the response body from requesting the given URL
 func download(url string) (string, error) {
-	response, err := web.Request2(url, map[string]string{})
+	response, err := web.Request(url, map[string]string{})
 	if err != nil {
 		return "", err
 	}
@@ -54,8 +55,8 @@ func decodeBase64(msg string) ([]byte, error) {
 }
 
 // parseJson returns the JSON representation of the contents
-func parseJson(contents []byte) (map[string]interface{}, error) {
-	// The JSON fails to unmarshal if non-printable unicode characters are present
+func parseJson(contents []byte) (map[string]any, error) {
+	// The JSON fails to unmarshal if non-printable Unicode characters are present
 	filtered := strings.Map(func(r rune) rune {
 		if unicode.IsPrint(r) {
 			return r
@@ -63,7 +64,7 @@ func parseJson(contents []byte) (map[string]interface{}, error) {
 		return -1
 	}, string(contents))
 
-	var jsonObject map[string]interface{}
+	var jsonObject map[string]any
 
 	err := json.Unmarshal([]byte(filtered), &jsonObject)
 	if err != nil {
