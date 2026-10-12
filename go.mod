@@ -8,12 +8,12 @@ require (
 	github.com/erikbryant/util-golang v0.42.0
 	github.com/erikbryant/web v0.12.0
 	github.com/fatih/color v1.19.0
-	golang.org/x/exp v0.0.0-20261007192929-f45ad48fbe92
+	golang.org/x/exp v0.0.0-20261011100332-faecfb24eb49
 )
 
 require (
 	github.com/mattn/go-colorable v0.1.16 // indirect
 	github.com/mattn/go-isatty v0.0.24 // indirect
-	golang.org/x/sys v0.48.0 // indirect
-	golang.org/x/text v0.42.0 // indirect
+	golang.org/x/sys v0.49.0 // indirect
+	golang.org/x/text v0.43.0 // indirect
 )
